@@ -3,6 +3,7 @@
 var React = require('react-native');
 var {
   AppRegistry,
+  ActivityIndicatorIOS,
   Image,
   ListView,
   StyleSheet,
@@ -50,9 +51,11 @@ var chronreact = React.createClass({
   },
   renderLoadingView: function() {
     return (
-      <View style={styles.container}>
-        <Text>Loading...</Text>
-      </View>
+      <ActivityIndicatorIOS
+        hidden='true'
+        size='large'
+        style={styles.container}
+      />
     );
   },
   renderPost: function(post) {
