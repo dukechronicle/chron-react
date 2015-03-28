@@ -1,0 +1,5 @@
+node_modules
+
+*.xcuserstate
+project.xcworkspace/
+xcuserdata/
