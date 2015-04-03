@@ -14,19 +14,24 @@ var PostDetail = React.createClass({
   render: function() {
     var post = this.props.post;
     var caption;
-    if (post.image.caption !== '') {
+    if (post.image && post.image.caption !== '') {
       caption = (
         <Text style={styles.caption}>{post.image.caption}</Text>
+      );
+    }
+    var image;
+    if (post.image) {
+      image = (
+        <Image
+          style={styles.image}
+          source={{uri: 'https:' + post.image.thumbnail_url}}
+        />
       );
     }
     return (
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
           <Text style={styles.title}>{post.title}</Text>
-          <Image
-            style={styles.image}
-            source={{uri: 'https:' + post.image.thumbnail_url}}
-          />
           {caption}
           <HTMLView
             value={post.body}

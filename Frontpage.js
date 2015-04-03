@@ -63,15 +63,25 @@ var Frontpage = React.createClass({
     );
   },
   renderPost: function(post) {
-    return (
-      <TouchableHighlight onPress={() => this.rowPressed(post)}
-          underlayColor='#eeeeee'>
-        <View style={styles.container}>
+    var image;
+    if (post.image) {
+      image = (
           <Image
             source={{uri: 'http:' + post.image.thumbnail_url}}
             style={styles.thumbnail}
           />
-          <View style={styles.rightContainer}>
+      );
+    }
+    var articleContainerStyles = [
+      styles.articleContainer,
+      post.image ? styles.rightContainer : null
+    ];
+    return (
+      <TouchableHighlight onPress={() => this.rowPressed(post)}
+          underlayColor='#eeeeee'>
+        <View style={styles.container}>
+          {image}
+          <View style={articleContainerStyles}>
             <Text numberOfLines={2} style={styles.title}>{post.title}</Text>
             <Text numberOfLines={2} style={styles.teaser}>{post.teaser}</Text>
           </View>
@@ -99,8 +109,10 @@ var styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#DDDDDD'
   },
-  rightContainer: {
+  articleContainer: {
     flex: 1,
+  },
+  rightContainer: {
     paddingLeft: 10
   },
   title: {
