@@ -94,7 +94,6 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
     paddingTop: 10,
     paddingBottom: 10,
     borderBottomWidth: 1,
@@ -121,8 +120,7 @@ var styles = StyleSheet.create({
   },
   listView: {
     paddingLeft: 15,
-    paddingRight: 15,
-    backgroundColor: '#F5FCFF'
+    paddingRight: 15
   }
 });
 
