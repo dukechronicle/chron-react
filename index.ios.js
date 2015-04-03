@@ -10,7 +10,6 @@ var {
 
 var Frontpage = require('./Frontpage');
 
-var API_URL = 'https://api.dukechronicle.com/qduke';
 var chronreact = React.createClass({
   render: function() {
     return (

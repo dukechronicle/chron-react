@@ -5,6 +5,7 @@ var {
   AppRegistry,
   ActivityIndicatorIOS,
   NavigatorIOS,
+  TouchableHighlight,
   Image,
   ListView,
   StyleSheet,
@@ -12,6 +13,8 @@ var {
   View,
 } = React;
 var API_URL = 'https://api.dukechronicle.com/qduke';
+
+var PostDetail = require('./PostDetail');
 
 var Frontpage = React.createClass({
   getInitialState: function() {
@@ -61,17 +64,27 @@ var Frontpage = React.createClass({
   },
   renderPost: function(post) {
     return (
-      <View style={styles.container}>
-        <Image
-          source={{uri: 'http:' + post.image.thumbnail_url}}
-          style={styles.thumbnail}
-        />
-        <View style={styles.rightContainer}>
-          <Text numberOfLines={2} style={styles.title}>{post.title}</Text>
-          <Text numberOfLines={2} style={styles.teaser}>{post.teaser}</Text>
+      <TouchableHighlight onPress={() => this.rowPressed(post)}
+          underlayColor='#eeeeee'>
+        <View style={styles.container}>
+          <Image
+            source={{uri: 'http:' + post.image.thumbnail_url}}
+            style={styles.thumbnail}
+          />
+          <View style={styles.rightContainer}>
+            <Text numberOfLines={2} style={styles.title}>{post.title}</Text>
+            <Text numberOfLines={2} style={styles.teaser}>{post.teaser}</Text>
+          </View>
         </View>
-      </View>
+      </TouchableHighlight>
     );
+  },
+  rowPressed: function(post) {
+    this.props.navigator.push({
+      title: post.title,
+      component: PostDetail,
+      passProps: {post: post}
+    });
   }
 });
 
