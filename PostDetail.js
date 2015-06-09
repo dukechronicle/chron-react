@@ -32,6 +32,7 @@ var PostDetail = React.createClass({
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
           <Text style={styles.title}>{post.title}</Text>
+          {image}
           {caption}
           <HTMLView
             value={post.body}
