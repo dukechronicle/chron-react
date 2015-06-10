@@ -47,6 +47,7 @@ var PostDetail = React.createClass({
 
 var styles = StyleSheet.create({
   scrollView: {
+    flex: 1,
   },
   container: {
     paddingTop: 15,

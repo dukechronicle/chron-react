@@ -5,21 +5,29 @@ var {
   AppRegistry,
   NavigatorIOS,
   StyleSheet,
-  View
+  View,
+  TabBarIOS
 } = React;
 
-var Frontpage = require('./Frontpage');
+var Frontpage = require('./src/Frontpage');
+var TabBar = require('./src/TabBar');
 
 var chronreact = React.createClass({
   render: function() {
     return (
-      <NavigatorIOS
-        style={styles.container}
-        initialRoute={{
-          title: 'News',
-          component: Frontpage
-        }}
-      />
+      <TabBarIOS>
+        <TabBarIOS.Item
+            title="Frontpage"
+            selected={true} >
+          <NavigatorIOS
+            style={styles.container}
+            initialRoute={{
+              title: 'News',
+              component: Frontpage
+            }}
+          />
+        </TabBarIOS.Item>
+      </TabBarIOS>
     );
   },
 });
@@ -27,7 +35,15 @@ var chronreact = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1
-  }
+  },
+  tabContent: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  tabText: {
+    color: 'white',
+    margin: 50,
+  },
 });
 
 AppRegistry.registerComponent('chronreact', () => chronreact);

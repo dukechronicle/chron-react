@@ -22,7 +22,8 @@ var Frontpage = React.createClass({
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
-      loaded: false
+      loaded: false,
+      error: undefined
     };
   },
   componentDidMount: function() {
@@ -39,19 +40,34 @@ var Frontpage = React.createClass({
           loaded: true
         });
       })
+      .catch((error) => {
+        console.warn(error);
+        this.setState({error: 'Could not load articles, please try again.'});
+      })
       .done();
   },
   render: function() {
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
-    return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderPost}
-        style={styles.listView}
-      />
-    );
+    if (this.state.error !== undefined) {
+      return (
+        <Text style={styles.listView}>
+          {this.state.error}
+        </Text>
+      )
+    } else {
+      return (
+        <View style={styles.outerListView}>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderPost}
+            automaticallyAdjustContentInsets={false}
+            style={styles.listView}
+          />
+        </View>
+      );
+    }
   },
   renderLoadingView: function() {
     return (
@@ -99,6 +115,9 @@ var Frontpage = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  outerListView: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     flexDirection: 'row',
@@ -132,7 +151,9 @@ var styles = StyleSheet.create({
   },
   listView: {
     paddingLeft: 15,
-    paddingRight: 15
+    paddingRight: 15,
+    marginTop: 64,
+    marginBottom: 44,
   }
 });
 
