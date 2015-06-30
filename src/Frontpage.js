@@ -3,7 +3,6 @@
 var React = require('react-native');
 var {
   AppRegistry,
-  ActivityIndicatorIOS,
   NavigatorIOS,
   TouchableHighlight,
   Image,
@@ -12,6 +11,11 @@ var {
   Text,
   View,
 } = React;
+var helpers = require('./helpers.js');
+var {
+  LoadingView
+} = helpers;
+
 var API_URL = 'https://api.dukechronicle.com/qduke';
 
 var PostDetail = require('./PostDetail');
@@ -71,11 +75,7 @@ var Frontpage = React.createClass({
   },
   renderLoadingView: function() {
     return (
-      <ActivityIndicatorIOS
-        hidden='true'
-        size='large'
-        style={styles.container}
-      />
+      <LoadingView style={styles.container} />
     );
   },
   renderPost: function(post) {
@@ -93,7 +93,9 @@ var Frontpage = React.createClass({
       post.image ? styles.rightContainer : null
     ];
     return (
-      <TouchableHighlight onPress={() => this.rowPressed(post)}
+      <TouchableHighlight
+           onPress={() => this.rowPressed(post)}
+           style={styles.highlight}
           underlayColor='#eeeeee'>
         <View style={styles.container}>
           {image}
@@ -125,8 +127,14 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 10,
     paddingBottom: 10,
+    marginLeft: 15,
+    marginRight: 15,
     borderBottomWidth: 1,
     borderColor: '#DDDDDD'
+  },
+  highlight: {
+    marginLeft: -15,
+    marginRight: -15,
   },
   articleContainer: {
     flex: 1,
