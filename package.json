@@ -6,6 +6,10 @@
     "start": "node_modules/react-native/packager/packager.sh"
   },
   "dependencies": {
+    "events": "^1.0.2",
+    "flux": "^2.0.3",
+    "keymirror": "^0.1.1",
+    "object-assign": "^3.0.0",
     "react-native": "^0.8.0",
     "react-native-htmlview": "^0.1.2"
   }
