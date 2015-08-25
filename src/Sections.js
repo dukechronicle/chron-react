@@ -8,12 +8,17 @@ var {
   TouchableHighlight,
   View,
 } = React;
-var helpers = require('./helpers.js');
-var {
-  LoadingView
-} = helpers;
 
-var API_URL = 'https://api.dukechronicle.com/sections?length=100';
+var helpers = require('./helpers.js');
+var { LoadingView } = helpers;
+var PostListing = require('./PostListing');
+
+var SectionActionCreators = require('./actions/SectionActionCreators');
+
+var store = require('./store');
+var postsCursor = store.select('models', 'posts');
+var sectionIdsCursor = store.select('models', 'sectionIds');
+var sectionsCursor = store.select('models', 'topLevelSections');
 
 var Sections = React.createClass({
   getInitialState: function() {
@@ -24,28 +29,42 @@ var Sections = React.createClass({
       loaded: false
     };
   },
+
   componentDidMount() {
-    this.fetchData();
+    if (sectionsCursor.get().length === 0) {
+      SectionActionCreators.getSections();
+    } else {
+      this.updateState();
+    }
+    sectionsCursor.on('update', this.updateState);
   },
-  fetchData() {
-    fetch(API_URL)
-      .then((res) => res.json())
-      .then((resData) => {
-        var topLevel = resData.filter((sec) => sec.parent_id === null)
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(topLevel),
-          loaded: true
-        });
-      })
-      .catch((error) => {
-        this.setState({error: 'Could not load articles, please try again.'});
-      })
-      .done()
+
+  updateState() {
+    var sections = sectionsCursor.get();
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(sections),
+      loaded: true,
+    });
   },
+
+  rowPressed(section) {
+    var sectionName = section.name;
+    var postsMap = postsCursor.get();
+    var sectionIds = sectionIdsCursor.get()[sectionName.toLowerCase()];
+    var posts = sectionIds
+      .filter((id) => id in postsMap)
+      .map((id) => postsMap[id]);
+    this.props.navigator.push({
+      title: sectionName,
+      component: PostListing,
+      passProps: {posts: posts}
+    });
+  },
+
   _renderSectionRow(section) {
     return (
       <TouchableHighlight
-           onPress={() => this.rowPressed()}
+           onPress={() => this.rowPressed(section)}
            style={styles.highlight}
           underlayColor='#eeeeee'>
         <View style={styles.row}>
@@ -54,6 +73,7 @@ var Sections = React.createClass({
       </TouchableHighlight>
     );
   },
+
   _renderSections() {
     return (
       <View style={styles.container}>
