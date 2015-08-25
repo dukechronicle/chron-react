@@ -15,7 +15,7 @@ var PostDetail = require('./PostDetail');
 var PostListng = React.createClass({
   propTypes: {
     posts: React.PropTypes.array,
-    navigator: React.PropTypes.node,
+    navigator: React.PropTypes.object,
   },
 
   getInitialState: function() {

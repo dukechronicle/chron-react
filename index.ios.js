@@ -14,26 +14,24 @@ var Sections = require('./src/Sections');
 var TabBar = require('./src/TabBar');
 
 var NavigationActionCreators = require('./src/actions/NavigationActionCreators');
-var NavigationStore = require('./src/stores/NavigationStore');
+
+var store = require('./src/store');
+var tabCursor = store.select('views', 'tab');
 
 var chronreact = React.createClass({
   getInitialState() {
     return {
-      selectedTab: NavigationStore.getTab()
+      selectedTab: tabCursor.get()
     };
   },
 
   componentDidMount() {
-    NavigationStore.addChangeListener(this.updateTab);
-  },
-
-  componentDidUnmount() {
-    NavigationStore.removeListener(this.updateTab);
+    tabCursor.on('change', this.updateTab);
   },
 
   updateTab() {
     this.setState({
-      selectedTab: NavigationStore.getTab()
+      selectedTab: tabCursor.get(),
     });
   },
 

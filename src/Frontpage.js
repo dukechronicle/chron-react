@@ -13,8 +13,11 @@ var {
 } = helpers;
 var PostListing = require('./PostListing');
 
-var API_URL = 'https://api.dukechronicle.com/qduke';
+var store = require('./store');
+var postsCursor = store.select('models', 'posts');
+var sectionIdsCursor = store.select('models', 'sectionIds');
 
+var PostActionCreators = require('./actions/PostActionCreators');
 
 var Frontpage = React.createClass({
   getInitialState: function() {
@@ -24,27 +27,30 @@ var Frontpage = React.createClass({
       error: undefined
     };
   },
+
   componentDidMount: function() {
-    this.fetchData();
+    if ('news' in sectionIdsCursor.get()) {
+      updateState();
+    } else {
+      PostActionCreators.getQDuke();
+    }
+
+    postsCursor.on('update', this.updateState);
+    sectionIdsCursor.on('update', this.updateState);
   },
-  fetchData: function() {
-    fetch(API_URL)
-      .then((response) => response.json())
-      .then((responseData) => {
-        var articlesMap = responseData.articles;
-        var newsPosts = responseData.layout.news.map((id) => articlesMap[id]);
-        this.setState({
-          posts: newsPosts,
-          loaded: true,
-        });
-      })
-      .catch((error) => {
-        console.warn(error);
-        this.setState({
-          error: 'Could not load articles, please try again.',
-        });
-      })
-      .done();
+
+  updateState: function() {
+    var news = sectionIdsCursor.get().news;
+    if (news) {
+      var postsMap = postsCursor.get();
+      var posts = news
+        .filter((id) => id in postsMap)
+        .map((id) => postsMap[id]);
+      this.setState({
+        posts: posts,
+        loaded: true,
+      });
+    }
   },
 
   renderLoadingView: function() {

@@ -1,17 +1,10 @@
-var Dispatcher = require('../dispatcher/Dispatcher');
-var ActionTypes = require('../constants/Constants').ActionTypes;
+var store = require('../store');
+var tabCursor = store.select('views', 'tab');
 
-class NavigationActions {
-  constructor() {
-    this.generateActions('selectSection');
-  }
-}
-
-module.exports = {
+var NavigationActionCreators = {
   selectSection: (name) => {
-    Dispatcher.dispatch({
-      type: ActionTypes.SELECT_SECTION,
-      name: name,
-    })
+    tabCursor.set(name);
   }
 };
+
+module.exports = NavigationActionCreators;
