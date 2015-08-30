@@ -27,7 +27,6 @@ module.exports = {
           <ActivityIndicatorIOS
             hidden='true'
             size='large'
-            style={this.props.style}
           />
         );
       }

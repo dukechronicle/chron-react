@@ -6,6 +6,7 @@ var {
   TouchableHighlight,
   StyleSheet,
   Text,
+  View,
 } = React;
 var helpers = require('./helpers.js');
 var {
@@ -67,7 +68,9 @@ var SectionListing = React.createClass({
 
   renderLoadingView: function() {
     return (
-      <LoadingView style={styles.container} />
+      <View style={styles.container}>
+        <LoadingView />
+      </View>
     );
   },
 
