@@ -7,7 +7,12 @@
   },
   "dependencies": {
     "baobab": "^1.1.2",
+    "domhandler": "^2.3.0",
+    "he": "^0.5.0",
+    "htmlparser2": "^3.8.3",
     "react-native": "^0.8.0",
-    "react-native-htmlview": "^0.1.2"
+    "react-native-htmlview": "^0.1.2",
+    "underscore": "^1.8.3",
+    "util": "^0.10.3"
   }
 }

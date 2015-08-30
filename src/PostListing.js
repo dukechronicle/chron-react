@@ -10,6 +10,7 @@ var {
   Text,
   View,
 } = React;
+var HTMLView = require('react-native-htmlview');
 var PostDetail = require('./PostDetail');
 
 var PostListng = React.createClass({

@@ -29,6 +29,10 @@ var chronreact = React.createClass({
     tabCursor.on('change', this.updateTab);
   },
 
+  componentWillUnmount() {
+    tabCursor.off('change', this.updateTab);
+  },
+
   updateTab() {
     this.setState({
       selectedTab: tabCursor.get(),

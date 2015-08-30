@@ -11,7 +11,7 @@ var {
 
 var helpers = require('./helpers.js');
 var { LoadingView } = helpers;
-var PostListing = require('./PostListing');
+var SectionListing = require('./SectionListing');
 
 var SectionActionCreators = require('./actions/SectionActionCreators');
 
@@ -39,6 +39,10 @@ var Sections = React.createClass({
     sectionsCursor.on('update', this.updateState);
   },
 
+  componentWillUnmount() {
+    sectionsCursor.off('update', this.updateState);
+  },
+
   updateState() {
     var sections = sectionsCursor.get();
     this.setState({
@@ -48,16 +52,10 @@ var Sections = React.createClass({
   },
 
   rowPressed(section) {
-    var sectionName = section.name;
-    var postsMap = postsCursor.get();
-    var sectionIds = sectionIdsCursor.get()[sectionName.toLowerCase()];
-    var posts = sectionIds
-      .filter((id) => id in postsMap)
-      .map((id) => postsMap[id]);
     this.props.navigator.push({
-      title: sectionName,
-      component: PostListing,
-      passProps: {posts: posts}
+      title: section.name,
+      component: SectionListing,
+      passProps: {section: section}
     });
   },
 
