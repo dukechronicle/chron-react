@@ -12,11 +12,12 @@ var {
 } = React;
 var HTMLView = require('react-native-htmlview');
 var PostDetail = require('./PostDetail');
+var { postPropTypes } = require('../utils/Post');
 
 var PostListng = React.createClass({
   propTypes: {
-    posts: React.PropTypes.array,
-    navigator: React.PropTypes.object,
+    posts: React.PropTypes.arrayOf(postPropTypes).isRequired,
+    navigator: React.PropTypes.object.isRequired,
   },
 
   getInitialState: function() {

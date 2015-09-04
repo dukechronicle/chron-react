@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var SectionListing = require('./SectionListing');
+var SectionPostListing = require('./SectionPostListing');
 
 var Frontpage = React.createClass({
   render: function() {
@@ -10,7 +10,7 @@ var Frontpage = React.createClass({
       slug: 'news',
     };
     return (
-      <SectionListing
+      <SectionPostListing
         section={section}
         navigator={this.props.navigator} />
     );

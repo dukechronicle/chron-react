@@ -12,7 +12,7 @@ var helpers = require('./helpers.js');
 var {
   LoadingView
 } = helpers;
-var PostListing = require('./PostListing');
+var PostListing = require('./components/PostListing');
 
 var store = require('./store');
 var postsCursor = store.select('models', 'posts');
@@ -20,7 +20,7 @@ var sectionIdsCursor = store.select('models', 'sectionIds');
 
 var PostActionCreators = require('./actions/PostActionCreators');
 
-var SectionListing = React.createClass({
+var SectionPostListing = React.createClass({
   propTypes: {
     section: React.PropTypes.shape({
       name: React.PropTypes.string,
@@ -38,7 +38,7 @@ var SectionListing = React.createClass({
 
   componentDidMount: function() {
     if (this.props.section.slug in sectionIdsCursor.get()) {
-      updateState();
+      this.updateState();
     } else {
       PostActionCreators.getSection(this.props.section.slug);
     }
@@ -115,4 +115,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = SectionListing;
+module.exports = SectionPostListing;

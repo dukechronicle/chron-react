@@ -9,8 +9,13 @@ var {
   WebView
 } = React;
 var HTMLView = require('react-native-htmlview');
+var { postPropTypes } = require('../utils/Post');
 
 var PostDetail = React.createClass({
+  propTypes: {
+    post: postPropTypes.isRequired,
+  },
+
   render: function() {
     var post = this.props.post;
     var caption;

@@ -11,7 +11,7 @@ var {
 
 var helpers = require('./helpers.js');
 var { LoadingView } = helpers;
-var SectionListing = require('./SectionListing');
+var SectionPostListing = require('./SectionPostListing');
 
 var SectionActionCreators = require('./actions/SectionActionCreators');
 
@@ -30,7 +30,7 @@ var Sections = React.createClass({
     };
   },
 
-  componentDidMount() {
+  componentDidMount: function() {
     if (sectionsCursor.get().length === 0) {
       SectionActionCreators.getSections();
     } else {
@@ -39,11 +39,11 @@ var Sections = React.createClass({
     sectionsCursor.on('update', this.updateState);
   },
 
-  componentWillUnmount() {
+  componentWillUnmount: function() {
     sectionsCursor.off('update', this.updateState);
   },
 
-  updateState() {
+  updateState: function() {
     var sections = sectionsCursor.get();
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(sections),
@@ -51,15 +51,15 @@ var Sections = React.createClass({
     });
   },
 
-  rowPressed(section) {
+  rowPressed: function(section) {
     this.props.navigator.push({
       title: section.name,
-      component: SectionListing,
+      component: SectionPostListing,
       passProps: {section: section}
     });
   },
 
-  _renderSectionRow(section) {
+  _renderSectionRow: function(section) {
     return (
       <TouchableHighlight
            onPress={() => this.rowPressed(section)}
@@ -72,7 +72,7 @@ var Sections = React.createClass({
     );
   },
 
-  _renderSections() {
+  _renderSections: function() {
     return (
       <View style={styles.container}>
         <ListView
@@ -84,7 +84,7 @@ var Sections = React.createClass({
       </View>
     );
   },
-  render() {
+  render: function() {
     if (!this.state.loaded) {
       return (
         <LoadingView style={styles.container} />

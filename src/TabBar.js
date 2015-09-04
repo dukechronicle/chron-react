@@ -9,14 +9,14 @@ var {
 } = React;
 
 var TabBar = React.createClass({
-  item(pageText) {
+  item: function(pageText) {
     return (
       <View style={[styles.tabContent, {backgroundColor: "#fff"}]}>
         <Text style={styles.tabText}>{pageText}</Text>
       </View>
     );
   },
-  render() {
+  render: function() {
     return (
       <TabBarIOS>
         <TabBarIOS.Item
