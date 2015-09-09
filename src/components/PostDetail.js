@@ -24,6 +24,12 @@ var PostDetail = React.createClass({
         <Text style={styles.caption}>{post.image.caption}</Text>
       );
     }
+    var byline;
+    if (post.authors){
+      byline = (
+        <Text style={styles.byline}>By {post.authors.join(", ")}</Text>
+      );
+    }
     var image;
     if (post.image) {
       image = (
@@ -39,6 +45,7 @@ var PostDetail = React.createClass({
           <Text style={styles.title}>{post.title}</Text>
           {image}
           {caption}
+          {byline}
           <HTMLView
             value={post.body}
             onLinkPress={(url) => console.log(url)}
@@ -83,6 +90,10 @@ var styles = StyleSheet.create({
     color: '#999999',
     fontSize: 12,
     marginBottom: 25
+  },
+  byline: {
+    marginTop: 15,
+    marginBottom: 14
   }
 });
 
