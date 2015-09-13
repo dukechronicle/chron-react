@@ -50,17 +50,17 @@ var PostListng = React.createClass({
 
   renderPost: function(post) {
     var image;
-    if (post.image) {
+    if (post.images.length > 0) {
       image = (
           <Image
-            source={{uri: 'http:' + post.image.thumbnail_url}}
+            source={{uri: post.images[0].thumbnailUrl}}
             style={styles.thumbnail}
           />
       );
     }
     var articleContainerStyles = [
       styles.articleContainer,
-      post.image ? styles.rightContainer : null
+      post.images.length > 0 ? styles.rightContainer : null
     ];
     return (
       <TouchableHighlight

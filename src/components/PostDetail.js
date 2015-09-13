@@ -19,9 +19,9 @@ var PostDetail = React.createClass({
   render: function() {
     var post = this.props.post;
     var caption;
-    if (post.image && post.image.caption !== '') {
+    if (post.images.length > 0 && post.images[0].caption !== '') {
       caption = (
-        <Text style={styles.caption}>{post.image.caption}</Text>
+        <Text style={styles.caption}>{post.images[0].caption}</Text>
       );
     }
     var byline;
@@ -31,11 +31,11 @@ var PostDetail = React.createClass({
       );
     }
     var image;
-    if (post.image) {
+    if (post.images.length > 0) {
       image = (
         <Image
           style={styles.image}
-          source={{uri: 'https:' + post.image.thumbnail_url}}
+          source={{uri: post.images[0].previewUrl}}
         />
       );
     }
