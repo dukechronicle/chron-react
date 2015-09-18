@@ -53,10 +53,10 @@ var SectionPostListing = React.createClass({
   },
 
   updateState: function() {
-    var news = sectionIdsCursor.get().news;
-    if (news) {
+    var posts = sectionIdsCursor.get()[this.props.section.slug];
+    if (posts) {
       var postsMap = postsCursor.get();
-      var posts = news
+      var posts = posts
         .filter((id) => id in postsMap)
         .map((id) => postsMap[id]);
       this.setState({

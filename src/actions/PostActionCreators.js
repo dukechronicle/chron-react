@@ -16,7 +16,7 @@ var getSection = (section) => {
       var articlesMap = _.object(
         _.map(_.values(articles), (a) => [a.uid, rawDataToPost(a)]));
       postsCursor.merge(articlesMap);
-      sectionIdsCursor.merge({news: _.keys(articlesMap)});
+      sectionIdsCursor.merge({[section]: _.keys(articlesMap)});
     })
     .catch((error) => {
       console.warn(error);
