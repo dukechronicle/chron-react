@@ -1,6 +1,11 @@
 var _ = require('underscore');
 var extractHtmlText = require('../helpers').extractHtmlText;
+var he = require('he');
 var React = require('react-native');
+var urlencode = require('urlencode');
+
+// Strings are urlencoded with utf-8 and also include HTML entities.
+var unescape = (str) => he.unescape(urlencode.decode(str))
 
 var cleanMedia = (m) => {
   return {
