@@ -2,8 +2,18 @@ const Baobab = require('baobab');
 
 const tree = new Baobab({
   models: {
-    posts: {}, // Map of post ids to post content
-    sectionIds: {}, // Map of section name to list of post ids
+    /**
+     * Map of post ids (int) to post content (object). Contents of the post
+     * object can be found in postPropTypes.
+     */
+    posts: {},
+    /**
+     * Map of section name to list of post ids.
+     */
+    sectionIds: {},
+    /**
+     * List of top level sections.
+     */
     topLevelSections: [],
   },
   views: {

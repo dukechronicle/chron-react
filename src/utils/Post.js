@@ -7,6 +7,11 @@ const urlencode = require('urlencode');
 // Strings are urlencoded with utf-8 and also include HTML entities.
 const unescape = (str) => he.unescape(urlencode.decode(str))
 
+/**
+ * Helper function to clean media objects from the API.
+ * @param {Object} m Media object from the API.
+ * @return {Object} A nicer, unescaped version of the media.
+ */
 const cleanMedia = (m) => {
   return {
     caption: extractHtmlText(unescape(m.caption)),
@@ -17,6 +22,11 @@ const cleanMedia = (m) => {
   };
 };
 
+/**
+ * Helper function to clean post objects from the API.
+ * @param {Object} a Post object from the API.
+ * @return {Object} A nicer, unescaped version of the post.
+ */
 const rawDataToPost = (a) => {
   return {
     title: unescape(a.headline),
@@ -28,6 +38,9 @@ const rawDataToPost = (a) => {
   };
 };
 
+/**
+ * PropTypes for a post.
+ */
 const postPropTypes = React.PropTypes.shape({
   title: React.PropTypes.string.isRequired,
   body: React.PropTypes.string.isRequired,

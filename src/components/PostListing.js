@@ -13,6 +13,10 @@ const HTMLView = require('react-native-htmlview');
 const PostDetail = require('./PostDetail');
 const { postPropTypes } = require('../utils/Post');
 
+/**
+ * PostListing is a component that renders a list of posts. It is a complement
+ * to SectionPostListing that handles most of the display logic.
+ */
 const PostListng = React.createClass({
   propTypes: {
     posts: React.PropTypes.arrayOf(postPropTypes).isRequired,

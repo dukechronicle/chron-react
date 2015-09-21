@@ -11,6 +11,9 @@ const {
 const HTMLView = require('react-native-htmlview');
 const { postPropTypes } = require('../utils/Post');
 
+/**
+ * PostDetail is a component that renders a post.
+ */
 const PostDetail = React.createClass({
   propTypes: {
     post: postPropTypes.isRequired,
