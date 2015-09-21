@@ -10,9 +10,13 @@ const { rawDataToPost } = require('../utils/Post');
  *     website.
  * @return {String} Url of the section API endpoint.
  */
-const urlBuilder = (sectionSlug) => {
-  return `http://www.dukechronicle.com/section/${sectionSlug}.json`;
-};
+var urlBuilder = (sectionName) => {
+  if (sectionName !== 'frontpage') {
+    return `http://www.dukechronicle.com/section/${sectionName}.json`;
+  } else {
+    return 'http://www.dukechronicle.com/.json';
+  }
+}
 
 /**
  * getSection issues an API request to retrieve the articles for a section. On a
@@ -43,7 +47,7 @@ const getSection = (section) => {
 
 const PostActionCreators = {
   getFrontpage: () => {
-    return getSection('news');
+    return getSection('frontpage');
   },
   getSection: (section) => {
     return getSection(section);
