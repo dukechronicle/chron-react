@@ -1,19 +1,19 @@
-var _ = require('underscore');
-var store = require('../store');
-var postsCursor = store.select('models', 'posts');
-var sectionIdsCursor = store.select('models', 'sectionIds');
-var { rawDataToPost } = require('../utils/Post');
+const _ = require('underscore');
+const store = require('../store');
+const postsCursor = store.select('models', 'posts');
+const sectionIdsCursor = store.select('models', 'sectionIds');
+const { rawDataToPost } = require('../utils/Post');
 
-var urlBuilder = (sectionName) => {
+const urlBuilder = (sectionName) => {
   return `http://www.dukechronicle.com/section/${sectionName}.json`;
 }
 
-var getSection = (section) => {
+const getSection = (section) => {
   fetch(urlBuilder(section))
     .then((response) => response.json())
     .then((responseData) => {
-      var articles = responseData[0].articles;
-      var articlesMap = _.object(
+      const articles = responseData[0].articles;
+      const articlesMap = _.object(
         _.map(_.values(articles), (a) => [a.uid, rawDataToPost(a)]));
       postsCursor.merge(articlesMap);
       sectionIdsCursor.merge({[section]: _.keys(articlesMap)});
@@ -25,7 +25,7 @@ var getSection = (section) => {
     .done();
 }
 
-var PostActionCreators = {
+const PostActionCreators = {
   getFrontpage: () => {
     getSection('news');
   },

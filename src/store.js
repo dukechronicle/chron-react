@@ -1,6 +1,6 @@
-var Baobab = require('baobab');
+const Baobab = require('baobab');
 
-var tree = new Baobab({
+const tree = new Baobab({
   models: {
     posts: {}, // Map of post ids to post content
     sectionIds: {}, // Map of section name to list of post ids

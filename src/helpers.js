@@ -1,12 +1,12 @@
-var he = require('he');
-var React = require('react-native');
-var htmlparser = require('htmlparser2');
-var DomHandler = require('domhandler');
-var {
+const he = require('he');
+const React = require('react-native');
+const htmlparser = require('htmlparser2');
+const DomHandler = require('domhandler');
+const {
   ActivityIndicatorIOS
 } = React;
 
-var traverseDom = (el) => {
+const traverseDom = (el) => {
   if (el.type === 'text') {
     return he.unescape(el.data);
   } else if (el.type === 'tag' && el.children.length > 0) {
@@ -16,8 +16,8 @@ var traverseDom = (el) => {
 
 module.exports = {
   extractHtmlText: (htmlText) => {
-    var handler = new htmlparser.DomHandler();
-    var parser = new htmlparser.Parser(handler);
+    const handler = new htmlparser.DomHandler();
+    const parser = new htmlparser.Parser(handler);
     parser.parseComplete(htmlText);
     return handler.dom.map(traverseDom).join(' ');
   },

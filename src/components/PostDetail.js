@@ -1,5 +1,5 @@
-var React = require('react-native');
-var {
+const React = require('react-native');
+const {
   AppRegistry,
   Image,
   StyleSheet,
@@ -8,29 +8,29 @@ var {
   View,
   WebView
 } = React;
-var HTMLView = require('react-native-htmlview');
-var { postPropTypes } = require('../utils/Post');
+const HTMLView = require('react-native-htmlview');
+const { postPropTypes } = require('../utils/Post');
 
-var PostDetail = React.createClass({
+const PostDetail = React.createClass({
   propTypes: {
     post: postPropTypes.isRequired,
   },
 
   render: function() {
-    var post = this.props.post;
-    var caption;
+    const post = this.props.post;
+    let caption;
     if (post.images.length > 0 && post.images[0].caption !== '') {
       caption = (
         <Text style={styles.caption}>{post.images[0].caption}</Text>
       );
     }
-    var byline;
+    let byline;
     if (post.authors){
       byline = (
         <Text style={styles.byline}>By {post.authors.join(", ")}</Text>
       );
     }
-    var image;
+    let image;
     if (post.images.length > 0) {
       image = (
         <Image
@@ -57,7 +57,7 @@ var PostDetail = React.createClass({
   }
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
   },

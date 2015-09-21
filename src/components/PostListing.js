@@ -1,20 +1,19 @@
 'use strict';
 
-var React = require('react-native');
-var {
+const React = require('react-native');
+const {
   StyleSheet,
   TouchableHighlight,
   Image,
   ListView,
-  StyleSheet,
   Text,
   View,
 } = React;
-var HTMLView = require('react-native-htmlview');
-var PostDetail = require('./PostDetail');
-var { postPropTypes } = require('../utils/Post');
+const HTMLView = require('react-native-htmlview');
+const PostDetail = require('./PostDetail');
+const { postPropTypes } = require('../utils/Post');
 
-var PostListng = React.createClass({
+const PostListng = React.createClass({
   propTypes: {
     posts: React.PropTypes.arrayOf(postPropTypes).isRequired,
     navigator: React.PropTypes.object.isRequired,
@@ -49,7 +48,7 @@ var PostListng = React.createClass({
   },
 
   renderPost: function(post) {
-    var image;
+    let image;
     if (post.images.length > 0) {
       image = (
           <Image
@@ -58,7 +57,7 @@ var PostListng = React.createClass({
           />
       );
     }
-    var articleContainerStyles = [
+    const articleContainerStyles = [
       styles.articleContainer,
       post.images.length > 0 ? styles.rightContainer : null
     ];
@@ -100,7 +99,7 @@ var PostListng = React.createClass({
   },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   outerListView: {
     flex: 1,
   },
