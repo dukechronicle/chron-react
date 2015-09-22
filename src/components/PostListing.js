@@ -1,5 +1,3 @@
-'use strict';
-
 const React = require('react-native');
 const {
   StyleSheet,
@@ -13,7 +11,6 @@ const {
 const HTMLView = require('react-native-htmlview');
 const PostDetail = require('./PostDetail');
 const { postPropTypes } = require('../utils/Post');
-const PostActionCreators = require('../actions/PostActionCreators');
 const RefreshableListView = require('react-native-refreshable-listview');
 /**
  * PostListing is a component that renders a list of posts. It is a complement
