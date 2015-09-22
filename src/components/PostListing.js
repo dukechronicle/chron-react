@@ -1,23 +1,23 @@
-'use strict';
-
+var RefreshableListView = require('react-native-refreshable-listview');
 var React = require('react-native');
 var {
   StyleSheet,
   TouchableHighlight,
   Image,
   ListView,
-  StyleSheet,
   Text,
   View,
 } = React;
 var HTMLView = require('react-native-htmlview');
 var PostDetail = require('./PostDetail');
 var { postPropTypes } = require('../utils/Post');
+var PostActionCreators = require('../actions/PostActionCreators');
 
 var PostListng = React.createClass({
   propTypes: {
     posts: React.PropTypes.arrayOf(postPropTypes).isRequired,
     navigator: React.PropTypes.object.isRequired,
+    refresh:React.PropTypes.func.isRequired,
   },
 
   getInitialState: function() {
@@ -88,12 +88,13 @@ var PostListng = React.createClass({
 
   render: function() {
     return (
-      <View style={styles.outerListView}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderPost}
-          automaticallyAdjustContentInsets={false}
-          style={styles.listView}
+      <View style={styles.listView}>
+		<RefreshableListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderPost}
+            loadData={this.props.refresh}
+            automaticallyAdjustContentInsets={false}
+            refreshDescription="Refreshing articles"
         />
       </View>
     );

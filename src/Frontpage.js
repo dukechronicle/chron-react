@@ -1,11 +1,9 @@
-'use strict';
+const React = require('react-native');
+const SectionPostListing = require('./SectionPostListing');
 
-var React = require('react-native');
-var SectionPostListing = require('./SectionPostListing');
-
-var Frontpage = React.createClass({
+const Frontpage = React.createClass({
   render: function() {
-    var section = {
+    const section = {
       name: 'Frontpage',
       slug: 'news',
     };

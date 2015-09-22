@@ -1,26 +1,24 @@
-'use strict';
-
-var React = require('react-native');
-var {
+const React = require('react-native');
+const {
   NavigatorIOS,
   TouchableHighlight,
   StyleSheet,
   Text,
   View,
 } = React;
-var helpers = require('./helpers.js');
-var {
+const helpers = require('./helpers.js');
+const {
   LoadingView
 } = helpers;
-var PostListing = require('./components/PostListing');
+const PostListing = require('./components/PostListing');
 
-var store = require('./store');
-var postsCursor = store.select('models', 'posts');
-var sectionIdsCursor = store.select('models', 'sectionIds');
+const store = require('./store');
+const postsCursor = store.select('models', 'posts');
+const sectionIdsCursor = store.select('models', 'sectionIds');
 
-var PostActionCreators = require('./actions/PostActionCreators');
+const PostActionCreators = require('./actions/PostActionCreators');
 
-var SectionPostListing = React.createClass({
+const SectionPostListing = React.createClass({
   propTypes: {
     section: React.PropTypes.shape({
       name: React.PropTypes.string,
@@ -40,7 +38,7 @@ var SectionPostListing = React.createClass({
     if (this.props.section.slug in sectionIdsCursor.get()) {
       this.updateState();
     } else {
-      PostActionCreators.getSection(this.props.section.slug);
+      this.loadSection();
     }
 
     postsCursor.on('update', this.updateState);
@@ -53,17 +51,21 @@ var SectionPostListing = React.createClass({
   },
 
   updateState: function() {
-    var posts = sectionIdsCursor.get()[this.props.section.slug];
-    if (posts) {
-      var postsMap = postsCursor.get();
-      var posts = posts
-        .filter((id) => id in postsMap)
-        .map((id) => postsMap[id]);
+    const sectionPostIds = sectionIdsCursor.get()[this.props.section.slug];
+       if (sectionPostIds) {
+           const allPostsMap = postsCursor.get();
+           const sectionPosts = sectionPostIds
+                 .filter((id) => id in allPostsMap)
+              .map((id) => allPostsMap[id]);
       this.setState({
-        posts: posts,
+        posts: sectionPosts,
         loaded: true,
       });
     }
+  },
+
+  loadSection:function(){
+    PostActionCreators.getSection(this.props.section.slug);
   },
 
   renderLoadingView: function() {
@@ -88,13 +90,15 @@ var SectionPostListing = React.createClass({
       return (
         <PostListing
           posts={this.state.posts}
-          navigator={this.props.navigator} />
+          navigator={this.props.navigator}
+          refresh={this.loadSection}
+            />
       );
     }
   },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',

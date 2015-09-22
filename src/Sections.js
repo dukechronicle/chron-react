@@ -1,5 +1,5 @@
-var React = require('react-native');
-var {
+const React = require('react-native');
+const {
   AppRegistry,
   Image,
   ListView,
@@ -9,18 +9,18 @@ var {
   View,
 } = React;
 
-var helpers = require('./helpers.js');
-var { LoadingView } = helpers;
-var SectionPostListing = require('./SectionPostListing');
+const helpers = require('./helpers.js');
+const { LoadingView } = helpers;
+const SectionPostListing = require('./SectionPostListing');
 
-var SectionActionCreators = require('./actions/SectionActionCreators');
+const SectionActionCreators = require('./actions/SectionActionCreators');
 
-var store = require('./store');
-var postsCursor = store.select('models', 'posts');
-var sectionIdsCursor = store.select('models', 'sectionIds');
-var sectionsCursor = store.select('models', 'topLevelSections');
+const store = require('./store');
+const postsCursor = store.select('models', 'posts');
+const sectionIdsCursor = store.select('models', 'sectionIds');
+const sectionsCursor = store.select('models', 'topLevelSections');
 
-var Sections = React.createClass({
+const Sections = React.createClass({
   getInitialState: function() {
     return {
       dataSource: new ListView.DataSource({
@@ -44,7 +44,7 @@ var Sections = React.createClass({
   },
 
   updateState: function() {
-    var sections = sectionsCursor.get();
+    const sections = sectionsCursor.get();
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(sections),
       loaded: true,
@@ -95,7 +95,7 @@ var Sections = React.createClass({
   }
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
