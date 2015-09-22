@@ -1,6 +1,7 @@
-var RefreshableListView = require('react-native-refreshable-listview');
-var React = require('react-native');
-var {
+'use strict';
+
+const React = require('react-native');
+const {
   StyleSheet,
   TouchableHighlight,
   Image,
@@ -8,12 +9,17 @@ var {
   Text,
   View,
 } = React;
-var HTMLView = require('react-native-htmlview');
-var PostDetail = require('./PostDetail');
-var { postPropTypes } = require('../utils/Post');
-var PostActionCreators = require('../actions/PostActionCreators');
 
-var PostListng = React.createClass({
+const HTMLView = require('react-native-htmlview');
+const PostDetail = require('./PostDetail');
+const { postPropTypes } = require('../utils/Post');
+const PostActionCreators = require('../actions/PostActionCreators');
+const RefreshableListView = require('react-native-refreshable-listview');
+/**
+ * PostListing is a component that renders a list of posts. It is a complement
+ * to SectionPostListing that handles most of the display logic.
+ */
+const PostListng = React.createClass({
   propTypes: {
     posts: React.PropTypes.arrayOf(postPropTypes).isRequired,
     navigator: React.PropTypes.object.isRequired,
@@ -49,7 +55,7 @@ var PostListng = React.createClass({
   },
 
   renderPost: function(post) {
-    var image;
+    let image;
     if (post.images.length > 0) {
       image = (
           <Image
@@ -58,7 +64,7 @@ var PostListng = React.createClass({
           />
       );
     }
-    var articleContainerStyles = [
+    const articleContainerStyles = [
       styles.articleContainer,
       post.images.length > 0 ? styles.rightContainer : null
     ];
@@ -101,7 +107,7 @@ var PostListng = React.createClass({
   },
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   outerListView: {
     flex: 1,
   },

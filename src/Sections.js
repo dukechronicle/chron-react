@@ -20,6 +20,11 @@ const postsCursor = store.select('models', 'posts');
 const sectionIdsCursor = store.select('models', 'sectionIds');
 const sectionsCursor = store.select('models', 'topLevelSections');
 
+/**
+ * Sections is a list view of sections, that allows navigation between different
+ * sections.
+ */
+
 const Sections = React.createClass({
   getInitialState: function() {
     return {

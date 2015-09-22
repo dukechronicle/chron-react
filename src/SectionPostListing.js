@@ -1,3 +1,5 @@
+'use strict';
+
 const React = require('react-native');
 const {
   NavigatorIOS,
@@ -18,7 +20,17 @@ const sectionIdsCursor = store.select('models', 'sectionIds');
 
 const PostActionCreators = require('./actions/PostActionCreators');
 
+/**
+ * SectionPostListing is a controller-view that renders a list view of posts
+ * belonging to a section.
+ */
 const SectionPostListing = React.createClass({
+  /**
+   * 'section' is an object that has the name of the section and the slug of the
+   * section. The name is used for display purposes, and the slug is used when
+   * querying the store and issuing a getSection action. The slug should match
+   * the same slug that is used on the website.
+   */
   propTypes: {
     section: React.PropTypes.shape({
       name: React.PropTypes.string,
@@ -52,11 +64,11 @@ const SectionPostListing = React.createClass({
 
   updateState: function() {
     const sectionPostIds = sectionIdsCursor.get()[this.props.section.slug];
-       if (sectionPostIds) {
-           const allPostsMap = postsCursor.get();
-           const sectionPosts = sectionPostIds
-                 .filter((id) => id in allPostsMap)
-              .map((id) => allPostsMap[id]);
+    if (sectionPostIds) {
+      const allPostsMap = postsCursor.get();
+      const sectionPosts = sectionPostIds
+        .filter((id) => id in allPostsMap)
+        .map((id) => allPostsMap[id]);
       this.setState({
         posts: sectionPosts,
         loaded: true,

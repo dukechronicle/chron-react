@@ -1,7 +1,7 @@
-var store = require('../store');
-var tabCursor = store.select('views', 'tab');
+const store = require('../store');
+const tabCursor = store.select('views', 'tab');
 
-var NavigationActionCreators = {
+const NavigationActionCreators = {
   selectSection: (name) => {
     tabCursor.set(name);
   }

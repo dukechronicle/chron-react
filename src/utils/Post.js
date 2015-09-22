@@ -1,13 +1,18 @@
-var _ = require('underscore');
-var extractHtmlText = require('../helpers').extractHtmlText;
-var he = require('he');
-var React = require('react-native');
-var urlencode = require('urlencode');
+const _ = require('underscore');
+const extractHtmlText = require('../helpers').extractHtmlText;
+const he = require('he');
+const React = require('react-native');
+const urlencode = require('urlencode');
 
 // Strings are urlencoded with utf-8 and also include HTML entities.
-var unescape = (str) => he.unescape(urlencode.decode(str))
+const unescape = (str) => he.unescape(urlencode.decode(str))
 
-var cleanMedia = (m) => {
+/**
+ * Helper function to clean media objects from the API.
+ * @param {Object} m Media object from the API.
+ * @return {Object} A nicer, unescaped version of the media.
+ */
+const cleanMedia = (m) => {
   return {
     caption: extractHtmlText(unescape(m.caption)),
     authors: _.map(_.values(m.getAuthor), (author) => unescape(author)),
@@ -17,7 +22,12 @@ var cleanMedia = (m) => {
   };
 };
 
-var rawDataToPost = (a) => {
+/**
+ * Helper function to clean post objects from the API.
+ * @param {Object} a Post object from the API.
+ * @return {Object} A nicer, unescaped version of the post.
+ */
+const rawDataToPost = (a) => {
   return {
     title: unescape(a.headline),
     body: unescape(a.copy),
@@ -28,7 +38,10 @@ var rawDataToPost = (a) => {
   };
 };
 
-var postPropTypes = React.PropTypes.shape({
+/**
+ * PropTypes for a post.
+ */
+const postPropTypes = React.PropTypes.shape({
   title: React.PropTypes.string.isRequired,
   body: React.PropTypes.string.isRequired,
   image: React.PropTypes.shape({

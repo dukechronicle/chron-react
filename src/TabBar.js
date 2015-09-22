@@ -1,12 +1,14 @@
-var React = require('react-native');
-var {
+'use strict';
+
+const React = require('react-native');
+const {
   StyleSheet,
   TabBarIOS,
   View,
   Text
 } = React;
 
-var TabBar = React.createClass({
+const TabBar = React.createClass({
   item: function(pageText) {
     return (
       <View style={[styles.tabContent, {backgroundColor: "#fff"}]}>
@@ -26,7 +28,7 @@ var TabBar = React.createClass({
   }
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   tabContent: {
     flex: 1,
     alignItems: 'center',

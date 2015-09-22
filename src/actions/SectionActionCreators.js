@@ -1,9 +1,9 @@
-var store = require('../store');
-var sectionsCursor = store.select('models', 'topLevelSections');
+const store = require('../store');
+const sectionsCursor = store.select('models', 'topLevelSections');
 
-var SectionActionCreators = {
+const SectionActionCreators = {
   getSections: () => {
-    var sections = [
+    const sections = [
       ['news', 'News'],
       ['sports', 'Sports'],
       ['opinion', 'Opinion'],
