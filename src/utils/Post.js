@@ -23,6 +23,17 @@ const cleanMedia = (m) => {
 };
 
 /**
+ * Helper function to clean tag objects from the API.
+ * @param {Object} t Tag object from the API.
+ * @return {Object} A nicer, unescaped version of the tag.
+ */
+const cleanTag = (t) => {
+  return {
+    name: unescape(t.name),
+  };
+};
+
+/**
  * Helper function to clean post objects from the API.
  * @param {Object} a Post object from the API.
  * @return {Object} A nicer, unescaped version of the post.
@@ -35,6 +46,7 @@ const rawDataToPost = (a) => {
     published: new Date(a.published * 1000),
     authors: _.map(_.values(a.getAuthor), (author) => unescape(author)),
     images: _.map(_.values(a.media), cleanMedia),
+    tags: _.map(_.values(a.tags), cleanTag),
   };
 };
 
