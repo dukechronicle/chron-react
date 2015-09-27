@@ -1,0 +1,3 @@
+rootProject.name = 'chronreact'
+
+include ':app'
