@@ -9,7 +9,7 @@ const {
 const helpers = require('./helpers.js');
 const {
   LoadingView
-  } = helpers;
+} = helpers;
 const PostListing = require('./components/PostListing');
 
 const store = require('./store');
