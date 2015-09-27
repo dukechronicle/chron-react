@@ -1,15 +1,15 @@
 const React = require('react-native');
 const {
-    NavigatorIOS,
-    TouchableHighlight,
-    StyleSheet,
-    Text,
-    View,
-    } = React;
+  NavigatorIOS,
+  TouchableHighlight,
+  StyleSheet,
+  Text,
+  View,
+} = React;
 const helpers = require('./helpers.js');
 const {
-    LoadingView
-    } = helpers;
+  LoadingView
+  } = helpers;
 const PostListing = require('./components/PostListing');
 
 const store = require('./store');
@@ -60,15 +60,13 @@ const SectionPostListing = React.createClass({
     sectionIdsCursor.off(this.updateState);
   },
 
-
-
   updateState: function() {
     const sectionPostIds = sectionIdsCursor.get()[this.props.section.slug];
     if (sectionPostIds) {
       const allPostsMap = postsCursor.get();
       const sectionPosts = sectionPostIds
-          .filter((id) => id in allPostsMap)
-          .map((id) => allPostsMap[id]);
+        .filter((id) => id in allPostsMap)
+        .map((id) => allPostsMap[id]);
       this.setState({
         posts: sectionPosts,
         loaded: true,
@@ -76,15 +74,15 @@ const SectionPostListing = React.createClass({
     }
   },
 
-  reloadArticles() {
+  reloadArticles: function() {
     return PostActionCreators.getSection(this.props.section.slug);
   },
 
   renderLoadingView: function() {
     return (
-        <View style={styles.container}>
-          <LoadingView />
-        </View>
+      <View style={styles.container}>
+        <LoadingView />
+      </View>
     );
   },
 
@@ -94,22 +92,20 @@ const SectionPostListing = React.createClass({
     }
     if (this.state.error !== undefined) {
       return (
-          <Text style={styles.listView}>
-            {this.state.error}
-          </Text>
+        <Text style={styles.listView}>
+          {this.state.error}
+        </Text>
       )
     } else {
       return (
-          <PostListing
-            posts={this.state.posts}
-            navigator={this.props.navigator}
-            refresh={this.reloadArticles}
-          />
+        <PostListing
+          posts={this.state.posts}
+          navigator={this.props.navigator}
+          refresh={this.reloadArticles}/>
       );
     }
   },
 });
-
 
 const styles = StyleSheet.create({
   container: {

@@ -25,18 +25,18 @@ const urlBuilder = (sectionSlug) => {
  */
 const getSection = (section) => {
   const p = fetch(urlBuilder(section))
-      .then((response) => response.json())
-      .then((responseData) => {
-        const articles = responseData[0].articles;
-        const articlesMap = _.object(
-            _.map(_.values(articles), (a) => [a.uid, rawDataToPost(a)]));
-        postsCursor.merge(articlesMap);
-        sectionIdsCursor.merge({[section]: _.keys(articlesMap)});
-      })
-      .catch((error) => {
-        console.warn(error);
-        // TODO: change some view state
-      });
+    .then((response) => response.json())
+    .then((responseData) => {
+      const articles = responseData[0].articles;
+      const articlesMap = _.object(
+          _.map(_.values(articles), (a) => [a.uid, rawDataToPost(a)]));
+      postsCursor.merge(articlesMap);
+      sectionIdsCursor.merge({[section]: _.keys(articlesMap)});
+    })
+    .catch((error) => {
+      console.warn(error);
+      // TODO: change some view state
+    });
   p.done();
   return p;
 }

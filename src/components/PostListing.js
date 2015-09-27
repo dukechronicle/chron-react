@@ -20,7 +20,7 @@ const PostListing = React.createClass({
   propTypes: {
     posts: React.PropTypes.arrayOf(postPropTypes).isRequired,
     navigator: React.PropTypes.object.isRequired,
-    refresh:React.PropTypes.object.isRequired,
+    refresh:React.PropTypes.func.isRequired,
   },
 
   getInitialState: function() {
