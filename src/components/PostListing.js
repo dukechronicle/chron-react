@@ -16,11 +16,11 @@ const RefreshableListView = require('react-native-refreshable-listview');
  * PostListing is a component that renders a list of posts. It is a complement
  * to SectionPostListing that handles most of the display logic.
  */
-const PostListng = React.createClass({
+const PostListing = React.createClass({
   propTypes: {
     posts: React.PropTypes.arrayOf(postPropTypes).isRequired,
     navigator: React.PropTypes.object.isRequired,
-    refresh:React.PropTypes.func.isRequired,
+    refresh:React.PropTypes.object.isRequired,
   },
 
   getInitialState: function() {
@@ -36,6 +36,7 @@ const PostListng = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
+    console.log("componentWillReceiveProps", nextProps.posts[0].title);
     this.updateDataSource(nextProps.posts);
   },
 
@@ -105,9 +106,6 @@ const PostListng = React.createClass({
 });
 
 const styles = StyleSheet.create({
-  outerListView: {
-    flex: 1,
-  },
   container: {
     flex: 1,
     flexDirection: 'row',
@@ -153,4 +151,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = PostListng;
+module.exports = PostListing;
