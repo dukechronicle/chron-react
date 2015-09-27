@@ -24,28 +24,29 @@ const urlBuilder = (sectionSlug) => {
  *     website.
  */
 const getSection = (section) => {
-  fetch(urlBuilder(section))
+  const p = fetch(urlBuilder(section))
     .then((response) => response.json())
     .then((responseData) => {
       const articles = responseData[0].articles;
       const articlesMap = _.object(
-        _.map(_.values(articles), (a) => [a.uid, rawDataToPost(a)]));
+          _.map(_.values(articles), (a) => [a.uid, rawDataToPost(a)]));
       postsCursor.merge(articlesMap);
       sectionIdsCursor.merge({[section]: _.keys(articlesMap)});
     })
     .catch((error) => {
       console.warn(error);
       // TODO: change some view state
-    })
-    .done();
+    });
+  p.done();
+  return p;
 }
 
 const PostActionCreators = {
   getFrontpage: () => {
-    getSection('news');
+    return getSection('news');
   },
   getSection: (section) => {
-    getSection(section);
+    return getSection(section);
   },
 };
 

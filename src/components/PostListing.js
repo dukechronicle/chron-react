@@ -1,5 +1,3 @@
-'use strict';
-
 const React = require('react-native');
 const {
   StyleSheet,
@@ -9,18 +7,20 @@ const {
   Text,
   View,
 } = React;
+
 const HTMLView = require('react-native-htmlview');
 const PostDetail = require('./PostDetail');
 const { postPropTypes } = require('../utils/Post');
-
+const RefreshableListView = require('react-native-refreshable-listview');
 /**
  * PostListing is a component that renders a list of posts. It is a complement
  * to SectionPostListing that handles most of the display logic.
  */
-const PostListng = React.createClass({
+const PostListing = React.createClass({
   propTypes: {
     posts: React.PropTypes.arrayOf(postPropTypes).isRequired,
     navigator: React.PropTypes.object.isRequired,
+    refresh:React.PropTypes.func.isRequired,
   },
 
   getInitialState: function() {
@@ -91,12 +91,13 @@ const PostListng = React.createClass({
 
   render: function() {
     return (
-      <View style={styles.outerListView}>
-        <ListView
+      <View style={styles.listView}>
+        <RefreshableListView
           dataSource={this.state.dataSource}
           renderRow={this.renderPost}
+          loadData={this.props.refresh}
           automaticallyAdjustContentInsets={false}
-          style={styles.listView}
+          refreshDescription="Refreshing articles"
         />
       </View>
     );
@@ -104,9 +105,6 @@ const PostListng = React.createClass({
 });
 
 const styles = StyleSheet.create({
-  outerListView: {
-    flex: 1,
-  },
   container: {
     flex: 1,
     flexDirection: 'row',
@@ -152,4 +150,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = PostListng;
+module.exports = PostListing;

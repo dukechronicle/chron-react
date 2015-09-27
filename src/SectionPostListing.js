@@ -1,5 +1,3 @@
-'use strict';
-
 const React = require('react-native');
 const {
   NavigatorIOS,
@@ -50,7 +48,7 @@ const SectionPostListing = React.createClass({
     if (this.props.section.slug in sectionIdsCursor.get()) {
       this.updateState();
     } else {
-      PostActionCreators.getSection(this.props.section.slug);
+      this.reloadArticles();
     }
 
     postsCursor.on('update', this.updateState);
@@ -76,6 +74,10 @@ const SectionPostListing = React.createClass({
     }
   },
 
+  reloadArticles: function() {
+    return PostActionCreators.getSection(this.props.section.slug);
+  },
+
   renderLoadingView: function() {
     return (
       <View style={styles.container}>
@@ -98,7 +100,8 @@ const SectionPostListing = React.createClass({
       return (
         <PostListing
           posts={this.state.posts}
-          navigator={this.props.navigator} />
+          navigator={this.props.navigator}
+          refresh={this.reloadArticles}/>
       );
     }
   },
