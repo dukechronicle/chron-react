@@ -36,7 +36,6 @@ const PostListing = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
-    console.log("componentWillReceiveProps", nextProps.posts[0].title);
     this.updateDataSource(nextProps.posts);
   },
 
@@ -93,12 +92,12 @@ const PostListing = React.createClass({
   render: function() {
     return (
       <View style={styles.listView}>
-		<RefreshableListView
-            dataSource={this.state.dataSource}
-            renderRow={this.renderPost}
-            loadData={this.props.refresh}
-            automaticallyAdjustContentInsets={false}
-            refreshDescription="Refreshing articles"
+        <RefreshableListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderPost}
+          loadData={this.props.refresh}
+          automaticallyAdjustContentInsets={false}
+          refreshDescription="Refreshing articles"
         />
       </View>
     );
