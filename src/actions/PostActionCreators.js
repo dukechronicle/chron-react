@@ -43,10 +43,10 @@ const getSection = (section) => {
 
 const PostActionCreators = {
   getFrontpage: () => {
-    getSection('news');
+    return getSection('news');
   },
   getSection: (section) => {
-    getSection(section);
+    return getSection(section);
   },
 };
 
