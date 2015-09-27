@@ -1,9 +1,8 @@
 const he = require('he');
 const React = require('react-native');
 const htmlparser = require('htmlparser2');
-const DomHandler = require('domhandler');
 const {
-  ActivityIndicatorIOS
+  ActivityIndicatorIOS,
 } = React;
 
 /**
@@ -37,13 +36,13 @@ module.exports = {
    * General purpose wrapper for ActivityIndicatorIOS.
    */
   LoadingView: React.createClass({
-      render() {
-        return (
-          <ActivityIndicatorIOS
-            hidden='true'
-            size='large'
-          />
-        );
-      }
-    })
+    render() {
+      return (
+        <ActivityIndicatorIOS
+          hidden="true"
+          size="large"
+        />
+      );
+    },
+  }),
 };

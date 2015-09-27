@@ -5,7 +5,7 @@ const React = require('react-native');
 const urlencode = require('urlencode');
 
 // Strings are urlencoded with utf-8 and also include HTML entities.
-const unescape = (str) => he.unescape(urlencode.decode(str))
+const unescape = (str) => he.unescape(urlencode.decode(str));
 
 /**
  * Helper function to clean media objects from the API.

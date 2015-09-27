@@ -3,28 +3,8 @@ const {
   StyleSheet,
   TabBarIOS,
   View,
-  Text
+  Text,
 } = React;
-
-const TabBar = React.createClass({
-  item: function(pageText) {
-    return (
-      <View style={[styles.tabContent, {backgroundColor: "#fff"}]}>
-        <Text style={styles.tabText}>{pageText}</Text>
-      </View>
-    );
-  },
-  render: function() {
-    return (
-      <TabBarIOS>
-        <TabBarIOS.Item
-          title="Frontpage">
-          {this.item('Frontpage')}
-        </TabBarIOS.Item>
-      </TabBarIOS>
-    )
-  }
-});
 
 const styles = StyleSheet.create({
   tabContent: {
@@ -37,4 +17,24 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = TabBar
+const TabBar = React.createClass({
+  item: function(pageText) {
+    return (
+      <View style={[styles.tabContent, {backgroundColor: '#fff'}]}>
+        <Text style={styles.tabText}>{pageText}</Text>
+      </View>
+    );
+  },
+  render: function() {
+    return (
+      <TabBarIOS>
+        <TabBarIOS.Item
+          title="Frontpage">
+          {this.item('Frontpage')}
+        </TabBarIOS.Item>
+      </TabBarIOS>
+    );
+  },
+});
+
+module.exports = TabBar;

@@ -1,15 +1,53 @@
 const React = require('react-native');
 const {
-  AppRegistry,
   Image,
   StyleSheet,
   ScrollView,
   Text,
   View,
-  WebView
 } = React;
 const HTMLView = require('react-native-htmlview');
 const { postPropTypes } = require('../utils/Post');
+
+const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+  },
+  container: {
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  title: {
+    flex: 1,
+    fontWeight: '600',
+    fontSize: 24,
+  },
+  image: {
+    flex: 1,
+    height: 250,
+    marginTop: 15,
+    marginBottom: 5,
+    marginLeft: -15,
+    marginRight: -15,
+  },
+  body: {
+    fontFamily: 'Times',
+  },
+  caption: {
+    color: '#999999',
+    fontSize: 12,
+    marginBottom: 25,
+  },
+  byline: {
+    marginTop: 15,
+    marginBottom: 14,
+  },
+});
 
 /**
  * PostDetail is a component that renders a post.
@@ -28,9 +66,9 @@ const PostDetail = React.createClass({
       );
     }
     let byline;
-    if (post.authors){
+    if (post.authors) {
       byline = (
-        <Text style={styles.byline}>By {post.authors.join(", ")}</Text>
+        <Text style={styles.byline}>By {post.authors.join(', ')}</Text>
       );
     }
     let image;
@@ -56,48 +94,8 @@ const PostDetail = React.createClass({
           />
         </View>
       </ScrollView>
-    )
-  }
-});
-
-const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
+    );
   },
-  container: {
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 15,
-    paddingRight: 15,
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center'
-  },
-  title: {
-    flex: 1,
-    fontWeight: '600',
-    fontSize: 24,
-  },
-  image: {
-    flex: 1,
-    height: 250,
-    marginTop: 15,
-    marginBottom: 5,
-    marginLeft: -15,
-    marginRight: -15
-  },
-  body: {
-    fontFamily: 'Times'
-  },
-  caption: {
-    color: '#999999',
-    fontSize: 12,
-    marginBottom: 25
-  },
-  byline: {
-    marginTop: 15,
-    marginBottom: 14
-  }
 });
 
 module.exports = PostDetail;

@@ -12,7 +12,7 @@ const { rawDataToPost } = require('../utils/Post');
  */
 const urlBuilder = (sectionSlug) => {
   return `http://www.dukechronicle.com/section/${sectionSlug}.json`;
-}
+};
 
 /**
  * getSection issues an API request to retrieve the articles for a section. On a
@@ -39,7 +39,7 @@ const getSection = (section) => {
     });
   p.done();
   return p;
-}
+};
 
 const PostActionCreators = {
   getFrontpage: () => {

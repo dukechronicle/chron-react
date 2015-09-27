@@ -6,7 +6,11 @@ const SectionPostListing = require('./SectionPostListing');
  * "Frontpage".
  */
 const Frontpage = React.createClass({
-  render: function() {
+  propTypes: {
+    navigator: React.PropTypes.object.isRequired,
+  },
+
+  render: function render() {
     const section = {
       name: 'Frontpage',
       slug: 'news',

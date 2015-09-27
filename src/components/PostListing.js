@@ -8,10 +8,56 @@ const {
   View,
 } = React;
 
-const HTMLView = require('react-native-htmlview');
 const PostDetail = require('./PostDetail');
 const { postPropTypes } = require('../utils/Post');
 const RefreshableListView = require('react-native-refreshable-listview');
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    borderBottomWidth: 1,
+    borderColor: '#DDDDDD',
+  },
+  highlight: {
+    marginLeft: -15,
+    marginRight: -15,
+  },
+  articleContainer: {
+    flex: 1,
+  },
+  rightContainer: {
+    paddingLeft: 10,
+  },
+  title: {
+    fontSize: 15,
+    marginBottom: 8,
+    textAlign: 'left',
+    height: 35,
+    fontWeight: '600',
+  },
+  teaser: {
+    textAlign: 'left',
+    height: 35,
+  },
+  thumbnail: {
+    width: 103,
+    height: 64,
+  },
+  listView: {
+    paddingLeft: 15,
+    paddingRight: 15,
+    marginTop: 64,
+    marginBottom: 44,
+  },
+});
+
 /**
  * PostListing is a component that renders a list of posts. It is a complement
  * to SectionPostListing that handles most of the display logic.
@@ -20,7 +66,7 @@ const PostListing = React.createClass({
   propTypes: {
     posts: React.PropTypes.arrayOf(postPropTypes).isRequired,
     navigator: React.PropTypes.object.isRequired,
-    refresh:React.PropTypes.func.isRequired,
+    refresh: React.PropTypes.func.isRequired,
   },
 
   getInitialState: function() {
@@ -45,10 +91,12 @@ const PostListing = React.createClass({
     });
   },
 
-  renderLoadingView: function() {
-    return (
-      <LoadingView style={styles.container} />
-    );
+  rowPressed: function(post) {
+    this.props.navigator.push({
+      title: post.title,
+      component: PostDetail,
+      passProps: {post: post},
+    });
   },
 
   renderPost: function(post) {
@@ -63,13 +111,13 @@ const PostListing = React.createClass({
     }
     const articleContainerStyles = [
       styles.articleContainer,
-      post.images.length > 0 ? styles.rightContainer : null
+      post.images.length > 0 ? styles.rightContainer : null,
     ];
     return (
       <TouchableHighlight
            onPress={() => this.rowPressed(post)}
            style={styles.highlight}
-          underlayColor='#eeeeee'>
+          underlayColor="#eeeeee">
         <View style={styles.container}>
           {image}
           <View style={articleContainerStyles}>
@@ -79,14 +127,6 @@ const PostListing = React.createClass({
         </View>
       </TouchableHighlight>
     );
-  },
-
-  rowPressed: function(post) {
-    this.props.navigator.push({
-      title: post.title,
-      component: PostDetail,
-      passProps: {post: post}
-    });
   },
 
   render: function() {
@@ -102,52 +142,6 @@ const PostListing = React.createClass({
       </View>
     );
   },
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginLeft: 15,
-    marginRight: 15,
-    borderBottomWidth: 1,
-    borderColor: '#DDDDDD'
-  },
-  highlight: {
-    marginLeft: -15,
-    marginRight: -15,
-  },
-  articleContainer: {
-    flex: 1,
-  },
-  rightContainer: {
-    paddingLeft: 10
-  },
-  title: {
-    fontSize: 15,
-    marginBottom: 8,
-    textAlign: 'left',
-    height: 35,
-    fontWeight: '600'
-  },
-  teaser: {
-    textAlign: 'left',
-    height: 35
-  },
-  thumbnail: {
-    width: 103,
-    height: 64
-  },
-  listView: {
-    paddingLeft: 15,
-    paddingRight: 15,
-    marginTop: 64,
-    marginBottom: 44,
-  }
 });
 
 module.exports = PostListing;

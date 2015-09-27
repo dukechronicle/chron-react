@@ -1,14 +1,12 @@
 const React = require('react-native');
 const {
-  NavigatorIOS,
-  TouchableHighlight,
   StyleSheet,
   Text,
   View,
 } = React;
 const helpers = require('./helpers.js');
 const {
-  LoadingView
+  LoadingView,
 } = helpers;
 const PostListing = require('./components/PostListing');
 
@@ -17,6 +15,27 @@ const postsCursor = store.select('models', 'posts');
 const sectionIdsCursor = store.select('models', 'sectionIds');
 
 const PostActionCreators = require('./actions/PostActionCreators');
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    borderBottomWidth: 1,
+    borderColor: '#DDDDDD',
+  },
+  listView: {
+    paddingLeft: 15,
+    paddingRight: 15,
+    marginTop: 64,
+    marginBottom: 44,
+  },
+});
 
 /**
  * SectionPostListing is a controller-view that renders a list view of posts
@@ -30,6 +49,7 @@ const SectionPostListing = React.createClass({
    * the same slug that is used on the website.
    */
   propTypes: {
+    navigator: React.PropTypes.object.isRequired,
     section: React.PropTypes.shape({
       name: React.PropTypes.string,
       slug: React.PropTypes.string,
@@ -40,7 +60,7 @@ const SectionPostListing = React.createClass({
     return {
       posts: [],
       loaded: false,
-      error: undefined
+      error: undefined,
     };
   },
 
@@ -95,37 +115,15 @@ const SectionPostListing = React.createClass({
         <Text style={styles.listView}>
           {this.state.error}
         </Text>
-      )
-    } else {
-      return (
-        <PostListing
-          posts={this.state.posts}
-          navigator={this.props.navigator}
-          refresh={this.reloadArticles}/>
       );
     }
+    return (
+      <PostListing
+        posts={this.state.posts}
+        navigator={this.props.navigator}
+        refresh={this.reloadArticles}/>
+    );
   },
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginLeft: 15,
-    marginRight: 15,
-    borderBottomWidth: 1,
-    borderColor: '#DDDDDD'
-  },
-  listView: {
-    paddingLeft: 15,
-    paddingRight: 15,
-    marginTop: 64,
-    marginBottom: 44,
-  }
 });
 
 module.exports = SectionPostListing;

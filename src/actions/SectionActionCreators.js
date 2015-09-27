@@ -10,9 +10,9 @@ const SectionActionCreators = {
       ['recess', 'Recess'],
       ['towerview', 'Towerview'],
       ['blue-zone', 'Blue Zone'],
-    ].map(([slug, name]) => { return {slug, name} });
+    ].map(([slug, name]) => { return {slug, name}; });
     sectionsCursor.set(sections);
-  }
+  },
 };
 
 module.exports = SectionActionCreators;

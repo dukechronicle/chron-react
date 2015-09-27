@@ -1,7 +1,5 @@
 const React = require('react-native');
 const {
-  AppRegistry,
-  Image,
   ListView,
   StyleSheet,
   Text,
@@ -16,21 +14,51 @@ const SectionPostListing = require('./SectionPostListing');
 const SectionActionCreators = require('./actions/SectionActionCreators');
 
 const store = require('./store');
-const postsCursor = store.select('models', 'posts');
-const sectionIdsCursor = store.select('models', 'sectionIds');
 const sectionsCursor = store.select('models', 'topLevelSections');
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  highlight: {
+    marginLeft: -15,
+    marginRight: -15,
+  },
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    borderBottomWidth: 1,
+    borderColor: '#DDDDDD',
+  },
+  listView: {
+    paddingLeft: 15,
+    paddingRight: 15,
+    marginTop: 64,
+    marginBottom: 44,
+  },
+});
 
 /**
  * Sections is a list view of sections, that allows navigation between different
  * sections.
  */
 const Sections = React.createClass({
+  propTypes: {
+    navigator: React.PropTypes.object.isRequired,
+  },
+
   getInitialState: function() {
     return {
       dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2
+        rowHasChanged: (row1, row2) => row1 !== row2,
       }),
-      loaded: false
+      loaded: false,
     };
   },
 
@@ -59,7 +87,7 @@ const Sections = React.createClass({
     this.props.navigator.push({
       title: section.name,
       component: SectionPostListing,
-      passProps: {section: section}
+      passProps: {section: section},
     });
   },
 
@@ -68,7 +96,7 @@ const Sections = React.createClass({
       <TouchableHighlight
            onPress={() => this.rowPressed(section)}
            style={styles.highlight}
-          underlayColor='#eeeeee'>
+          underlayColor="#eeeeee">
         <View style={styles.row}>
           <Text>{section.name}</Text>
         </View>
@@ -93,38 +121,9 @@ const Sections = React.createClass({
       return (
         <LoadingView style={styles.container} />
       );
-    } else {
-      return this._renderSections();
     }
-  }
+    return this._renderSections();
+  },
 });
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  highlight: {
-    marginLeft: -15,
-    marginRight: -15,
-  },
-  row: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginLeft: 15,
-    marginRight: 15,
-    borderBottomWidth: 1,
-    borderColor: '#DDDDDD'
-  },
-  listView: {
-    paddingLeft: 15,
-    paddingRight: 15,
-    marginTop: 64,
-    marginBottom: 44,
-  }
-})
 
 module.exports = Sections;
