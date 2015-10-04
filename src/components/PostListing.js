@@ -50,6 +50,9 @@ const styles = StyleSheet.create({
     width: 103,
     height: 64,
   },
+  outerListView: {
+    flex: 1,
+  },
   listView: {
     paddingLeft: 15,
     paddingRight: 15,
@@ -131,13 +134,14 @@ const PostListing = React.createClass({
 
   render: function() {
     return (
-      <View style={styles.listView}>
+      <View style={styles.outerListView}>
         <RefreshableListView
           dataSource={this.state.dataSource}
           renderRow={this.renderPost}
           loadData={this.props.refresh}
           automaticallyAdjustContentInsets={false}
           refreshDescription="Refreshing articles"
+          style={styles.listView}
         />
       </View>
     );
