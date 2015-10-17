@@ -10,6 +10,7 @@
             2,
             "unix"
         ],
+        "no-else-return": 0,
         "quotes": [
             2,
             "single"

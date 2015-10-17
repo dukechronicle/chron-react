@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node_modules/react-native/packager/packager.sh",
     "linc": "git diff --name-only --diff-filter=ACMRTUB `git merge-base HEAD master` | grep '\\.js$' | xargs eslint --",
-    "lint": "eslint src"
+    "lint": "eslint src index.ios.js index.android.js"
   },
   "dependencies": {
     "baobab": "^1.1.2",

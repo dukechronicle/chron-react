@@ -1,28 +1,38 @@
-'use strict';
-
-var React = require('react-native');
-var {
+const React = require('react-native');
+const {
   AppRegistry,
   NavigatorIOS,
   StyleSheet,
-  View,
-  TabBarIOS
+  TabBarIOS,
 } = React;
 
-var Frontpage = require('./src/Frontpage');
-var LinksListing = require('./src/LinksListing');
-var Sections = require('./src/Sections');
-var TabBar = require('./src/TabBar');
+const Frontpage = require('./src/Frontpage');
+const LinksListing = require('./src/LinksListing');
+const Sections = require('./src/Sections');
 
-var NavigationActionCreators = require('./src/actions/NavigationActionCreators');
+const NavigationActionCreators = require('./src/actions/NavigationActionCreators');
 
-var store = require('./src/store');
-var tabCursor = store.select('views', 'tab');
+const store = require('./src/store');
+const tabCursor = store.select('views', 'tab');
 
-var chronreact = React.createClass({
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  tabContent: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  tabText: {
+    color: 'white',
+    margin: 50,
+  },
+});
+
+const chronreact = React.createClass({
   getInitialState() {
     return {
-      selectedTab: tabCursor.get()
+      selectedTab: tabCursor.get(),
     };
   },
 
@@ -48,7 +58,7 @@ var chronreact = React.createClass({
     return () => {
       NavigationActionCreators.selectSection(name);
       this.setState({selectedTab: name});
-    }
+    };
   },
 
   render: function() {
@@ -62,7 +72,7 @@ var chronreact = React.createClass({
             style={styles.container}
             initialRoute={{
               title: 'Frontpage',
-              component: Frontpage
+              component: Frontpage,
             }}
           />
         </TabBarIOS.Item>
@@ -74,7 +84,7 @@ var chronreact = React.createClass({
             style={styles.container}
             initialRoute={{
               title: 'Sections',
-              component: Sections
+              component: Sections,
             }}
           />
         </TabBarIOS.Item>
@@ -86,26 +96,12 @@ var chronreact = React.createClass({
             style={styles.container}
             initialRoute={{
               title: 'Links',
-              component: LinksListing
+              component: LinksListing,
             }}
           />
         </TabBarIOS.Item>
       </TabBarIOS>
     );
-  },
-});
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  tabContent: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  tabText: {
-    color: 'white',
-    margin: 50,
   },
 });
 
