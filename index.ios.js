@@ -10,6 +10,7 @@ var {
 } = React;
 
 var Frontpage = require('./src/Frontpage');
+var LinksListing = require('./src/LinksListing');
 var Sections = require('./src/Sections');
 var TabBar = require('./src/TabBar');
 
@@ -74,6 +75,18 @@ var chronreact = React.createClass({
             initialRoute={{
               title: 'Sections',
               component: Sections
+            }}
+          />
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+            title="Links"
+            selected={this.tabIsSelected('links')}
+            onPress={this.switchTabHandler('links')} >
+          <NavigatorIOS
+            style={styles.container}
+            initialRoute={{
+              title: 'Links',
+              component: LinksListing
             }}
           />
         </TabBarIOS.Item>
