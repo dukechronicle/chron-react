@@ -3,6 +3,7 @@ const {
   AppRegistry,
   NavigatorIOS,
   StyleSheet,
+  StatusBarIOS,
   TabBarIOS,
 } = React;
 
@@ -38,6 +39,7 @@ const chronreact = React.createClass({
 
   componentDidMount() {
     tabCursor.on('change', this.updateTab);
+    StatusBarIOS.setStyle('light-content');
   },
 
   componentWillUnmount() {
@@ -70,6 +72,9 @@ const chronreact = React.createClass({
             onPress={this.switchTabHandler('frontpage')} >
           <NavigatorIOS
             style={styles.container}
+            barTintColor="#083e8c"
+            tintColor="#eee"
+            titleTextColor="#eee"
             initialRoute={{
               title: 'Frontpage',
               component: Frontpage,
