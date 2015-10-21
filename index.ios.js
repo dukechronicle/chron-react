@@ -89,6 +89,9 @@ const chronreact = React.createClass({
             onPress={this.switchTabHandler('sections')} >
           <NavigatorIOS
             style={styles.container}
+            barTintColor="#083e8c"
+            tintColor="#eee"
+            titleTextColor="#eee"
             initialRoute={{
               title: 'Sections',
               component: Sections,
@@ -102,6 +105,9 @@ const chronreact = React.createClass({
             onPress={this.switchTabHandler('links')} >
           <NavigatorIOS
             style={styles.container}
+            barTintColor="#083e8c"
+            tintColor="#eee"
+            titleTextColor="#eee"
             initialRoute={{
               title: 'Links',
               component: LinksListing,
