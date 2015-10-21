@@ -69,6 +69,7 @@ const chronreact = React.createClass({
         <TabBarIOS.Item
             title="Frontpage"
             selected={this.tabIsSelected('frontpage')}
+            icon={{uri: 'newspaper'}}
             onPress={this.switchTabHandler('frontpage')} >
           <NavigatorIOS
             style={styles.container}
@@ -84,6 +85,7 @@ const chronreact = React.createClass({
         <TabBarIOS.Item
             title="Sections"
             selected={this.tabIsSelected('sections')}
+            icon={{uri: 'sections'}}
             onPress={this.switchTabHandler('sections')} >
           <NavigatorIOS
             style={styles.container}
@@ -96,6 +98,7 @@ const chronreact = React.createClass({
         <TabBarIOS.Item
             title="Links"
             selected={this.tabIsSelected('links')}
+            icon={{uri: 'link'}}
             onPress={this.switchTabHandler('links')} >
           <NavigatorIOS
             style={styles.container}
