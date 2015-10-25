@@ -9,20 +9,20 @@ const {
 } = React;
 
 const PostDetail = require('./PostDetail');
-const { postPropTypes } = require('../utils/Post');
+const {
+  isInternalTag,
+  postPropTypes,
+} = require('../utils/Post');
 const RefreshableListView = require('react-native-refreshable-listview');
 
 const styles = StyleSheet.create({
-  container: {
+  postRowContainer: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginLeft: 15,
-    marginRight: 15,
-    borderBottomWidth: 1,
+    paddingTop: 20,
+    paddingBottom: 20,
+    borderBottomWidth: 7,
     borderColor: '#DDDDDD',
   },
   highlight: {
@@ -31,24 +31,34 @@ const styles = StyleSheet.create({
   },
   articleContainer: {
     flex: 1,
+    marginLeft: 15,
+    marginRight: 15,
   },
-  rightContainer: {
-    paddingLeft: 10,
+  tags: {
+    fontSize: 13,
+    color: '#333',
   },
   title: {
-    fontSize: 15,
-    marginBottom: 8,
+    fontSize: 20,
     textAlign: 'left',
-    height: 35,
     fontWeight: '600',
+    marginBottom: 3,
   },
   teaser: {
+    fontSize: 15,
     textAlign: 'left',
-    height: 35,
+    marginBottom: 3,
+  },
+  sections: {
+    fontSize: 14,
+    color: '#555',
+    marginBottom: 3,
   },
   thumbnail: {
-    width: 103,
-    height: 64,
+    marginRight: -10,
+    marginLeft: -10,
+    marginBottom: 15,
+    height: 250,
   },
   outerListView: {
     flex: 1,
@@ -108,24 +118,26 @@ const PostListing = React.createClass({
       image = (
           <Image
             source={{uri: post.images[0].thumbnailUrl}}
+            resizeMode={Image.resizeMode.contain}
             style={styles.thumbnail}
           />
       );
     }
-    const articleContainerStyles = [
-      styles.articleContainer,
-      post.images.length > 0 ? styles.rightContainer : null,
-    ];
+    const tagsString = post.tags
+      .map((t) => t.name.toUpperCase())
+      .filter((t) => !isInternalTag(t))
+      .join(', ');
     return (
       <TouchableHighlight
            onPress={() => this.rowPressed(post)}
            style={styles.highlight}
           underlayColor="#eeeeee">
-        <View style={styles.container}>
+        <View style={styles.postRowContainer}>
           {image}
-          <View style={articleContainerStyles}>
-            <Text numberOfLines={2} style={styles.title}>{post.title}</Text>
-            <Text numberOfLines={2} style={styles.teaser}>{post.teaser}</Text>
+          <View style={styles.articleContainer}>
+            <Text numberOfLines={1} style={styles.tags}>{tagsString}</Text>
+            <Text style={styles.title}>{post.title}</Text>
+            <Text numberOfLines={3} style={styles.teaser}>{post.teaser}</Text>
           </View>
         </View>
       </TouchableHighlight>

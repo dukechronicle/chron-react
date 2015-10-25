@@ -52,6 +52,23 @@ const frontpageSort = (articles) => {
 };
 
 /**
+ * Returns true if the tag name is a tag used internally, or if it has some
+ * useful meaning to the user.
+ * @param {String} tagName A string representing the tag name.
+ * @return {Boolean}
+ */
+const isInternalTag = (tagName) => {
+  const invalidRegexes = [
+    /top/gi,
+    /newsletter/i,
+    /hot/i,
+    /homepage/i,
+    /columnist/i,
+  ];
+  return _.some(invalidRegexes.map((re) => re.test(tagName)));
+};
+
+/**
  * Helper function to clean post objects from the API.
  * @param {Object} a Post object from the API.
  * @return {Object} A nicer, unescaped version of the post.
@@ -82,6 +99,7 @@ const postPropTypes = React.PropTypes.shape({
 
 module.exports = {
   frontpageSort,
+  isInternalTag,
   rawDataToPost,
   postPropTypes,
 };
