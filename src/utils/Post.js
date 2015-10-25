@@ -34,6 +34,41 @@ const cleanTag = (t) => {
 };
 
 /**
+ * Sorts 'articles' so that articles tagged with 'newsletter' are at the top.
+ * @param {Array} articles An array of articles that follow the structure in
+ *   postPropTypes
+ * @return {Array} An array where 'newsletter' articles are at the front of the
+ *   array.
+ */
+const frontpageSort = (articles) => {
+  const [topPosts, bottomPosts] = articles.reduce(([top, bottom], article) => {
+    const tagNames = article.tags.map((t) => t.name);
+    if (_.contains(tagNames, 'newsletter')) {
+      return [top.concat([article]), bottom];
+    }
+    return [top, bottom.concat([article])];
+  }, [[], []]);
+  return topPosts.concat(bottomPosts);
+};
+
+/**
+ * Returns true if the tag name is a tag used internally, or if it has some
+ * useful meaning to the user.
+ * @param {String} tagName A string representing the tag name.
+ * @return {Boolean}
+ */
+const isInternalTag = (tagName) => {
+  const invalidRegexes = [
+    /top/gi,
+    /newsletter/i,
+    /hot/i,
+    /homepage/i,
+    /columnist/i,
+  ];
+  return _.some(invalidRegexes.map((re) => re.test(tagName)));
+};
+
+/**
  * Helper function to clean post objects from the API.
  * @param {Object} a Post object from the API.
  * @return {Object} A nicer, unescaped version of the post.
@@ -65,6 +100,8 @@ const postPropTypes = React.PropTypes.shape({
 });
 
 module.exports = {
+  frontpageSort,
+  isInternalTag,
   rawDataToPost,
   postPropTypes,
 };

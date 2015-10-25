@@ -15,6 +15,10 @@ const tree = new Baobab({
      * List of top level sections.
      */
     topLevelSections: [],
+    /**
+     * List of external Chronicle links.
+     */
+    links: [],
   },
   views: {
     tab: 'frontpage',

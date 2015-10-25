@@ -27,3 +27,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+This project also utilizes the following works:
+- "List" by Anusha Narvekar from the Noun Project under [CC BY
+  3.0](https://creativecommons.org/licenses/by/3.0/)
+- "link" by Nathan Diesel from the Noun Project under [CC BY
+  3.0](https://creativecommons.org/licenses/by/3.0/)
+- "Newspaper" by Zlatko Najdenovski from the Noun Project under [CC BY
+  3.0](https://creativecommons.org/licenses/by/3.0/)
