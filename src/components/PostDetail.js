@@ -14,10 +14,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 15,
-    paddingRight: 15,
+    marginTop:50,
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
@@ -53,7 +50,7 @@ const styles = StyleSheet.create({
  * @type {string}
  */
 const stylesString = "#title { flex: 1; font-weight: 600; font-size: 24px; }" +
-        "#image { flex: 1; width: 300px; margin-top: 15px; margin-bottom: 5px; margin-left: -15px;margin-right: -15px;}" +
+        "#image { flex: 1; width: 375px; margin-top: 15px; margin-bottom: 5px; margin-left: -15px;margin-right: -15px;}" +
         "body{ font-family: 'Helvetica'; font-size: 12px;}" +
         "#caption {color: '#999999'; font-size: 12px; margin-bottom: 25px,}"+
         "#byline {margin-top: 15px; margin-bottom: 14px}";
