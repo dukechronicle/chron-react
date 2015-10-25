@@ -47,6 +47,7 @@ const rawDataToPost = (a) => {
     authors: _.map(_.values(a.getAuthor), (author) => unescape(author)),
     images: _.map(_.values(a.media), cleanMedia),
     tags: _.map(_.values(a.tags), cleanTag),
+    url: unescape(a.getURL),
   };
 };
 
@@ -56,6 +57,7 @@ const rawDataToPost = (a) => {
 const postPropTypes = React.PropTypes.shape({
   title: React.PropTypes.string.isRequired,
   body: React.PropTypes.string.isRequired,
+  url: React.PropTypes.string.isRequired,
   image: React.PropTypes.shape({
     thumbnail_url: React.PropTypes.string,
     caption: React.PropTypes.string,

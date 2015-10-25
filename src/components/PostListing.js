@@ -95,6 +95,7 @@ const PostListing = React.createClass({
   },
 
   rowPressed: function(post) {
+    console.log(post);
     this.props.navigator.push({
       title: post.title,
       component: PostDetail,

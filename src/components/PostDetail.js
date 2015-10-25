@@ -5,10 +5,11 @@ const {
   ScrollView,
   Text,
   View,
+  WebView,
 } = React;
 const HTMLView = require('react-native-htmlview');
+//const ReactDOMServer = require('react-native/node_modules/react-tools');
 const { postPropTypes } = require('../utils/Post');
-
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
@@ -49,6 +50,45 @@ const styles = StyleSheet.create({
   },
 });
 
+const stylesCSS = {
+  scrollView: {
+    flex: 1,
+  },
+  container: {
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  title: {
+    flex: 1,
+    fontWeight: '600',
+    fontSize: 24,
+  },
+  image: {
+    flex: 1,
+    height: 250,
+    marginTop: 15,
+    marginBottom: 5,
+    marginLeft: -15,
+    marginRight: -15,
+  },
+  body: {
+    fontFamily: 'Times',
+  },
+  caption: {
+    color: '#999999',
+    fontSize: 12,
+    marginBottom: 25,
+  },
+  byline: {
+    marginTop: 15,
+    marginBottom: 14,
+  },
+};
 /**
  * PostDetail is a component that renders a post.
  */
@@ -57,43 +97,85 @@ const PostDetail = React.createClass({
     post: postPropTypes.isRequired,
   },
 
-  render: function() {
+  getInitialState: function() {
+    return {
+      masterHTML: ""
+    };
+  },
+
+  componentDidMount: function(){
     const post = this.props.post;
-    let caption;
+    let caption, captionHTML;
     if (post.images.length > 0 && post.images[0].caption !== '') {
       caption = (
-        <Text style={styles.caption}>{post.images[0].caption}</Text>
+          <Text style={styles.caption}>{post.images[0].caption}</Text>
       );
+      captionHTML = "<p id='caption'>" + post.images[0].caption + '</p>';
     }
-    let byline;
+    let byline, bylineHTML;
     if (post.authors) {
       byline = (
-        <Text style={styles.byline}>By {post.authors.join(', ')}</Text>
+          <Text style={styles.byline}>By {post.authors.join(', ')}</Text>
       );
+      bylineHTML = "<p id='byline'>By " + post.authors.join(', ') + '</p>';
     }
-    let image;
+    let image, imageHTML;
     if (post.images.length > 0) {
       image = (
-        <Image
-          style={styles.image}
-          source={{uri: post.images[0].previewUrl}}
-        />
+          <Image
+              style={styles.image}
+              source={{uri: post.images[0].previewUrl}}
+              />
       );
+      imageHTML = "<img id='image' src='" + post.images[0].previewUrl + "'>";
     }
+    var htmlHEAD = '<!DOCTYPE html> <html> ';
+    var htmlEND = '</html>';
+    var masterHTML = htmlHEAD.concat(captionHTML, bylineHTML, imageHTML, post.body, this.embedCommentsHTML(post.url), htmlEND);
+    console.log(masterHTML);
+    this.updateHTML(masterHTML);
+  },
+
+  embedCommentsHTML: function(url){
+    const sHTML = "<div id='disqus_thread'></div><script type ='text/javascript'>"
+    const urlHTML = "var disqus_url ='" + url + "';";
+    const jsHTML = "(function(){ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;" +
+        "dsq.src = 'http://dukechronicle.disqus.com/embed.js';" +
+        "(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq); })(); "
+    const fHTML = "</script>";
+    return sHTML.concat(urlHTML,jsHTML,fHTML);
+  },
+
+  updateHTML: function(html){
+    this.setState({
+      masterHTML: html
+    });
+  },
+
+  renderLoading: function(){
+    console.log("I'm loading");
+  },
+
+  errorLoading: function(){
+    console.log("something is wrong with me");
+  },
+
+  render: function() {
     return (
-      <ScrollView style={styles.scrollView}>
+        //<ScrollView style={styles.scrollView}>
         <View style={styles.container}>
-          <Text style={styles.title}>{post.title}</Text>
-          {image}
-          {caption}
-          {byline}
-          <HTMLView
-            value={post.body}
-            onLinkPress={(url) => console.log(url)}
-            style={styles.body}
-          />
+          <WebView
+              html={this.state.masterHTML}
+              automaticallyAdjustContentInsets={false}
+              javaScriptEnabledAndroid={true}
+              renderLoading={this.renderLoading}
+              renderError={this.errorLoading}
+              startInLoadingState={false}
+              />
+
         </View>
-      </ScrollView>
+        //</ScrollView>
+
     );
   },
 });
