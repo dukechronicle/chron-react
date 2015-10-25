@@ -33,6 +33,7 @@ const innerStyles = "#title { flex: 1; font-weight: 600; font-size: 24px; }" +
 const PostDetail = React.createClass({
   propTypes: {
     post: postPropTypes.isRequired,
+    navigator: postPropTypes.isRequired,
   },
 
   getInitialState: function() {
@@ -77,6 +78,23 @@ const PostDetail = React.createClass({
     });
   },
 
+  redirect: function(navState){
+    if(navState.loading == true){
+      return;
+    }
+    const url = navState.url;
+    const successes = ["disqus.com/next/login-success", "disqus.com/_ax/google/complete", "disqus.com/_ax/twitter/complete", "disqus.com/_ax/facebook/complete"];
+    const match = successes
+        .filter((l) => url.indexOf(l) !== -1 && (url.split('.com'))[0].indexOf('disqus') !== -1);
+    if(match.length !== 0){
+      this.props.navigator.push({
+        title: this.props.title,
+        component: PostDetail,
+        passProps: {post: this.props.post, navigator: this.props.navigator}
+      });
+    }
+  },
+
   render: function() {
     return (
       <View style={styles.container}>
@@ -85,6 +103,7 @@ const PostDetail = React.createClass({
           automaticallyAdjustContentInsets={false}
           javaScriptEnabledAndroid={true}
           startInLoadingState={false}
+          onNavigationStateChange={this.redirect}
         />
       </View>
     );
