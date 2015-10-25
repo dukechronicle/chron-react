@@ -105,7 +105,6 @@ const PostListing = React.createClass({
   },
 
   rowPressed: function(post) {
-    console.log(post);
     this.props.navigator.push({
       title: post.title,
       component: PostDetail,
@@ -126,7 +125,7 @@ const PostListing = React.createClass({
     }
     const tagsString = post.tags
       .map((t) => t.name.toUpperCase())
-      .filter((t) => !isInternalTag(t))
+      //.filter((t) => !isInternalTag(t))
       .join(', ');
     return (
       <TouchableHighlight
