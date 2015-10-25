@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const React = require('react-native');
 const {
   StyleSheet,
@@ -54,6 +55,13 @@ const SectionPostListing = React.createClass({
       name: React.PropTypes.string,
       slug: React.PropTypes.string,
     }),
+    postSort: React.PropTypes.func,
+  },
+
+  getDefaultProps: function() {
+    return {
+      postSort: _.identity,
+    };
   },
 
   getInitialState: function() {
@@ -119,7 +127,7 @@ const SectionPostListing = React.createClass({
     }
     return (
       <PostListing
-        posts={this.state.posts}
+        posts={this.props.postSort(this.state.posts)}
         navigator={this.props.navigator}
         refresh={this.reloadArticles}/>
     );
