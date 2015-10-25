@@ -8,7 +8,6 @@ const {
   WebView,
 } = React;
 const HTMLView = require('react-native-htmlview');
-//const ReactDOMServer = require('react-native/node_modules/react-tools');
 const { postPropTypes } = require('../utils/Post');
 const styles = StyleSheet.create({
   scrollView: {
@@ -49,46 +48,16 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
 });
+/**
+ * TODO: FIX STYLE
+ * @type {string}
+ */
+const stylesString = "#title { flex: 1; font-weight: 600; font-size: 24px; }" +
+        "#image { flex: 1; width: 300px; margin-top: 15px; margin-bottom: 5px; margin-left: -15px;margin-right: -15px;}" +
+        "body{ font-family: 'Helvetica'; font-size: 12px;}" +
+        "#caption {color: '#999999'; font-size: 12px; margin-bottom: 25px,}"+
+        "#byline {margin-top: 15px; margin-bottom: 14px}";
 
-const stylesCSS = {
-  scrollView: {
-    flex: 1,
-  },
-  container: {
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 15,
-    paddingRight: 15,
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  title: {
-    flex: 1,
-    fontWeight: '600',
-    fontSize: 24,
-  },
-  image: {
-    flex: 1,
-    height: 250,
-    marginTop: 15,
-    marginBottom: 5,
-    marginLeft: -15,
-    marginRight: -15,
-  },
-  body: {
-    fontFamily: 'Times',
-  },
-  caption: {
-    color: '#999999',
-    fontSize: 12,
-    marginBottom: 25,
-  },
-  byline: {
-    marginTop: 15,
-    marginBottom: 14,
-  },
-};
 /**
  * PostDetail is a component that renders a post.
  */
@@ -105,34 +74,21 @@ const PostDetail = React.createClass({
 
   componentDidMount: function(){
     const post = this.props.post;
-    let caption, captionHTML;
+    let titleHTML, captionHTML, bylineHTML, imageHTML;
+    titleHTML = "<p id='title'>" + post.title + '</p>';
     if (post.images.length > 0 && post.images[0].caption !== '') {
-      caption = (
-          <Text style={styles.caption}>{post.images[0].caption}</Text>
-      );
-      captionHTML = "<p id='caption'>" + post.images[0].caption + '</p>';
+        captionHTML = "<p id='caption'>" + post.images[0].caption + '</p>';
     }
-    let byline, bylineHTML;
     if (post.authors) {
-      byline = (
-          <Text style={styles.byline}>By {post.authors.join(', ')}</Text>
-      );
-      bylineHTML = "<p id='byline'>By " + post.authors.join(', ') + '</p>';
+          bylineHTML = "<p id='byline'>By " + post.authors.join(', ') + '</p>';
     }
-    let image, imageHTML;
     if (post.images.length > 0) {
-      image = (
-          <Image
-              style={styles.image}
-              source={{uri: post.images[0].previewUrl}}
-              />
-      );
-      imageHTML = "<img id='image' src='" + post.images[0].previewUrl + "'>";
+      imageHTML = "<img id='image' src='" + post.images[0].previewUrl + "'>"
     }
-    var htmlHEAD = '<!DOCTYPE html> <html> ';
-    var htmlEND = '</html>';
-    var masterHTML = htmlHEAD.concat(captionHTML, bylineHTML, imageHTML, post.body, this.embedCommentsHTML(post.url), htmlEND);
-    console.log(masterHTML);
+    var headHTML = '<!DOCTYPE html> <html> ';
+    var styleHTML = "<head> <style>" + stylesString + "</style> </head>";
+    var endHTML = '</html>';
+    var masterHTML = headHTML.concat(styleHTML, titleHTML,captionHTML, bylineHTML, imageHTML, post.body, this.embedCommentsHTML(post.url), endHTML);
     this.updateHTML(masterHTML);
   },
 
@@ -152,30 +108,16 @@ const PostDetail = React.createClass({
     });
   },
 
-  renderLoading: function(){
-    console.log("I'm loading");
-  },
-
-  errorLoading: function(){
-    console.log("something is wrong with me");
-  },
-
   render: function() {
     return (
-        //<ScrollView style={styles.scrollView}>
         <View style={styles.container}>
           <WebView
               html={this.state.masterHTML}
               automaticallyAdjustContentInsets={false}
               javaScriptEnabledAndroid={true}
-              renderLoading={this.renderLoading}
-              renderError={this.errorLoading}
               startInLoadingState={false}
               />
-
         </View>
-        //</ScrollView>
-
     );
   },
 });
