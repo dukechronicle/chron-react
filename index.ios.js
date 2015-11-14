@@ -1,18 +1,23 @@
 const React = require('react-native');
 const {
   AppRegistry,
+  LinkingIOS,
   Navigator,
   StyleSheet,
   StatusBarIOS,
   TabBarIOS,
 } = React;
 
+const _ = require('underscore');
+
 const Frontpage = require('./src/Frontpage');
 const LinksListing = require('./src/LinksListing');
 const PostDetail = require('./src/components/PostDetail');
+const PostDetailLoader = require('./src/PostDetailLoader');
 const Sections = require('./src/Sections');
 
 const NavigationActionCreators = require('./src/actions/NavigationActionCreators');
+const PostActionCreators = require('./src/actions/PostActionCreators');
 
 const { NavigationBarRouteMapper } = require('./src/NavigationBarRouteMapper.ios');
 
@@ -60,6 +65,18 @@ const chronreact = React.createClass({
   componentDidMount() {
     tabCursor.on('change', this.updateTab);
     StatusBarIOS.setStyle('light-content');
+
+    const url = LinkingIOS.popInitialURL();
+    if (!_.isNull(url)) {
+      const slug = url.replace(/dukechronicle:\/\//, '');
+      PostActionCreators.getPost(slug);
+      this.refs.frontpageNav.push({
+        type: 'PostDetailLoader',
+        passProps: {
+          slug: slug,
+        },
+      });
+    }
   },
 
   componentWillUnmount() {
@@ -88,6 +105,10 @@ const chronreact = React.createClass({
     case 'PostDetail':
       return (
         <PostDetail style={styles.innerComponent} {...route.passProps} />
+      );
+    case 'PostDetailLoader':
+      return (
+        <PostDetailLoader style={styles.innerComponent} {...route.passProps} />
       );
     case 'Frontpage':
       return (
@@ -123,6 +144,7 @@ const chronreact = React.createClass({
             icon={{uri: 'newspaper'}}
             onPress={this.switchTabHandler('frontpage')} >
           <Navigator
+            ref="frontpageNav"
             style={styles.container}
             barTintColor="#083e8c"
             tintColor="#eee"
@@ -166,8 +188,7 @@ const chronreact = React.createClass({
             initialRoute={{
               title: 'Links',
               type: 'LinksListing',
-            }}
-          />
+            }} />
         </TabBarIOS.Item>
       </TabBarIOS>
     );
