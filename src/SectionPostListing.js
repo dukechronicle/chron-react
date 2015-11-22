@@ -14,6 +14,7 @@ const PostListing = require('./components/PostListing');
 const store = require('./store');
 const postsCursor = store.select('models', 'posts');
 const sectionIdsCursor = store.select('models', 'sectionIds');
+const pagesCursor = store.select('models', 'pages');
 
 const PostActionCreators = require('./actions/PostActionCreators');
 
@@ -81,6 +82,7 @@ const SectionPostListing = React.createClass({
 
     postsCursor.on('update', this.updateState);
     sectionIdsCursor.on('update', this.updateState);
+
   },
 
   componentWillUnmount: function() {
@@ -102,8 +104,15 @@ const SectionPostListing = React.createClass({
     }
   },
 
+  loadNextPage: function(){
+    console.log("Loading Next Page");
+    const pageNumber = pagesCursor.get(this.props.section.slug);
+    pagesCursor.set(this.props.section.slug, pageNumber+1)
+    return PostActionCreators.getSection(this.props.section.slug, pageNumber+1);
+  },
+
   reloadArticles: function() {
-    return PostActionCreators.getSection(this.props.section.slug);
+    return PostActionCreators.getSection(this.props.section.slug, 1);
   },
 
   renderLoadingView: function() {
@@ -129,7 +138,8 @@ const SectionPostListing = React.createClass({
       <PostListing
         posts={this.props.postSort(this.state.posts)}
         navigator={this.props.navigator}
-        refresh={this.reloadArticles}/>
+        refresh={this.reloadArticles}
+        onLoadMoreAsync = {this.loadNextPage}/>
     );
   },
 });
