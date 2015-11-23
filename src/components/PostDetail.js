@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const React = require('react-native');
 const {
   Image,
@@ -16,16 +17,36 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+const WEBVIEW_REF = 'webview';
 
-/**
- * TODO: FIX STYLE
- * @type {string}
- */
-const innerStyles = "#title { flex: 1; font-weight: 600; font-size: 24px; }" +
-  "#image { flex: 1; width: 375px; margin-top: 15px; margin-bottom: 5px; margin-left: -15px;margin-right: -15px;}" +
-  "body{ font-family: 'Helvetica'; font-size: 12px;}" +
-  "#caption {color: '#999999'; font-size: 12px; font-style: italic; margin-bottom: 25px,}"+
-  "#byline {margin-top: 15px; margin-bottom: 14px}";
+const innerStyles = `
+  #title {
+    flex: 1;
+    font-weight: 600;
+    font-size: 24px;
+  }
+  #image {
+    flex: 1;
+    width: 375px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  body {
+    font-family: 'Helvetica';
+    font-size: 12px;
+  }
+  #caption {
+    color: '#999999';
+    font-size: 12px;
+    font-style: italic;
+    margin-bottom: 25px;
+  }
+  #byline {
+    margin-top: 15px;
+    margin-bottom: 14px
+  };`;
 
 /**
  * PostDetail is a component that renders a post.
@@ -36,46 +57,44 @@ const PostDetail = React.createClass({
     navigator: postPropTypes.isRequired,
   },
 
-  getInitialState: function() {
-    return {
-      masterHTML: ""
-    };
-  },
-
-  componentDidMount: function(){
+  getHTML: function(){
     const post = this.props.post;
-    let titleHTML, captionHTML, bylineHTML, imageHTML, masterHTML;
-    titleHTML = "<p id='title'>" + post.title + '</p>';
-    if (post.images.length > 0 && post.images[0].caption !== '') {
-        captionHTML = "<p id='caption'>" + post.images[0].caption + '</p>';
-    }
-    if (post.authors) {
-          bylineHTML = "<p id='byline'>By " + post.authors.join(', ') + '</p>';
-    }
-    if (post.images.length > 0) {
-      imageHTML = "<img id='image' src='" + post.images[0].previewUrl + "'>"
-    }
+
     const headHTML = '<!DOCTYPE html><html>';
-    const styleHTML = "<head> <style>" + innerStyles + "</style> </head>";
+    const styleHTML = `<head> <style> ${innerStyles} </style> </head>`;
+    const titleHTML = `<p id='title'> ${post.title} </p>`;
+    const captionHTML = (post.images.length > 0 && post.images[0].caption !== '') ? `<p id='caption'> ${post.images[0].caption} </p>` : '';
+    const bylineHTML = (post.authors) ? `<p id='byline'>By ${post.authors.join(', ')} </p>` : '';
+    const imageHTML = (post.images.length > 0) ? `<img id='image' src=' ${post.images[0].previewUrl} '>` : '';
+    const contentHTML = post.body;
+    const embedHTML = this.getEmbedHTML(post.url);
     const endHTML = '</html>';
-    masterHTML = headHTML.concat(styleHTML, titleHTML,bylineHTML, imageHTML, captionHTML, post.body, this.embedCommentsHTML(post.url), endHTML);
-    this.updateHTML(masterHTML);
+
+    return [
+      headHTML,
+      styleHTML,
+      titleHTML,
+      captionHTML,
+      bylineHTML,
+      imageHTML,
+      contentHTML,
+      embedHTML,
+      endHTML
+    ].join('');
   },
 
-  embedCommentsHTML: function(url){
-    const sHTML = "<div id='disqus_thread'></div><script type ='text/javascript'>";
-    const urlHTML = "var disqus_url ='" + url + "';";
-    const jsHTML = "(function(){ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;" +
-        "dsq.src = 'http://dukechronicle.disqus.com/embed.js';" +
-        "(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq); })(); "
-    const fHTML = "</script>";
-    return sHTML.concat(urlHTML,jsHTML, fHTML);
-  },
-
-  updateHTML: function(html){
-    this.setState({
-      masterHTML: html
-    });
+  getEmbedHTML: function(url){
+    const sHTML = `<div id='disqus_thread'></div><script type ='text/javascript'>`;
+    const urlHTML = `var disqus_url ='${url}';`;
+    const jsHTML = `
+        (function(){ var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = 'http://dukechronicle.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq); })();
+        `;
+    const fHTML = `</script>`;
+    return `${sHTML} ${urlHTML} ${jsHTML} ${fHTML}`;
   },
 
   redirect: function(navState){
@@ -83,10 +102,13 @@ const PostDetail = React.createClass({
       return;
     }
     const url = navState.url;
-    const successes = ["disqus.com/next/login-success", "disqus.com/_ax/google/complete", "disqus.com/_ax/twitter/complete", "disqus.com/_ax/facebook/complete"];
-    const match = successes
-        .filter((l) => url.indexOf(l) !== -1 && (url.split('.com'))[0].indexOf('disqus') !== -1);
-    if(match.length !== 0){
+    const successes = [
+      "disqus.com/next/login-success",
+      "disqus.com/_ax/google/complete",
+      "disqus.com/_ax/twitter/complete",
+      "disqus.com/_ax/facebook/complete"
+    ];
+    if((url.split('.com'))[0].contains('disqus') && _.some(successes, (success) => {return url.contains(success)})){
       this.props.navigator.push({
         title: this.props.title,
         component: PostDetail,
@@ -99,7 +121,8 @@ const PostDetail = React.createClass({
     return (
       <View style={styles.container}>
         <WebView
-          html={this.state.masterHTML}
+          ref={WEBVIEW_REF}
+          html={this.getHTML()}
           automaticallyAdjustContentInsets={false}
           javaScriptEnabledAndroid={true}
           startInLoadingState={false}
