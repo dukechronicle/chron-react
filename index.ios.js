@@ -3,12 +3,14 @@ const {
   AppRegistry,
   LinkingIOS,
   Navigator,
+  PushNotificationIOS,
   StyleSheet,
   StatusBarIOS,
   TabBarIOS,
 } = React;
 
 const _ = require('underscore');
+const URL = require('url-parse');
 
 const Frontpage = require('./src/Frontpage');
 const LinksListing = require('./src/LinksListing');
@@ -19,6 +21,8 @@ const NavigationActionCreators = require('./src/actions/NavigationActionCreators
 const PostActionCreators = require('./src/actions/PostActionCreators');
 
 const { NavigationBarRouteMapper } = require('./src/NavigationBarRouteMapper.ios');
+
+const { registerPushIOS } = require('./src/PushNotification');
 
 const store = require('./src/store');
 const tabCursor = store.select('views', 'tab');
@@ -68,19 +72,33 @@ const chronreact = React.createClass({
     const url = LinkingIOS.popInitialURL();
     if (!_.isNull(url)) {
       const slug = url.replace(/dukechronicle:\/\//, '');
-      PostActionCreators.getPost(slug);
-      this.refs.frontpageNav.push({
-        title: '',
-        component: PostDetailLoader,
-        passProps: {
-          slug: slug,
-        },
-      });
+      this.openPost(slug);
     }
+
+    PushNotificationIOS.requestPermissions();
+    PushNotificationIOS.addEventListener('register', function(token) {
+      registerPushIOS(token);
+    });
+
+    PushNotificationIOS.addEventListener('notification', this.onNotification);
   },
 
   componentWillUnmount() {
     tabCursor.off('change', this.updateTab);
+  },
+
+  /*
+   * Expects notification object to have a '_data' key that maps to an object,
+   * which should have 'postUrl' as a key, which should map to a full url.
+   */
+  onNotification(notification) {
+    const url = notification._data.postUrl;
+    if (!_.isUndefined(url)) {
+      const slug = (new URL(url))
+        .pathname
+        .replace(/\/article\//, '');
+      this.openPost(slug);
+    }
   },
 
   updateTab() {
@@ -98,6 +116,17 @@ const chronreact = React.createClass({
       NavigationActionCreators.selectSection(name);
       this.setState({selectedTab: name});
     };
+  },
+
+  openPost(slug) {
+    PostActionCreators.getPost(slug);
+    this.refs.frontpageNav.push({
+      title: '',
+      component: PostDetailLoader,
+      passProps: {
+        slug,
+      },
+    });
   },
 
   renderScene: function(route, navigator) {
