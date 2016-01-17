@@ -156,6 +156,7 @@ const PostListing = React.createClass({
           renderRow={this.renderPost}
           loadData={this.props.refresh}
           automaticallyAdjustContentInsets={false}
+          distanceToLoadMore = {200}
           refreshDescription="Refreshing articles"
           style={styles.listView}
           onLoadMoreAsync = {this.props.onLoadMoreAsync}

@@ -112,7 +112,7 @@ const SectionPostListing = React.createClass({
   },
 
   reloadArticles: function() {
-    return PostActionCreators.getSection(this.props.section.slug, 1);
+    return PostActionCreators.getSection(this.props.section.slug, 0);
   },
 
   renderLoadingView: function() {

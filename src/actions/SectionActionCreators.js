@@ -14,7 +14,7 @@ const SectionActionCreators = {
       ['blue-zone', 'Blue Zone'],
     ].map(([slug, name]) => { return {slug, name}; });
     sectionsCursor.set(sections);
-    const pageNumber = sections.map(({slug, name}) => { return [slug, 1]; });
+    const pageNumber = sections.map(({slug, name}) => { return [slug, 0]; });
     pagesCursor.set(_.object(pageNumber));
   },
 };
