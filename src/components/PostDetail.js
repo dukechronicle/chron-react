@@ -54,17 +54,6 @@ const PostDetail = React.createClass({
     navigator: postPropTypes.isRequired,
   },
 
-  getInitialState: function() {
-    return {
-      url: 'about:blank',
-      status: 'No Page Loaded',
-      backButtonEnabled: false,
-      forwardButtonEnabled: false,
-      loading: true,
-      scalesPageToFit: true,
-    };
-  },
-
   getHTML: function() {
     const post = this.props.post;
 
