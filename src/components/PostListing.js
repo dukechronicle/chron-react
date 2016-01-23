@@ -1,18 +1,17 @@
+const _ = require('underscore');
 const React = require('react-native');
 const {
   StyleSheet,
-  TouchableHighlight,
-  Image,
   ListView,
-  Text,
   View,
 } = React;
 
 const PostDetail = require('./PostDetail');
 const {
-  isInternalTag,
   postPropTypes,
 } = require('../utils/Post');
+import { PostListRow } from './PostListRow';
+import { AdListItem } from './AdListItem';
 const RefreshableListView = require('react-native-refreshable-listview');
 
 const styles = StyleSheet.create({
@@ -76,10 +75,26 @@ const styles = StyleSheet.create({
  * to SectionPostListing that handles most of the display logic.
  */
 const PostListing = React.createClass({
+  /**
+   * 'refresh' is a function that is called when the list view is
+   * pull-to-refreshed by the user. It should return a promise that is
+   * fulfilled when the refreshing is complete.
+   *
+   * 'postsTransform' is a function that takes in a list of posts and returns a
+   * transformed (e.g. sorted, filtered) list of posts. By default,
+   * postsTransform is the identity function.
+   */
   propTypes: {
     posts: React.PropTypes.arrayOf(postPropTypes).isRequired,
     navigator: React.PropTypes.object.isRequired,
     refresh: React.PropTypes.func.isRequired,
+    postsTransform: React.PropTypes.func,
+  },
+
+  getDefaultProps: function() {
+    return {
+      postsTransform: _.identity,
+    };
   },
 
   getInitialState: function() {
@@ -100,7 +115,8 @@ const PostListing = React.createClass({
 
   updateDataSource: function(posts) {
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(posts),
+      dataSource: this.state.dataSource.cloneWithRows(
+        this.props.postsTransform(posts)),
     });
   },
 
@@ -113,36 +129,16 @@ const PostListing = React.createClass({
     });
   },
 
-  renderPost: function(post) {
-    let image;
-    if (post.images.length > 0) {
-      image = (
-          <Image
-            source={{uri: post.images[0].thumbnailUrl}}
-            resizeMode={Image.resizeMode.contain}
-            style={styles.thumbnail}
-          />
+  renderRow: function(data) {
+    if (data.ad) {
+      return <AdListItem />;
+    } else {
+      return (
+        <PostListRow
+          post={data}
+          rowPressed={this.rowPressed} />
       );
     }
-    const tagsString = post.tags
-      .map((t) => t.name.toUpperCase())
-      .filter((t) => !isInternalTag(t))
-      .join(', ');
-    return (
-      <TouchableHighlight
-           onPress={() => this.rowPressed(post)}
-           style={styles.highlight}
-          underlayColor="#eeeeee">
-        <View style={styles.postRowContainer}>
-          {image}
-          <View style={styles.articleContainer}>
-            <Text numberOfLines={1} style={styles.tags}>{tagsString}</Text>
-            <Text style={styles.title}>{post.title}</Text>
-            <Text numberOfLines={3} style={styles.teaser}>{post.teaser}</Text>
-          </View>
-        </View>
-      </TouchableHighlight>
-    );
   },
 
   render: function() {
@@ -150,7 +146,7 @@ const PostListing = React.createClass({
       <View style={styles.outerListView}>
         <RefreshableListView
           dataSource={this.state.dataSource}
-          renderRow={this.renderPost}
+          renderRow={this.renderRow}
           loadData={this.props.refresh}
           automaticallyAdjustContentInsets={false}
           refreshDescription="Refreshing articles"
