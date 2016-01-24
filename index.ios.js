@@ -12,7 +12,6 @@ const _ = require('underscore');
 
 const Frontpage = require('./src/Frontpage');
 const LinksListing = require('./src/LinksListing');
-const PostDetail = require('./src/components/PostDetail');
 const PostDetailLoader = require('./src/PostDetailLoader');
 const Sections = require('./src/Sections');
 
@@ -71,7 +70,8 @@ const chronreact = React.createClass({
       const slug = url.replace(/dukechronicle:\/\//, '');
       PostActionCreators.getPost(slug);
       this.refs.frontpageNav.push({
-        type: 'PostDetailLoader',
+        title: '',
+        component: PostDetailLoader,
         passProps: {
           slug: slug,
         },
@@ -101,41 +101,23 @@ const chronreact = React.createClass({
   },
 
   renderScene: function(route, navigator) {
-    switch (route.type) {
-    case 'PostDetail':
-      return (
-        <PostDetail style={styles.innerComponent} {...route.passProps} />
-      );
-    case 'PostDetailLoader':
-      return (
-        <PostDetailLoader style={styles.innerComponent} {...route.passProps} />
-      );
-    case 'Frontpage':
-      return (
-        <Frontpage style={styles.innerComponent} navigator={navigator} />
-      );
-    case 'Sections':
-      return (
-        <Sections navigator={navigator} />
-      );
-    case 'LinksListing':
-      return (
-        <LinksListing navigator={navigator} />
-      );
-    default:
-      return (
-        <Frontpage style={styles.innerComponent} navigator={navigator} />
-      );
-    }
+    return (
+      <route.component
+        navigator={navigator}
+        {...route.passProps} />
+    );
   },
 
-  render: function() {
-    const navigationBar = (
+  renderNavigationBar: function() {
+    return (
       <Navigator.NavigationBar
         routeMapper={NavigationBarRouteMapper}
         style={styles.navBar}
       />
     );
+  },
+
+  render: function() {
     return (
       <TabBarIOS>
         <TabBarIOS.Item
@@ -151,9 +133,9 @@ const chronreact = React.createClass({
             titleTextColor="#eee"
             initialRoute={{
               title: 'Frontpage',
-              type: 'Frontpage',
+              component: Frontpage,
             }}
-            navigationBar={navigationBar}
+            navigationBar={this.renderNavigationBar()}
             renderScene={this.renderScene} />
         </TabBarIOS.Item>
         <TabBarIOS.Item
@@ -166,11 +148,11 @@ const chronreact = React.createClass({
             barTintColor="#083e8c"
             tintColor="#eee"
             titleTextColor="#eee"
-            navigationBar={navigationBar}
+            navigationBar={this.renderNavigationBar()}
             renderScene={this.renderScene}
             initialRoute={{
               title: 'Sections',
-              type: 'Sections',
+              component: Sections,
             }} />
         </TabBarIOS.Item>
         <TabBarIOS.Item
@@ -183,11 +165,11 @@ const chronreact = React.createClass({
             barTintColor="#083e8c"
             tintColor="#eee"
             titleTextColor="#eee"
-            navigationBar={navigationBar}
+            navigationBar={this.renderNavigationBar()}
             renderScene={this.renderScene}
             initialRoute={{
               title: 'Links',
-              type: 'LinksListing',
+              component: LinksListing,
             }} />
         </TabBarIOS.Item>
       </TabBarIOS>
