@@ -82,7 +82,7 @@ const PostListing = React.createClass({
     posts: React.PropTypes.arrayOf(postPropTypes).isRequired,
     navigator: React.PropTypes.object.isRequired,
     refresh: React.PropTypes.func.isRequired,
-    onLoadMoreAsync : React.PropTypes.func.isRequired,
+    onLoadMoreAsync: React.PropTypes.func.isRequired,
   },
 
   getInitialState: function() {
@@ -156,11 +156,11 @@ const PostListing = React.createClass({
           renderRow={this.renderPost}
           loadData={this.props.refresh}
           automaticallyAdjustContentInsets={false}
-          distanceToLoadMore = {200}
+          distanceToLoadMore={200}
           refreshDescription="Refreshing articles"
           style={styles.listView}
-          onLoadMoreAsync = {this.props.onLoadMoreAsync}
-          canLoadMore={true}
+          onLoadMoreAsync={this.props.onLoadMoreAsync}
+          canLoadMore
         />
       </View>
     );

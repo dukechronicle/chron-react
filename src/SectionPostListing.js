@@ -82,7 +82,6 @@ const SectionPostListing = React.createClass({
 
     postsCursor.on('update', this.updateState);
     sectionIdsCursor.on('update', this.updateState);
-
   },
 
   componentWillUnmount: function() {
@@ -104,11 +103,10 @@ const SectionPostListing = React.createClass({
     }
   },
 
-  loadNextPage: function(){
-    console.log("Loading Next Page");
+  loadNextPage: function() {
     const pageNumber = pagesCursor.get(this.props.section.slug);
-    pagesCursor.set(this.props.section.slug, pageNumber+1)
-    return PostActionCreators.getSection(this.props.section.slug, pageNumber+1);
+    pagesCursor.set(this.props.section.slug, pageNumber + 1);
+    return PostActionCreators.getSection(this.props.section.slug, pageNumber + 1);
   },
 
   reloadArticles: function() {

@@ -63,10 +63,6 @@ const Sections = React.createClass({
     };
   },
 
-  getPages : function(){
-    return pagesCursor.get()
-  },
-
   componentDidMount: function() {
     if (sectionsCursor.get().length === 0) {
       SectionActionCreators.getSections();
@@ -78,6 +74,10 @@ const Sections = React.createClass({
 
   componentWillUnmount: function() {
     sectionsCursor.off('update', this.updateState);
+  },
+
+  getPages: function() {
+    return pagesCursor.get();
   },
 
   updateState: function() {
