@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-const WEBVIEW_REF = 'webview';
 
 const innerStyles = `
   #title {
@@ -114,12 +113,10 @@ const PostDetail = React.createClass({
     return (
       <View style={styles.container}>
         <WebView
-            ref={WEBVIEW_REF}
             html={this.getHTML()}
             automaticallyAdjustContentInsets={false}
             javaScriptEnabledAndroid={true}
             startInLoadingState={false}
-            onLoadEnd={this.onLoadEnd}
             onNavigationStateChange={this.redirect}
             />
       </View>
