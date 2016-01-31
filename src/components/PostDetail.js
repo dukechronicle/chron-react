@@ -12,6 +12,8 @@ const { postPropTypes } = require('../utils/Post');
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
+    backgroundColor: 'white',
+    marginTop: 45,
   },
   container: {
     paddingTop: 15,

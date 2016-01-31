@@ -4,7 +4,7 @@ const postsCursor = store.select('models', 'posts');
 const sectionIdsCursor = store.select('models', 'sectionIds');
 const { rawDataToPost } = require('../utils/Post');
 /**
- * urlBuilder builds the url used to query for a section's articles.
+ * sectionUrlBuilder builds the url used to query for a section's articles.
  * @param {String} sectionSlug Section slug. Should mirror the slug used on the
  *     website.
  * @return {String} Url of the section API endpoint.
@@ -16,6 +16,13 @@ const urlBuilder = (sectionName, pageNumber) => {
     return 'http://www.dukechronicle.com/.json';
   }
 };
+
+const postUrlBuilder = (slug) => {
+  // strips leading and trailing slashes
+  const stripped = slug.replace(/^\/|\/$/g, '');
+  return `http://www.dukechronicle.com/article/${stripped}.json`;
+};
+
 /**
  * getSection issues an API request to retrieve the articles for a section. On a
  * successful request, it will populate postsCursor with the new article bodies
@@ -25,6 +32,7 @@ const urlBuilder = (sectionName, pageNumber) => {
  * @param {String} section Section slug. Should mirror the slug used on the
  *     website.
  */
+
 const getSection = (section, number) => {
   const p = fetch(urlBuilder(section, number))
     .then((response) => response.json())
@@ -47,10 +55,25 @@ const getSection = (section, number) => {
   p.done();
   return p;
 };
+
+const getPost = (slug) => {
+  const p = fetch(postUrlBuilder(slug))
+    .then((response) => response.json())
+    .then((responseData) => {
+      const article = rawDataToPost(responseData[0].article);
+      postsCursor.merge({[slug]: article});
+    })
+    .catch((error) => {
+      console.warn(error);
+      // TODO: change some view state
+    });
+  p.done();
+  return p;
+};
+
 const PostActionCreators = {
-  getFrontpage: () => {
-    return getSection('frontpage', 1);
-  },
+  getFrontpage: getSection.bind(null, 'frontpage'),
   getSection: getSection,
+  getPost: getPost,
 };
 module.exports = PostActionCreators;

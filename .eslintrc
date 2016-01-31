@@ -15,6 +15,7 @@
             2,
             "single"
         ],
+        "react/jsx-boolean-value": 0,
         "semi": [
             2,
             "always"
