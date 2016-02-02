@@ -5,17 +5,23 @@ const sectionIdsCursor = store.select('models', 'sectionIds');
 const { rawDataToPost } = require('../utils/Post');
 
 /**
- * urlBuilder builds the url used to query for a section's articles.
+ * sectionUrlBuilder builds the url used to query for a section's articles.
  * @param {String} sectionSlug Section slug. Should mirror the slug used on the
  *     website.
  * @return {String} Url of the section API endpoint.
  */
-const urlBuilder = (sectionName) => {
+const sectionUrlBuilder = (sectionName) => {
   if (sectionName !== 'frontpage') {
     return `http://www.dukechronicle.com/section/${sectionName}.json`;
   } else {
     return 'http://www.dukechronicle.com/.json';
   }
+};
+
+const postUrlBuilder = (slug) => {
+  // strips leading and trailing slashes
+  const stripped = slug.replace(/^\/|\/$/g, '');
+  return `http://www.dukechronicle.com/article/${stripped}.json`;
 };
 
 /**
@@ -28,7 +34,7 @@ const urlBuilder = (sectionName) => {
  *     website.
  */
 const getSection = (section) => {
-  const p = fetch(urlBuilder(section))
+  const p = fetch(sectionUrlBuilder(section))
     .then((response) => response.json())
     .then((responseData) => {
       const articles = responseData[0].articles;
@@ -45,13 +51,25 @@ const getSection = (section) => {
   return p;
 };
 
+const getPost = (slug) => {
+  const p = fetch(postUrlBuilder(slug))
+    .then((response) => response.json())
+    .then((responseData) => {
+      const article = rawDataToPost(responseData[0].article);
+      postsCursor.merge({[slug]: article});
+    })
+    .catch((error) => {
+      console.warn(error);
+      // TODO: change some view state
+    });
+  p.done();
+  return p;
+};
+
 const PostActionCreators = {
-  getFrontpage: () => {
-    return getSection('frontpage');
-  },
-  getSection: (section) => {
-    return getSection(section);
-  },
+  getFrontpage: getSection.bind(null, 'frontpage'),
+  getSection: getSection,
+  getPost: getPost,
 };
 
 module.exports = PostActionCreators;

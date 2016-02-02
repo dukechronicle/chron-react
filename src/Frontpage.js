@@ -1,7 +1,9 @@
+const _ = require('underscore');
 const React = require('react-native');
 const SectionPostListing = require('./SectionPostListing');
 
 const { frontpageSort } = require('./utils/Post');
+import { intersperseAds } from './utils/Ad';
 
 /**
  * Frontpage is a controller-view that renders a list of posts representing a
@@ -17,10 +19,11 @@ const Frontpage = React.createClass({
       name: 'Frontpage',
       slug: 'frontpage',
     };
+    const transform = _.compose(intersperseAds, frontpageSort);
     return (
       <SectionPostListing
         section={section}
-        postSort={frontpageSort}
+        postsTransform={transform}
         navigator={this.props.navigator} />
     );
   },

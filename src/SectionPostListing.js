@@ -55,12 +55,12 @@ const SectionPostListing = React.createClass({
       name: React.PropTypes.string,
       slug: React.PropTypes.string,
     }),
-    postSort: React.PropTypes.func,
+    postsTransform: React.PropTypes.func,
   },
 
   getDefaultProps: function() {
     return {
-      postSort: _.identity,
+      postsTransform: _.identity,
     };
   },
 
@@ -127,9 +127,10 @@ const SectionPostListing = React.createClass({
     }
     return (
       <PostListing
-        posts={this.props.postSort(this.state.posts)}
+        posts={this.state.posts}
+        postsTransform={this.props.postsTransform}
         navigator={this.props.navigator}
-        refresh={this.reloadArticles}/>
+        refresh={this.reloadArticles} />
     );
   },
 });

@@ -57,8 +57,8 @@ const PostDetail = React.createClass({
     const post = this.props.post;
 
     const caption = (post.images.length > 0 && post.images[0].caption !== '') ? post.images[0].caption : '';
-    const author = (post.authors) ? `<p id='byline'>By ${post.authors.join(', ')} </p>` : '';
-    const image = (post.images.length > 0) ? `<img id='image' src=' ${post.images[0].previewUrl} '>` : '';
+    const author = (post.authors.length > 0) ? `<p id='byline'>By ${post.authors.join(', ')} </p>` : '';
+    const image = (post.images.length > 0) ? `<img id='image' src='${post.images[0].previewUrl}'>` : '';
     const disqusHTML = `
       <!DOCTYPE html>
       <div id='disqus_thread'></div>
@@ -89,6 +89,8 @@ const PostDetail = React.createClass({
   },
 
   redirect: function(navState) {
+
+    console.log(navState);
     if (navState.loading === true) {
       return;
     }
@@ -102,7 +104,8 @@ const PostDetail = React.createClass({
 
     if ((url.split('.com'))[0].contains('disqus') && _.some(successes, (success) => {return url.contains(success); })) {
       this.props.navigator.push({
-        title: this.props.title,
+        title: '',
+        type: 'PostDetail',
         component: PostDetail,
         passProps: {post: this.props.post, navigator: this.props.navigator},
       });
