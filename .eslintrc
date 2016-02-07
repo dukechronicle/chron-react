@@ -16,6 +16,7 @@
             "single"
         ],
         "react/jsx-boolean-value": 0,
+        "react/no-multi-comp": 0,
         "semi": [
             2,
             "always"

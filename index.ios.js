@@ -150,7 +150,7 @@ const chronreact = React.createClass({
     return (
       <TabBarIOS>
         <TabBarIOS.Item
-            title="Frontpage"
+            title="Main"
             selected={this.tabIsSelected('frontpage')}
             icon={{uri: 'newspaper'}}
             onPress={this.switchTabHandler('frontpage')} >
@@ -161,8 +161,12 @@ const chronreact = React.createClass({
             tintColor="#eee"
             titleTextColor="#eee"
             initialRoute={{
-              title: 'Frontpage',
+              title: 'The Chronicle',
               component: Frontpage,
+              titleStyleOverride: {
+                fontFamily: 'Didot',
+                fontSize: 20,
+              },
             }}
             navigationBar={this.renderNavigationBar()}
             renderScene={this.renderScene} />
