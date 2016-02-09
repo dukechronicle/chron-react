@@ -50,7 +50,7 @@ const innerStyles = `
 const PostDetail = React.createClass({
   propTypes: {
     post: postPropTypes.isRequired,
-    navigator: postPropTypes.isRequired,
+    navigator: React.PropTypes.object.isRequired,
   },
 
   getHTML: function() {
