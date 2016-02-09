@@ -1,55 +1,48 @@
+const _ = require('underscore');
 const React = require('react-native');
 const {
-  Image,
   StyleSheet,
-  ScrollView,
-  Text,
   View,
+  WebView,
 } = React;
-const HTMLView = require('react-native-htmlview');
 const { postPropTypes } = require('../utils/Post');
-
 const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-    backgroundColor: 'white',
-    marginTop: 45,
-  },
   container: {
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 15,
-    paddingRight: 15,
+    marginTop: 50,
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
   },
-  title: {
-    flex: 1,
-    fontWeight: '600',
-    fontSize: 24,
-  },
-  image: {
-    flex: 1,
-    height: 250,
-    marginTop: 15,
-    marginBottom: 5,
-    marginLeft: -15,
-    marginRight: -15,
-  },
-  body: {
-    fontFamily: 'Times',
-  },
-  caption: {
-    color: '#999999',
-    fontSize: 12,
-    marginBottom: 25,
-  },
-  byline: {
-    marginTop: 15,
-    marginBottom: 14,
-  },
 });
+
+const innerStyles = `
+  #title {
+    flex: 1;
+    font-weight: 600;
+    font-size: 24px;
+  }
+  #image {
+    flex: 1;
+    width: 375px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  body {
+    font-family: 'Helvetica';
+    font-size: 12px;
+  }
+  #caption {
+    color: '#999999';
+    font-size: 12px;
+    font-style: italic;
+    margin-bottom: 25px;
+  }
+  #byline {
+    margin-top: 15px;
+    margin-bottom: 14px
+  };`;
 
 /**
  * PostDetail is a component that renders a post.
@@ -57,45 +50,77 @@ const styles = StyleSheet.create({
 const PostDetail = React.createClass({
   propTypes: {
     post: postPropTypes.isRequired,
+    navigator: postPropTypes.isRequired,
+  },
+
+  getHTML: function() {
+    const post = this.props.post;
+
+    const caption = (post.images.length > 0 && post.images[0].caption !== '') ? post.images[0].caption : '';
+    const author = (post.authors.length > 0) ? `<p id='byline'>By ${post.authors.join(', ')} </p>` : '';
+    const image = (post.images.length > 0) ? `<img id='image' src='${post.images[0].previewUrl}'>` : '';
+    const disqusHTML = `
+      <!DOCTYPE html>
+      <div id='disqus_thread'></div>
+      <script type='text/javascript'>
+        var disqus_url = '${post.url}';
+        (function(){ var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = 'http://dukechronicle.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq); })();
+      </script>
+    `;
+
+    return `
+      <!DOCTYPE html>
+      <html>
+      <head>
+      <style> ${innerStyles} </style>
+          <p id='title'> ${post.title} </p>
+          <p id='caption'> ${caption} </p>
+          <p id='byline'> ${author} </p>
+          ${image}
+          ${post.body}
+          ${disqusHTML}
+      </head>
+      </html>
+    `;
+  },
+
+  redirect: function(navState) {
+    if (navState.loading === true) {
+      return;
+    }
+    const url = navState.url;
+    const successes = [
+      'disqus.com/next/login-success',
+      'disqus.com/_ax/google/complete',
+      'disqus.com/_ax/twitter/complete',
+      'disqus.com/_ax/facebook/complete',
+    ];
+
+    if ((url.split('.com'))[0].contains('disqus') && _.some(successes, (success) => {return url.contains(success); })) {
+      this.props.navigator.push({
+        title: '',
+        type: 'PostDetail',
+        component: PostDetail,
+        passProps: {post: this.props.post, navigator: this.props.navigator},
+      });
+    }
   },
 
   render: function() {
-    const post = this.props.post;
-    let caption;
-    if (post.images.length > 0 && post.images[0].caption !== '') {
-      caption = (
-        <Text style={styles.caption}>{post.images[0].caption}</Text>
-      );
-    }
-    let byline;
-    if (post.authors) {
-      byline = (
-        <Text style={styles.byline}>By {post.authors.join(', ')}</Text>
-      );
-    }
-    let image;
-    if (post.images.length > 0) {
-      image = (
-        <Image
-          style={styles.image}
-          source={{uri: post.images[0].previewUrl}}
-        />
-      );
-    }
     return (
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.container}>
-          <Text style={styles.title}>{post.title}</Text>
-          {image}
-          {caption}
-          {byline}
-          <HTMLView
-            value={post.body}
-            onLinkPress={(url) => console.log(url)}
-            style={styles.body}
-          />
-        </View>
-      </ScrollView>
+      <View style={styles.container}>
+        <WebView
+            html={this.getHTML()}
+            automaticallyAdjustContentInsets={false}
+            javaScriptEnabledAndroid={true}
+            startInLoadingState={false}
+            onNavigationStateChange={this.redirect}
+            />
+      </View>
     );
   },
 });

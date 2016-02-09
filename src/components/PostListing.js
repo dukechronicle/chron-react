@@ -124,7 +124,7 @@ const PostListing = React.createClass({
     this.props.navigator.push({
       title: '',
       component: PostDetail,
-      passProps: {post: post},
+      passProps: {post: post, navigator: this.props.navigator},
     });
   },
 
