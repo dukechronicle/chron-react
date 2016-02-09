@@ -89,8 +89,6 @@ const PostDetail = React.createClass({
   },
 
   redirect: function(navState) {
-
-    console.log(navState);
     if (navState.loading === true) {
       return;
     }
