@@ -4,25 +4,20 @@ const {
   Image,
   StyleSheet,
   TouchableHighlight,
+  View,
 } = React;
+import { scaleHeightToDevice } from '../utils/Image';
 
 const styles = StyleSheet.create({
-  ad: {
+  adContainer: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    marginTop: 0,
-    marginBottom: 0,
+    borderColor: '#DDDDDD',
+    borderBottomWidth: 7,
     marginLeft: -15,
     marginRight: -15,
-    padding: 0,
-    borderBottomWidth: 7,
-    borderColor: '#DDDDDD',
-    height: 110,
   },
   image: {
     flex: 1,
-    height: 110,
     paddingTop: 10,
     paddingBottom: 10,
   },
@@ -44,10 +39,19 @@ export const AdListItem = React.createClass({
   },
 
   render: function() {
+    const scaledImageDim = scaleHeightToDevice({width: 300, height: 90});
+    const imageStyle = {
+      height: scaledImageDim.height,
+      width: scaledImageDim.width,
+    };
     return (
-      <TouchableHighlight style={styles.ad} onPress={this.onPress}>
-        <Image source={{uri: this.state.imgSrc}} style={styles.image} />
-      </TouchableHighlight>
+      <View style={styles.adContainer}>
+        <TouchableHighlight onPress={this.onPress}>
+          <Image
+            source={{uri: this.state.imgSrc}}
+            style={[imageStyle, styles.image]} />
+        </TouchableHighlight>
+      </View>
     );
   },
 });
