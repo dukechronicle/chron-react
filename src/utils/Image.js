@@ -1,5 +1,7 @@
 import { Dimensions } from 'react-native';
 
+export const getWindowDimensions = () => Dimensions.get('window');
+
 /**
  * Returns a scaled version of the desired ratio in the width direction.
  * @param {Object} dims Contains the width / height of the object to be scaled.
@@ -20,7 +22,6 @@ export const scaleHeight = ({width, height}, scaleWidth) => (
  * @return {Object} A scaled version of the given dimensions' ratio.
  */
 export const scaleHeightToDevice = (dims) => {
-  const deviceWidth = Dimensions.get('window').width;
+  const deviceWidth = getWindowDimensions('window').width;
   return scaleHeight(dims, deviceWidth);
 };
-

@@ -6,6 +6,7 @@ const {
   WebView,
 } = React;
 const { postPropTypes } = require('../utils/Post');
+const { getWindowDimensions } = require('../utils/Image');
 const styles = StyleSheet.create({
   container: {
     marginTop: 50,
@@ -15,7 +16,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const innerStyles = `
+const innerStyles = (fullWidth) => {
+  const gutterWidth = 10;
+  return `
   #title {
     flex: 1;
     font-weight: 600;
@@ -23,15 +26,18 @@ const innerStyles = `
   }
   #image {
     flex: 1;
-    width: 375px;
+    width: ${fullWidth}px;
     margin-top: 15px;
     margin-bottom: 5px;
-    margin-left: -15px;
-    margin-right: -15px;
+    margin-left: ${-gutterWidth}px;
   }
   body {
     font-family: 'Helvetica';
     font-size: 12px;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: ${gutterWidth}px;
+    padding-right: ${gutterWidth}px;
   }
   #caption {
     color: '#999999';
@@ -41,8 +47,9 @@ const innerStyles = `
   }
   #byline {
     margin-top: 15px;
-    margin-bottom: 14px
-  };`;
+    margin-bottom: 14px;
+  }`;
+};
 
 /**
  * PostDetail is a component that renders a post.
@@ -76,7 +83,7 @@ const PostDetail = React.createClass({
       <!DOCTYPE html>
       <html>
       <head>
-      <style> ${innerStyles} </style>
+      <style> ${innerStyles(getWindowDimensions().width)} </style>
           <p id='title'> ${post.title} </p>
           <p id='caption'> ${caption} </p>
           <p id='byline'> ${author} </p>
