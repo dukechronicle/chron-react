@@ -8,6 +8,8 @@ const {
 } = React;
 import { scaleHeightToDevice } from '../utils/Image';
 
+const ad = require('../../config/ad.json')['300x90'];
+
 const styles = StyleSheet.create({
   adContainer: {
     flex: 1,
@@ -24,21 +26,13 @@ const styles = StyleSheet.create({
 });
 
 export const AdListItem = React.createClass({
-  getInitialState: function() {
-    // 300x90 ad
-    const imgSrc = `http://engine.adzerk.net/s/370539/0/121/77416678`;
-    const linkSrc = `http://engine.adzerk.net/s/redirect/370539/0/121/77416678`;
-    return {
-      imgSrc,
-      linkSrc,
-    };
-  },
-
   onPress: function() {
-    LinkingIOS.openURL(this.state.linkSrc);
+    const { link } = ad;
+    LinkingIOS.openURL(link);
   },
 
   render: function() {
+    const { image } = ad;
     const scaledImageDim = scaleHeightToDevice({width: 300, height: 90});
     const imageStyle = {
       height: scaledImageDim.height,
@@ -48,7 +42,7 @@ export const AdListItem = React.createClass({
       <View style={styles.adContainer}>
         <TouchableHighlight onPress={this.onPress}>
           <Image
-            source={{uri: this.state.imgSrc}}
+            source={{uri: image}}
             style={[imageStyle, styles.image]} />
         </TouchableHighlight>
       </View>

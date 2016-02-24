@@ -1,8 +1,9 @@
 const _ = require('underscore');
-const extractHtmlText = require('../helpers').extractHtmlText;
 const he = require('he');
 const React = require('react-native');
 const urlencode = require('urlencode');
+
+import { extractHtmlText } from './dom';
 
 // Strings are urlencoded with utf-8 and also include HTML entities.
 const unescape = (str) => he.unescape(urlencode.decode(str));

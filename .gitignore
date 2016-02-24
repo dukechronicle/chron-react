@@ -34,4 +34,4 @@ node_modules/
 npm-debug.log
 
 # Config files
-config.json
+config/push.json

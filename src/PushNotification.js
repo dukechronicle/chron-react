@@ -1,7 +1,7 @@
 const {
   PARSE_APP_ID,
   PARSE_REST_KEY,
-} = require('../config.json');
+} = require('../config/push.json');
 
 export const registerPushIOS = function(deviceToken) {
   const url = 'https://api.parse.com/1/installations';

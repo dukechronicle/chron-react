@@ -7,6 +7,10 @@ const {
 } = React;
 const { postPropTypes } = require('../utils/Post');
 const { getWindowDimensions } = require('../utils/Image');
+import { insertElAt } from '../utils/dom';
+
+const paragraphAd = require('../../config/ad.json')['300x250'];
+
 const styles = StyleSheet.create({
   container: {
     marginTop: 50,
@@ -45,6 +49,9 @@ const innerStyles = (fullWidth) => {
     font-style: italic;
     margin-bottom: 25px;
   }
+  .ad {
+    text-align: center;
+  }
   #byline {
     margin-top: 15px;
     margin-bottom: 14px;
@@ -58,6 +65,17 @@ const PostDetail = React.createClass({
   propTypes: {
     post: postPropTypes.isRequired,
     navigator: React.PropTypes.object.isRequired,
+  },
+
+  getBodyHTML: function() {
+    const { link, image } = paragraphAd;
+    const adHTML = `
+      <div class="ad">
+        <a href="${link}"><img src="${image}"></a>
+      </div>
+    `;
+    const res = insertElAt(this.props.post.body, adHTML, 2);
+    return res;
   },
 
   getHTML: function() {
@@ -88,7 +106,7 @@ const PostDetail = React.createClass({
           <p id='caption'> ${caption} </p>
           <p id='byline'> ${author} </p>
           ${image}
-          ${post.body}
+          ${this.getBodyHTML()}
           ${disqusHTML}
       </head>
       </html>
