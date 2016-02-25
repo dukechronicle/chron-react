@@ -15,6 +15,7 @@ const SectionActionCreators = require('./actions/SectionActionCreators');
 
 const store = require('./store');
 const sectionsCursor = store.select('models', 'topLevelSections');
+const pagesCursor = store.select('models', 'pages');
 
 const styles = StyleSheet.create({
   container: {
@@ -73,6 +74,10 @@ const Sections = React.createClass({
 
   componentWillUnmount: function() {
     sectionsCursor.off('update', this.updateState);
+  },
+
+  getPages: function() {
+    return pagesCursor.get();
   },
 
   updateState: function() {

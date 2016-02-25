@@ -19,6 +19,10 @@ const tree = new Baobab({
      * List of external Chronicle links.
      */
     links: [],
+    /**
+    *Map of section name to page number
+    */
+    pages: {},
   },
   views: {
     tab: 'frontpage',

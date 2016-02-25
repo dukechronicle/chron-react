@@ -13,6 +13,8 @@ const {
 import { PostListRow } from './PostListRow';
 import { AdListItem } from './AdListItem';
 const RefreshableListView = require('react-native-refreshable-listview');
+const InfiniteScrollView = require('react-native-infinite-scroll-view');
+
 
 const styles = StyleSheet.create({
   postRowContainer: {
@@ -88,6 +90,7 @@ const PostListing = React.createClass({
     posts: React.PropTypes.arrayOf(postPropTypes).isRequired,
     navigator: React.PropTypes.object.isRequired,
     refresh: React.PropTypes.func.isRequired,
+    onLoadMoreAsync: React.PropTypes.func.isRequired,
     postsTransform: React.PropTypes.func,
   },
 
@@ -144,12 +147,16 @@ const PostListing = React.createClass({
     return (
       <View style={styles.outerListView}>
         <RefreshableListView
+          renderScrollComponent={props => <InfiniteScrollView {...props} />}
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}
           loadData={this.props.refresh}
           automaticallyAdjustContentInsets={false}
+          distanceToLoadMore={200}
           refreshDescription="Refreshing articles"
           style={styles.listView}
+          onLoadMoreAsync={this.props.onLoadMoreAsync}
+          canLoadMore
         />
       </View>
     );

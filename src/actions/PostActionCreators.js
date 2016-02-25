@@ -3,16 +3,15 @@ const store = require('../store');
 const postsCursor = store.select('models', 'posts');
 const sectionIdsCursor = store.select('models', 'sectionIds');
 const { rawDataToPost } = require('../utils/Post');
-
 /**
  * sectionUrlBuilder builds the url used to query for a section's articles.
  * @param {String} sectionSlug Section slug. Should mirror the slug used on the
  *     website.
  * @return {String} Url of the section API endpoint.
  */
-const sectionUrlBuilder = (sectionName) => {
+const urlBuilder = (sectionName, pageNumber) => {
   if (sectionName !== 'frontpage') {
-    return `http://www.dukechronicle.com/section/${sectionName}.json`;
+    return `http://www.dukechronicle.com/section/${sectionName}/.json?page=${pageNumber}`;
   } else {
     return 'http://www.dukechronicle.com/.json';
   }
@@ -33,15 +32,21 @@ const postUrlBuilder = (slug) => {
  * @param {String} section Section slug. Should mirror the slug used on the
  *     website.
  */
-const getSection = (section) => {
-  const p = fetch(sectionUrlBuilder(section))
+
+const getSection = (section, number) => {
+  const p = fetch(urlBuilder(section, number))
     .then((response) => response.json())
     .then((responseData) => {
       const articles = responseData[0].articles;
       const articlesMap = _.object(
           _.map(_.values(articles), (a) => [a.uid, rawDataToPost(a)]));
       postsCursor.merge(articlesMap);
-      sectionIdsCursor.merge({[section]: _.keys(articlesMap)});
+      const sectionCursor = sectionIdsCursor.select(section);
+      if (_.isUndefined(sectionCursor.get())) {
+        sectionCursor.set(_.keys(articlesMap));
+      } else {
+        sectionCursor.push(_.keys(articlesMap));
+      }
     })
     .catch((error) => {
       console.warn(error);
@@ -71,5 +76,4 @@ const PostActionCreators = {
   getSection: getSection,
   getPost: getPost,
 };
-
 module.exports = PostActionCreators;

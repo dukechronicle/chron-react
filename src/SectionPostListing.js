@@ -14,6 +14,7 @@ const PostListing = require('./components/PostListing');
 const store = require('./store');
 const postsCursor = store.select('models', 'posts');
 const sectionIdsCursor = store.select('models', 'sectionIds');
+const pagesCursor = store.select('models', 'pages');
 
 const PostActionCreators = require('./actions/PostActionCreators');
 
@@ -102,8 +103,14 @@ const SectionPostListing = React.createClass({
     }
   },
 
+  loadNextPage: function() {
+    const pageNumber = pagesCursor.get(this.props.section.slug);
+    pagesCursor.set(this.props.section.slug, pageNumber + 1);
+    return PostActionCreators.getSection(this.props.section.slug, pageNumber + 1);
+  },
+
   reloadArticles: function() {
-    return PostActionCreators.getSection(this.props.section.slug);
+    return PostActionCreators.getSection(this.props.section.slug, 0);
   },
 
   renderLoadingView: function() {
@@ -130,7 +137,8 @@ const SectionPostListing = React.createClass({
         posts={this.state.posts}
         postsTransform={this.props.postsTransform}
         navigator={this.props.navigator}
-        refresh={this.reloadArticles} />
+        refresh={this.reloadArticles}
+        onLoadMoreAsync = {this.loadNextPage}/>
     );
   },
 });
