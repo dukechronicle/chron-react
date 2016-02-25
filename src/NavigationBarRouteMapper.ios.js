@@ -6,14 +6,12 @@ const {
   View,
 } = React;
 
+import NavigatorTitle from './components/navigator/Title';
+
 const styles = StyleSheet.create({
   navBarText: {
     fontSize: 16,
     marginVertical: 10,
-  },
-  navBarTitleText: {
-    color: '#f8f8f8',
-    fontWeight: '500',
   },
   navBarLeftButton: {
     paddingLeft: 10,
@@ -49,15 +47,15 @@ export const NavigationBarRouteMapper = {
     );
   },
 
-  RightButton: function(route, navigator, index, navState) {
+  RightButton: function() {
     return null;
   },
 
-  Title: function(route, navigator, index, navState) {
+  Title: function(route) {
     return (
-      <Text style={[styles.navBarText, styles.navBarTitleText]}>
-        {route.title}
-      </Text>
+      <NavigatorTitle
+        styleOverride={route.titleStyleOverride}
+        text={route.title} />
     );
   },
 };

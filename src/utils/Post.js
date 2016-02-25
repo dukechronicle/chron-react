@@ -1,8 +1,9 @@
 const _ = require('underscore');
-const extractHtmlText = require('../helpers').extractHtmlText;
 const he = require('he');
 const React = require('react-native');
 const urlencode = require('urlencode');
+
+import { extractHtmlText } from './dom';
 
 // Strings are urlencoded with utf-8 and also include HTML entities.
 const unescape = (str) => he.unescape(urlencode.decode(str));
@@ -82,6 +83,7 @@ const rawDataToPost = (a) => {
     authors: _.map(_.values(a.getAuthor), (author) => unescape(author)),
     images: _.map(_.values(a.media), cleanMedia),
     tags: _.map(_.values(a.tags), cleanTag),
+    url: unescape(a.getURL),
   };
 };
 
@@ -91,6 +93,7 @@ const rawDataToPost = (a) => {
 const postPropTypes = React.PropTypes.shape({
   title: React.PropTypes.string.isRequired,
   body: React.PropTypes.string.isRequired,
+  url: React.PropTypes.string.isRequired,
   image: React.PropTypes.shape({
     thumbnail_url: React.PropTypes.string,
     caption: React.PropTypes.string,
