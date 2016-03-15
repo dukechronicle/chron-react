@@ -9,7 +9,6 @@
 
 #import "AppDelegate.h"
 
-#import "RCTPushNotificationManager.h"
 #import "RCTRootView.h"
 
 @implementation AppDelegate
@@ -53,19 +52,6 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
-}
-
-// Required for the register event.
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-  NSLog(@"AppDelegate didRegisterForRemoteNotificationsWithDeviceToken");
-  [RCTPushNotificationManager application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
-}
-
-// Required for the notification event.
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification
-{
-  [RCTPushNotificationManager application:application didReceiveRemoteNotification:notification];
 }
 
 @end
