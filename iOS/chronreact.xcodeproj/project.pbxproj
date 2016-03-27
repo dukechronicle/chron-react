@@ -23,6 +23,7 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		7693B4531CA79D1A00B54C3F /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7693B44D1CA79CDB00B54C3F /* libRCTPushNotification.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		D571A6801C8BD1EB1BA877CB /* libPods-chronreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B7E684D8910E3E533E6ACF7 /* libPods-chronreact.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,9 @@
 		7693B4431CA79CDB00B54C3F /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		8B7E684D8910E3E533E6ACF7 /* libPods-chronreact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-chronreact.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5305C5475F64AE86250A30A /* Pods-chronreact.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chronreact.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chronreact/Pods-chronreact.debug.xcconfig"; sourceTree = "<group>"; };
+		E742DB32AADD552898B50304 /* Pods-chronreact.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chronreact.release.xcconfig"; path = "Pods/Target Support Files/Pods-chronreact/Pods-chronreact.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +164,7 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				D571A6801C8BD1EB1BA877CB /* libPods-chronreact.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,12 +266,29 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7693B4441CA79CDB00B54C3F /* Products */ = {
+		18CB61F1B34A34318419AB0B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D5305C5475F64AE86250A30A /* Pods-chronreact.debug.xcconfig */,
+				E742DB32AADD552898B50304 /* Pods-chronreact.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		4C600DD31C350E050093F8A8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				7693B44D1CA79CDB00B54C3F /* libRCTPushNotification.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		53C03C5A286BB7A866A75EF4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8B7E684D8910E3E533E6ACF7 /* libPods-chronreact.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
@@ -310,6 +332,8 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* chronreactTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
+				18CB61F1B34A34318419AB0B /* Pods */,
+				53C03C5A286BB7A866A75EF4 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -349,10 +373,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "chronreact" */;
 			buildPhases = (
+				B34236088C308B1C922F735D /* Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				2F0DA722EA82587155047EA7 /* Embed Pods Frameworks */,
+				C3530AE471C3B47E2663EE1A /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -557,6 +584,51 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
+		2F0DA722EA82587155047EA7 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-chronreact/Pods-chronreact-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B34236088C308B1C922F735D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C3530AE471C3B47E2663EE1A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-chronreact/Pods-chronreact-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -639,6 +711,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5305C5475F64AE86250A30A /* Pods-chronreact.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEAD_CODE_STRIPPING = NO;
@@ -650,13 +723,18 @@
 				);
 				INFOPLIST_FILE = chronreact/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dukechronicle.thechronicle;
 				PRODUCT_NAME = chronreact;
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E742DB32AADD552898B50304 /* Pods-chronreact.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				HEADER_SEARCH_PATHS = (
@@ -667,7 +745,11 @@
 				);
 				INFOPLIST_FILE = chronreact/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dukechronicle.thechronicle;
 				PRODUCT_NAME = chronreact;
 			};
 			name = Release;
