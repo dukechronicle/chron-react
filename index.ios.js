@@ -152,7 +152,7 @@ const chronreact = React.createClass({
         <TabBarIOS.Item
             title="Main"
             selected={this.tabIsSelected('frontpage')}
-            icon={{uri: 'newspaper'}}
+            icon={{uri: 'newspaper', scale: 3}}
             onPress={this.switchTabHandler('frontpage')} >
           <Navigator
             ref="frontpageNav"
@@ -174,7 +174,7 @@ const chronreact = React.createClass({
         <TabBarIOS.Item
             title="Sections"
             selected={this.tabIsSelected('sections')}
-            icon={{uri: 'sections'}}
+            icon={{uri: 'sections', scale: 3}}
             onPress={this.switchTabHandler('sections')} >
           <Navigator
             style={styles.container}
@@ -191,7 +191,7 @@ const chronreact = React.createClass({
         <TabBarIOS.Item
             title="Links"
             selected={this.tabIsSelected('links')}
-            icon={{uri: 'link'}}
+            icon={{uri: 'link', scale: 3}}
             onPress={this.switchTabHandler('links')} >
           <Navigator
             style={styles.container}
