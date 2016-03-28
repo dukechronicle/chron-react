@@ -125,7 +125,7 @@ const PostDetail = React.createClass({
       'disqus.com/_ax/facebook/complete',
     ];
 
-    if ((url.split('.com'))[0].contains('disqus') && _.some(successes, (success) => {return url.contains(success); })) {
+    if (_.some(successes, (success) => { return url.includes(success); })) {
       this.props.navigator.push({
         title: '',
         type: 'PostDetail',
@@ -139,9 +139,9 @@ const PostDetail = React.createClass({
     return (
       <View style={styles.container}>
         <WebView
-            html={this.getHTML()}
+            source={{html: this.getHTML()}}
             automaticallyAdjustContentInsets={false}
-            javaScriptEnabledAndroid={true}
+            javaScriptEnabled={true}
             startInLoadingState={false}
             onNavigationStateChange={this.redirect}
             />
