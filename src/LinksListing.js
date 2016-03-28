@@ -3,7 +3,7 @@ const {
   StyleSheet,
   TouchableHighlight,
   ListView,
-  LinkingIOS,
+  Linking,
   Text,
   View,
 } = React;
@@ -78,7 +78,7 @@ const LinksListing = React.createClass({
 
   rowPressed: function(link) {
     // TODO: implement launching external links for android
-    LinkingIOS.openURL(link.url);
+    Linking.openURL(link.url);
   },
 
   renderLinkRow: function(link) {

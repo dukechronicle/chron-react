@@ -1,6 +1,6 @@
 const React = require('react-native');
 const {
-  LinkingIOS,
+  Linking,
   Image,
   StyleSheet,
   TouchableHighlight,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 export const AdListItem = React.createClass({
   onPress: function() {
     const { link } = ad;
-    LinkingIOS.openURL(link);
+    Linking.openURL(link);
   },
 
   render: function() {

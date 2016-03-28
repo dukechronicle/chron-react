@@ -1,7 +1,7 @@
 const React = require('react-native');
 const {
   AppRegistry,
-  LinkingIOS,
+  Linking,
   Navigator,
   PushNotificationIOS,
   StyleSheet,
@@ -69,11 +69,12 @@ const chronreact = React.createClass({
     tabCursor.on('change', this.updateTab);
     StatusBarIOS.setStyle('light-content');
 
-    const url = LinkingIOS.popInitialURL();
-    if (!_.isNull(url)) {
-      const slug = url.replace(/dukechronicle:\/\//, '');
-      this.openPost(slug);
-    }
+    Linking.getInitialURL().then((url) => {
+      if (!_.isNull(url)) {
+        const slug = url.replace(/dukechronicle:\/\//, '');
+        this.openPost(slug);
+      }
+    });
 
     PushNotificationIOS.requestPermissions();
     PushNotificationIOS.addEventListener('register', function(token) {
