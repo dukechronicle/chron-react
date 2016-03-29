@@ -76,11 +76,7 @@ const chronreact = React.createClass({
       }
     });
 
-    PushNotificationIOS.requestPermissions();
-    PushNotificationIOS.addEventListener('register', function(token) {
-      registerPushIOS(token);
-    });
-
+    registerPushIOS();
     PushNotificationIOS.addEventListener('notification', this.onNotification);
   },
 
