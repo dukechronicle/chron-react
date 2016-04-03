@@ -68,7 +68,7 @@ const chronreact = React.createClass({
   componentDidMount() {
     tabCursor.on('change', this.updateTab);
     StatusBarIOS.setStyle('light-content');
-
+    Linking.addEventListener('url', this._handleOpenURL);
     Linking.getInitialURL().then((url) => {
       if (!_.isNull(url)) {
         const slug = url.replace(/dukechronicle:\/\//, '');
@@ -82,6 +82,15 @@ const chronreact = React.createClass({
 
   componentWillUnmount() {
     tabCursor.off('change', this.updateTab);
+    Linking.removeEventListener('url', this._handleOpenURL);
+  },
+
+  _handleOpenURL(e) {
+    const url = e.url;
+    if (!_.isNull(url)) {
+      const slug = url.replace(/dukechronicle:\/\//, '');
+      this.openPost(slug);
+    }
   },
 
   /*
