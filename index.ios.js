@@ -7,10 +7,9 @@ const {
   StyleSheet,
   StatusBarIOS,
   TabBarIOS,
-} = React;
+  } = React;
 
 const _ = require('underscore');
-const URL = require('url-parse');
 
 const Frontpage = require('./src/Frontpage');
 const LinksListing = require('./src/LinksListing');
@@ -59,6 +58,10 @@ const styles = StyleSheet.create({
 });
 
 const chronreact = React.createClass({
+  propTypes: {
+    pushNotification: React.PropTypes.object.isRequired,
+  },
+
   getInitialState() {
     return {
       selectedTab: tabCursor.get(),
@@ -77,9 +80,9 @@ const chronreact = React.createClass({
       this.openPost(slug);
     }
 
-    Linking.getInitialURL().then((url) => {
-      if (!_.isNull(url)) {
-        const slug = url.replace(/dukechronicle:\/\//, '')
+    Linking.getInitialURL().then((u) => {
+      if (!_.isNull(u)) {
+        const slug = u.replace(/dukechronicle:\/\//, '')
           .replace(/\/article\//, '');
         this.openPost(slug);
       }
@@ -94,15 +97,6 @@ const chronreact = React.createClass({
     PushNotificationIOS.removeEventListener('notification', this.onNotification);
   },
 
-  _handleOpenURL(e) {
-    const url = e.url;
-    if (!_.isNull(url)) {
-      const slug = url.replace(/dukechronicle:\/\//, '')
-        .replace(/\/article\//, '');
-      this.openPost(slug);
-    }
-  },
-
   /*
    * Expects notification object to have a '_data' key that maps to an object,
    * which should have 'pushNotification' as a key, which should map to a full url.
@@ -110,6 +104,15 @@ const chronreact = React.createClass({
   onNotification(notification) {
     const url = notification._data.pushNotification;
     if (!(_.isUndefined(url) || _.isNull(url))) {
+      const slug = url.replace(/dukechronicle:\/\//, '')
+        .replace(/\/article\//, '');
+      this.openPost(slug);
+    }
+  },
+
+  _handleOpenURL(e) {
+    const url = e.url;
+    if (!_.isNull(url)) {
       const slug = url.replace(/dukechronicle:\/\//, '')
         .replace(/\/article\//, '');
       this.openPost(slug);
@@ -147,8 +150,8 @@ const chronreact = React.createClass({
   renderScene: function(route, navigator) {
     return (
       <route.component
-        navigator={navigator}
-        {...route.passProps} />
+          navigator={navigator}
+          {...route.passProps} />
     );
   },
 
@@ -157,7 +160,7 @@ const chronreact = React.createClass({
       <Navigator.NavigationBar
         routeMapper={NavigationBarRouteMapper}
         style={styles.navBar}
-      />
+        />
     );
   },
 
@@ -165,10 +168,10 @@ const chronreact = React.createClass({
     return (
       <TabBarIOS>
         <TabBarIOS.Item
-            title="Main"
-            selected={this.tabIsSelected('frontpage')}
-            icon={{uri: 'newspaper', scale: 3}}
-            onPress={this.switchTabHandler('frontpage')} >
+          title="Main"
+          selected={this.tabIsSelected('frontpage')}
+          icon={{uri: 'newspaper', scale: 3}}
+          onPress={this.switchTabHandler('frontpage')} >
           <Navigator
             ref="frontpageNav"
             style={styles.container}
@@ -187,10 +190,10 @@ const chronreact = React.createClass({
             renderScene={this.renderScene} />
         </TabBarIOS.Item>
         <TabBarIOS.Item
-            title="Sections"
-            selected={this.tabIsSelected('sections')}
-            icon={{uri: 'sections', scale: 3}}
-            onPress={this.switchTabHandler('sections')} >
+          title="Sections"
+          selected={this.tabIsSelected('sections')}
+          icon={{uri: 'sections', scale: 3}}
+          onPress={this.switchTabHandler('sections')} >
           <Navigator
             style={styles.container}
             barTintColor="#083e8c"
@@ -204,10 +207,10 @@ const chronreact = React.createClass({
             }} />
         </TabBarIOS.Item>
         <TabBarIOS.Item
-            title="Links"
-            selected={this.tabIsSelected('links')}
-            icon={{uri: 'link', scale: 3}}
-            onPress={this.switchTabHandler('links')} >
+          title="Links"
+          selected={this.tabIsSelected('links')}
+          icon={{uri: 'link', scale: 3}}
+          onPress={this.switchTabHandler('links')} >
           <Navigator
             style={styles.container}
             barTintColor="#083e8c"
