@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 
 const chronreact = React.createClass({
   propTypes: {
-    pushNotification: React.PropTypes.object.isRequired,
+    pushNotification: React.PropTypes.object,
   },
 
   getInitialState() {
