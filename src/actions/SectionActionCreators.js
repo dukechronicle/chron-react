@@ -6,12 +6,12 @@ const pagesCursor = store.select('models', 'pages');
 const SectionActionCreators = {
   getSections: () => {
     const sections = [
-      ['news', 'News'],
-      ['sports', 'Sports'],
-      ['opinion', 'Opinion'],
-      ['recess', 'Recess'],
-      ['towerview', 'Towerview'],
-      ['blue-zone', 'Blue Zone'],
+      ['section/news', 'News'],
+      ['section/sports', 'Sports'],
+      ['section/opinion', 'Opinion'],
+      ['section/recess', 'Recess'],
+      ['section/towerview', 'Towerview'],
+      ['blog/blue-zone', 'Blue Zone'],
     ].map(([slug, name]) => { return {slug, name}; });
     sectionsCursor.set(sections);
     const pageNumber = sections.map(({slug}) => { return [slug, 0]; });
