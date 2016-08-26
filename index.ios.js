@@ -7,6 +7,7 @@ const {
   StyleSheet,
   StatusBarIOS,
   TabBarIOS,
+  DeviceEventEmitter,
   } = React;
 
 const _ = require('underscore');
@@ -24,7 +25,25 @@ const { NavigationBarRouteMapper } = require('./src/NavigationBarRouteMapper.ios
 const { registerPushIOS } = require('./src/PushNotification');
 
 const store = require('./src/store');
+
+const QuickActions = require('react-native-quick-actions');
+// for quick actions
+var quickAction = QuickActions.popInitialAction();
+
 const tabCursor = store.select('views', 'tab');
+
+/* We select the inital tab as the default view, unless there 
+ * was a quick action when opening the app
+ */
+if (quickAction) {
+  tabCursor.set(quickAction.title.toLowerCase())
+}
+// add a lisetner for quick action events
+const subcription = DeviceEventEmitter.addListener(
+  'quickActionShortcut', data => {
+    tabCursor.set(data.title.toLowerCase());
+  } 
+)
 
 const styles = StyleSheet.create({
   container: {
@@ -69,7 +88,7 @@ const chronreact = React.createClass({
   },
 
   componentDidMount() {
-    tabCursor.on('change', this.updateTab);
+    tabCursor.on('update', this.updateTab);
     StatusBarIOS.setStyle('light-content');
     Linking.addEventListener('url', this._handleOpenURL);
 
@@ -93,6 +112,7 @@ const chronreact = React.createClass({
 
   componentWillUnmount() {
     tabCursor.off('change', this.updateTab);
+    subscription.remove();
     Linking.removeEventListener('url', this._handleOpenURL);
     PushNotificationIOS.removeEventListener('notification', this.onNotification);
   },

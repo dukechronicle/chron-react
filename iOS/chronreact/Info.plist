@@ -11,6 +11,25 @@
 			<string>{320, 568}</string>
 		</dict>
 	</array>
+  <key>UIApplicationShortcutItems</key>
+  <array>
+    <dict>
+      <key>UIApplicationShortcutItemIconFile</key>
+      <string>ic_reorder</string>
+      <key>UIApplicationShortcutItemTitle</key>
+      <string>Sections</string>
+      <key>UIApplicationShortcutItemType</key>
+      <string>$(PRODUCT_BUNDLE_IDENTIFIER).action</string>
+    </dict>
+    <dict>
+      <key>UIApplicationShortcutItemIconFile</key>
+      <string>ic_link</string>
+      <key>UIApplicationShortcutItemTitle</key>
+      <string>Links</string>
+      <key>UIApplicationShortcutItemType</key>
+      <string>$(PRODUCT_BUNDLE_IDENTIFIER).action</string>
+    </dict>
+  </array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>

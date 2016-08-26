@@ -12,6 +12,7 @@
 #import "RCTLinkingManager.h"
 #import "RCTPushNotificationManager.h"
 #import "RCTRootView.h"
+#import "RNQuickActionManager.h"
 
 @implementation AppDelegate
 
@@ -93,6 +94,11 @@
  - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
  {
   [RCTPushNotificationManager didReceiveLocalNotification:notification];
+ }
+ // Required for force touch actions
+ - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL succeeded)) completionHandler 
+ {
+  [RNQuickActionManager onQuickActionPress:shortcutItem completionHandler:completionHandler];
  }
 
 @end
