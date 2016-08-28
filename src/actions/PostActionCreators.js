@@ -11,7 +11,7 @@ const { rawDataToPost } = require('../utils/Post');
  */
 const urlBuilder = (sectionName, pageNumber) => {
   if (sectionName !== 'frontpage') {
-    return `http://www.dukechronicle.com/section/${sectionName}/.json?page=${pageNumber}`;
+    return `http://www.dukechronicle.com/${sectionName}/.json?page=${pageNumber}`;
   } else {
     return 'http://www.dukechronicle.com/.json';
   }
@@ -37,7 +37,7 @@ const getSection = (section, number) => {
   const p = fetch(urlBuilder(section, number))
     .then((response) => response.json())
     .then((responseData) => {
-      const articles = responseData[0].articles;
+      const articles = section == "blog/blue-zone" ? responseData[0].posts : responseData[0].articles;
       const articlesMap = _.object(
           _.map(_.values(articles), (a) => [a.uid, rawDataToPost(a)]));
       postsCursor.merge(articlesMap);
