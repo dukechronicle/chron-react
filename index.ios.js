@@ -25,6 +25,10 @@ const { registerPushIOS } = require('./src/PushNotification');
 
 const store = require('./src/store');
 const tabCursor = store.select('views', 'tab');
+const scrollCursor = store.select('views', 'scrollToTop');
+
+// ignore warning about time sync
+console.ignoredYellowBox = ['jsSchedulingOverhead'];
 
 const styles = StyleSheet.create({
   container: {
@@ -129,8 +133,16 @@ const chronreact = React.createClass({
     return this.state.selectedTab === name;
   },
 
+  scrollTop(tab) {
+    tab.refs.postListing.scrollTop();
+  },
+
   switchTabHandler(name) {
     return () => {
+      // if we are already on this tab
+      if (this.state.selectedTab == name){
+        scrollCursor.set(name, true)
+      }
       NavigationActionCreators.selectSection(name);
       this.setState({selectedTab: name});
     };
