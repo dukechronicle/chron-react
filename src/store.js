@@ -26,6 +26,12 @@ const tree = new Baobab({
   },
   views: {
     tab: 'frontpage',
+    /**
+     * Handle whether the pages are scrolling to the top
+     */
+    scrollToTop: {
+      'frontpage': false
+    }
   },
 });
 
