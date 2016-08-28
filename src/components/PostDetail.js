@@ -39,8 +39,8 @@ const innerStyles = (fullWidth) => {
     max-width: ${fullWidth - 2 * gutterWidth}px;
   }
   body {
-    font-family: 'Helvetica';
-    font-size: 12px;
+    font-family: 'Times New Roman';
+    font-size: 18px;
     margin-left: 0;
     margin-right: 0;
     padding-left: ${gutterWidth}px;
