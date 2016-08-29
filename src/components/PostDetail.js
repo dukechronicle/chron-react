@@ -7,7 +7,7 @@ const {
 } = React;
 const { postPropTypes } = require('../utils/Post');
 const { getWindowDimensions } = require('../utils/Image');
-import { insertElAt } from '../utils/dom';
+import { insertElAt, getPublishedDate } from '../utils/dom';
 
 const paragraphAd = require('../../config/ad.json')['300x250'];
 
@@ -25,21 +25,25 @@ const innerStyles = (fullWidth) => {
   return `
   #title {
     flex: 1;
-    font-weight: 600;
     font-size: 24px;
+    margin-bottom: 5px;
+    font-weight: bold;
   }
   #image {
+    margin-top: 10px; 
+  }
+  img {
     flex: 1;
     max-width: ${fullWidth}px;
-    margin-top: 15px;
+    margin-top: 5px;
     margin-bottom: 5px;
     margin-left: ${-gutterWidth}px;
   }
-  img {
-    max-width: ${fullWidth - 2 * gutterWidth}px;
+  .image {
+    width: ${fullWidth}px;
   }
   body {
-    font-family: 'Times New Roman';
+    font-family: 'Georgia';
     font-size: 18px;
     margin-left: 0;
     margin-right: 0;
@@ -47,17 +51,24 @@ const innerStyles = (fullWidth) => {
     padding-right: ${gutterWidth}px;
   }
   #caption {
-    color: '#999999';
-    font-size: 12px;
-    font-style: italic;
-    margin-bottom: 25px;
+    color: #666;
+    font-size: 14px;
+    margin: 5px 0;
+    font-family: 'Helvetica'
   }
   .ad {
     text-align: center;
   }
+  .postInfo {
+    margin: 2px; 
+    font-size: 12px;
+  }
+  .capitalized {
+    text-transform: uppercase; 
+  }
   #byline {
-    margin-top: 15px;
-    margin-bottom: 14px;
+    font-weight: bold;
+    margin-top: 10px;
   }`;
 };
 
@@ -78,6 +89,7 @@ const PostDetail = React.createClass({
       </div>
     `;
     const res = insertElAt(this.props.post.body, adHTML, 2);
+    console.log(this.props.post);
     return res;
   },
 
@@ -85,8 +97,9 @@ const PostDetail = React.createClass({
     const post = this.props.post;
 
     const caption = (post.images.length > 0 && post.images[0].caption !== '') ? post.images[0].caption : '';
-    const author = (post.authors.length > 0) ? `<p id='byline'>By ${post.authors.join(', ')} </p>` : '';
-    const image = (post.images.length > 0) ? `<img id='image' src='${post.images[0].previewUrl}'>` : '';
+    const author = (post.authors.length > 0) ? `By <span class='capitalized'>${post.authors.join(', ')}</span>` : '';
+    const image = (post.images.length > 0) ? `<img id='image' class='image' src='${post.images[0].previewUrl}'>` : '';
+    const published = `Published: ${getPublishedDate(post.published)}`;
     const disqusHTML = `
       <!DOCTYPE html>
       <div id='disqus_thread'></div>
@@ -103,15 +116,16 @@ const PostDetail = React.createClass({
     return `
       <!DOCTYPE html>
       <html>
-      <head>
-      <style> ${innerStyles(getWindowDimensions().width)} </style>
+        <head>
+          <style> ${innerStyles(getWindowDimensions().width)} </style>
           <p id='title'> ${post.title} </p>
-          <p id='caption'> ${caption} </p>
-          <p id='byline'> ${author} </p>
+          <p id='byline' class='postInfo'> ${author} </p>
+          <p id='published' class='postInfo'> ${published} </p>
           ${image}
+          <p id='caption'> ${caption} </p>
           ${this.getBodyHTML()}
           ${disqusHTML}
-      </head>
+        </head>
       </html>
     `;
   },
