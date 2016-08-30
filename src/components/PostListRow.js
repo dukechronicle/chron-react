@@ -22,6 +22,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 7,
     borderColor: '#DDDDDD',
   },
+  postRowImageContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    paddingBottom: 20,
+    borderBottomWidth: 7,
+    borderColor: '#DDDDDD',
+  },
   highlight: {
     marginLeft: -15,
     marginRight: -15,
@@ -47,8 +55,6 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   thumbnail: {
-    marginRight: -10,
-    marginLeft: -10,
     marginBottom: 15,
     height: 250,
   },
@@ -75,7 +81,7 @@ export const PostListRow = React.createClass({
       image = (
         <Image
           source={{uri: post.images[0].thumbnailUrl}}
-          resizeMode={Image.resizeMode.contain}
+          resizeMode={Image.resizeMode.stretch}
           style={styles.thumbnail} />
       );
     }
@@ -83,12 +89,15 @@ export const PostListRow = React.createClass({
       .map((t) => t.name.toUpperCase())
       .filter((t) => !isInternalTag(t))
       .join(', ');
+    const postRowStyle = post.images.length > 0 ?
+          styles.postRowImageContainer:
+          styles.postRowContainer;
     return (
       <TouchableHighlight
         onPress={() => this.props.rowPressed(post)}
         style={styles.highlight}
         underlayColor="#eeeeee">
-        <View style={styles.postRowContainer}>
+        <View style={ postRowStyle }>
           {image}
           <View style={styles.articleContainer}>
             <Text numberOfLines={1} style={styles.tags}>{tagsString}</Text>
