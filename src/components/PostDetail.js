@@ -89,7 +89,6 @@ const PostDetail = React.createClass({
       </div>
     `;
     const res = insertElAt(this.props.post.body, adHTML, 2);
-    console.log(this.props.post);
     return res;
   },
 

@@ -12,8 +12,6 @@ const {
   postPropTypes,
 } = require('../utils/Post');
 
-const { getWindowDimensions } = require('../utils/Image');
-
 const styles = StyleSheet.create({
   postRowContainer: {
     flex: 1,
@@ -28,7 +26,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    //paddingTop: 20,
     paddingBottom: 20,
     borderBottomWidth: 7,
     borderColor: '#DDDDDD',
@@ -58,8 +55,6 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   thumbnail: {
-    //marginRight: -10,
-    //marginLeft: -10,
     marginBottom: 15,
     height: 250,
   },
@@ -86,6 +81,7 @@ export const PostListRow = React.createClass({
       image = (
         <Image
           source={{uri: post.images[0].thumbnailUrl}}
+          resizeMode={Image.resizeMode.stretch}
           style={styles.thumbnail} />
       );
     }
