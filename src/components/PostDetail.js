@@ -14,6 +14,7 @@ const paragraphAd = require('../../config/ad.json')['300x250'];
 const styles = StyleSheet.create({
   container: {
     marginTop: 50,
+    marginBottom: 27,
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
