@@ -37,7 +37,7 @@ const getSection = (section, number) => {
   const p = fetch(urlBuilder(section, number))
     .then((response) => response.json())
     .then((responseData) => {
-      const articles = section == "blog/blue-zone" ? responseData[0].posts : responseData[0].articles;
+      const articles = section === 'blog/blue-zone' ? responseData[0].posts : responseData[0].articles;
       const articlesMap = _.object(
           _.map(_.values(articles), (a) => [a.uid, rawDataToPost(a)]));
       postsCursor.merge(articlesMap);
@@ -49,7 +49,7 @@ const getSection = (section, number) => {
       }
     })
     .catch((error) => {
-      console.warn(error);
+      throw error;
       // TODO: change some view state
     });
   p.done();
@@ -64,7 +64,7 @@ const getPost = (slug) => {
       postsCursor.merge({[slug]: article});
     })
     .catch((error) => {
-      console.warn(error);
+      throw error;
       // TODO: change some view state
     });
   p.done();

@@ -30,8 +30,8 @@ const tree = new Baobab({
      * Handle whether the pages are scrolling to the top
      */
     scrollToTop: {
-      'frontpage': false
-    }
+      'frontpage': false,
+    },
   },
 });
 

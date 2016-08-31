@@ -56,8 +56,3 @@ export const insertElAt = (htmlText, el, idx) => {
     return htmlText;
   }
 };
-
-export const getPublishedDate = (pubString) => {
-  const pieces = /([a-zA-Z]+ [a-zA-Z]+ [0-9]+ [0-9]+).*(\([A-Z]+\))/.exec(pubString)
-  return `${pieces[1]} ${pieces[2]}`
-}

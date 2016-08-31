@@ -8,9 +8,11 @@ const {
 } = React;
 
 const {
-  isInternalTag,
   postPropTypes,
 } = require('../utils/Post');
+
+import { getPublishedDate, computeTagString } from '../utils/Post';
+const { getPostImageHeight } = require('../utils/Image');
 
 const styles = StyleSheet.create({
   postRowContainer: {
@@ -18,7 +20,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     paddingTop: 20,
-    paddingBottom: 20,
+    paddingBottom: 10,
     borderBottomWidth: 7,
     borderColor: '#DDDDDD',
   },
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    paddingBottom: 20,
+    paddingBottom: 10,
     borderBottomWidth: 7,
     borderColor: '#DDDDDD',
   },
@@ -56,7 +58,14 @@ const styles = StyleSheet.create({
   },
   thumbnail: {
     marginBottom: 15,
-    height: 250,
+    height: getPostImageHeight(),
+  },
+  articleInfo: {
+    flexDirection: 'row',
+    borderTopWidth: 1,
+    borderTopColor: 'whitesmoke',
+    marginTop: 5,
+    paddingTop: 8,
   },
 });
 
@@ -81,17 +90,20 @@ export const PostListRow = React.createClass({
       image = (
         <Image
           source={{uri: post.images[0].thumbnailUrl}}
-          resizeMode={Image.resizeMode.stretch}
+          resizeMode={Image.resizeMode.cover}
           style={styles.thumbnail} />
       );
     }
-    const tagsString = post.tags
-      .map((t) => t.name.toUpperCase())
-      .filter((t) => !isInternalTag(t))
-      .join(', ');
+
+    // create the tags string
+    const tagsString = computeTagString(post.tags);
+
+    // determine what style the post row should have based on
+    // whether or not there is an image
     const postRowStyle = post.images.length > 0 ?
-          styles.postRowImageContainer:
+          styles.postRowImageContainer :
           styles.postRowContainer;
+    const dateString = getPublishedDate(post.published, false);
     return (
       <TouchableHighlight
         onPress={() => this.props.rowPressed(post)}
@@ -100,9 +112,13 @@ export const PostListRow = React.createClass({
         <View style={ postRowStyle }>
           {image}
           <View style={styles.articleContainer}>
-            <Text numberOfLines={1} style={styles.tags}>{tagsString}</Text>
             <Text style={styles.title}>{post.title}</Text>
             <Text numberOfLines={3} style={styles.teaser}>{post.teaser}</Text>
+            <View style={styles.articleInfo}>
+              <Text numberOfLines={1} style={styles.tags}>{tagsString}</Text>
+              <View style={{flex: 1}} />
+              <Text numberOfLines={1} style={styles.tags}>{dateString}</Text>
+            </View>
           </View>
         </View>
       </TouchableHighlight>
