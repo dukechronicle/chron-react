@@ -4,6 +4,7 @@ const React = require('react-native');
 const urlencode = require('urlencode');
 
 import { extractHtmlText } from './dom';
+import { getWindowDimensions } from './Image';
 
 // Strings are urlencoded with utf-8 and also include HTML entities.
 const unescape = (str) => he.unescape(urlencode.decode(str));
@@ -35,6 +36,57 @@ const cleanTag = (t) => {
 };
 
 /**
+ * Returns true if the tag name is a tag used internally, or if it has some
+ * useful meaning to the user.
+ * @param {String} tagName A string representing the tag name.
+ * @return {Boolean}
+ */
+const isInternalTag = (tagName) => {
+  const invalidRegexes = [
+    /top/gi,
+    /newsletter/i,
+    /hot/i,
+    /homepage/i,
+    /columnist/i,
+  ];
+  return _.some(invalidRegexes.map((re) => re.test(tagName)));
+};
+
+/**
+ * Return the max length of the tag string based on
+ * the width of the device
+ */
+const getMaxTagLength = () => {
+  const width = getWindowDimensions().width;
+  switch (width) {
+  case 320: return 23;
+  case 375: return 29;
+  case 414: return 34;
+  default: return 34;
+  }
+};
+
+/**
+ * Generate a tag string for a post listing. This string is
+ * limited depending on the device width
+ * TODO: Do this in css if possible
+ * @param {Array} tags - tags to be maped to a tag string
+ * @return {String} A tags string limited to a certain number
+ * of characters (based on device width)
+ */
+const computeTagString = (tags) => {
+  let tagsString = tags
+    .map((t) => t.name.toUpperCase())
+    .filter((t) => !isInternalTag(t))
+    .join(', ');
+  const maxLen = getMaxTagLength();
+  if (tagsString.length > maxLen) {
+    tagsString = tagsString.substring(0, maxLen) + '...';
+  }
+  return tagsString;
+};
+
+/**
  * Sorts 'articles' so that articles tagged with 'newsletter' are at the top.
  * @param {Array} articles An array of articles that follow the structure in
  *   postPropTypes
@@ -50,23 +102,6 @@ const frontpageSort = (articles) => {
     return [top, bottom.concat([article])];
   }, [[], []]);
   return topPosts.concat(bottomPosts);
-};
-
-/**
- * Returns true if the tag name is a tag used internally, or if it has some
- * useful meaning to the user.
- * @param {String} tagName A string representing the tag name.
- * @return {Boolean}
- */
-const isInternalTag = (tagName) => {
-  const invalidRegexes = [
-    /top/gi,
-    /newsletter/i,
-    /hot/i,
-    /homepage/i,
-    /columnist/i,
-  ];
-  return _.some(invalidRegexes.map((re) => re.test(tagName)));
 };
 
 /**
@@ -88,6 +123,20 @@ const rawDataToPost = (a) => {
 };
 
 /**
+ * Function to get the human readable part of the articles published date
+ * @param {String} pubString - Full published string
+ * @param {Boolean} zone - Boolean determining whether to include time zone
+ * @return {String} The stripped string
+ */
+export const getPublishedDate = (pubString, zone = true) => {
+  if (zone) {
+    const pieces =  /([a-zA-Z]+ [a-zA-Z]+ [0-9]+ [0-9]+).*(\([A-Z]+\))/.exec(pubString);
+    return `${pieces[1]} ${pieces[2]}`;
+  }
+  return /([a-zA-Z]+ [a-zA-Z]+ [0-9]+ [0-9]+)/.exec(pubString)[1];
+};
+
+/**
  * PropTypes for a post.
  */
 const postPropTypes = React.PropTypes.shape({
@@ -105,4 +154,6 @@ module.exports = {
   isInternalTag,
   rawDataToPost,
   postPropTypes,
+  computeTagString,
+  getPublishedDate,
 };

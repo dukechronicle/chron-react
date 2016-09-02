@@ -27,9 +27,6 @@ const store = require('./src/store');
 const tabCursor = store.select('views', 'tab');
 const scrollCursor = store.select('views', 'scrollToTop');
 
-// ignore warning about time sync
-console.ignoredYellowBox = ['jsSchedulingOverhead'];
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -140,8 +137,8 @@ const chronreact = React.createClass({
   switchTabHandler(name) {
     return () => {
       // if we are already on this tab
-      if (this.state.selectedTab == name){
-        scrollCursor.set(name, true)
+      if (this.state.selectedTab === name) {
+        scrollCursor.set(name, true);
       }
       NavigationActionCreators.selectSection(name);
       this.setState({selectedTab: name});

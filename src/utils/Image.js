@@ -15,6 +15,19 @@ export const scaleHeight = ({width, height}, scaleWidth) => (
   }
 );
 
+/** Function to retrurn the heights of the post images
+  * @return {Number} - The height of the image post
+  */
+export const getPostImageHeight = () => {
+  const width = getWindowDimensions().width;
+  switch (width) {
+  case 320: return 200;
+  case 375: return 225;
+  case 414: return 250;
+  default: return 250;
+  }
+};
+
 /**
  * Returns a scaled version of the desired ratio in the width direction
  * according to the device width.

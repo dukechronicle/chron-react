@@ -5,9 +5,9 @@ const {
   View,
   WebView,
 } = React;
-const { postPropTypes } = require('../utils/Post');
+const { postPropTypes, getPublishedDate } = require('../utils/Post');
 const { getWindowDimensions } = require('../utils/Image');
-import { insertElAt, getPublishedDate } from '../utils/dom';
+import { insertElAt } from '../utils/dom';
 
 const paragraphAd = require('../../config/ad.json')['300x250'];
 
@@ -31,7 +31,7 @@ const innerStyles = (fullWidth) => {
     font-weight: bold;
   }
   #image {
-    margin-top: 10px; 
+    margin-top: 10px;
   }
   img {
     flex: 1;
@@ -61,11 +61,11 @@ const innerStyles = (fullWidth) => {
     text-align: center;
   }
   .postInfo {
-    margin: 2px; 
+    margin: 2px;
     font-size: 12px;
   }
   .capitalized {
-    text-transform: uppercase; 
+    text-transform: uppercase;
   }
   #byline {
     font-weight: bold;

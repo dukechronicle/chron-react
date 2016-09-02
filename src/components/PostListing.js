@@ -15,9 +15,9 @@ import { AdListItem } from './AdListItem';
 const RefreshableListView = require('react-native-refreshable-listview');
 const InfiniteScrollView = require('react-native-infinite-scroll-view');
 
-const store = require('../store')
+const store = require('../store');
 const tabCursor = store.select('views', 'tab');
-let scrollCursor = store.select('views', 'scrollToTop')
+const scrollCursor = store.select('views', 'scrollToTop');
 
 const styles = StyleSheet.create({
   postRowContainer: {
@@ -120,7 +120,7 @@ const PostListing = React.createClass({
         // reset state of scrolling
         scrollCursor.set(tab, false);
       }
-    })
+    });
   },
 
   componentWillReceiveProps: function(nextProps) {
@@ -164,7 +164,7 @@ const PostListing = React.createClass({
     return (
       <View style={styles.outerListView}>
         <RefreshableListView
-          ref = {(listView) => {this.listView = listView}}
+          ref = {(listView) => {this.listView = listView;}}
           renderScrollComponent={props => <InfiniteScrollView {...props} />}
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}
