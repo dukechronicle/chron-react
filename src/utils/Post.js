@@ -87,21 +87,17 @@ const computeTagString = (tags) => {
 };
 
 /**
- * Sorts 'articles' so that articles tagged with 'newsletter' are at the top.
+ * Sorts 'articles' so that articles are chronological and unique
  * @param {Array} articles An array of articles that follow the structure in
  *   postPropTypes
- * @return {Array} An array where 'newsletter' articles are at the front of the
- *   array.
+ * @return {Array} An array where articles are sorted chronologically
  */
 const frontpageSort = (articles) => {
-  const [topPosts, bottomPosts] = articles.reduce(([top, bottom], article) => {
-    const tagNames = article.tags.map((t) => t.name);
-    if (_.contains(tagNames, 'newsletter')) {
-      return [top.concat([article]), bottom];
-    }
-    return [top, bottom.concat([article])];
-  }, [[], []]);
-  return topPosts.concat(bottomPosts);
+  return _.chain(articles)
+    .sortBy('published')
+    .uniq('url')
+    .reverse()
+    .value();
 };
 
 /**

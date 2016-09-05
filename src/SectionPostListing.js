@@ -61,7 +61,13 @@ const SectionPostListing = React.createClass({
 
   getDefaultProps: function() {
     return {
-      postsTransform: _.identity,
+      postsTransform: (articles) => {
+        return _.chain(articles)
+          .sortBy('published')
+          .uniq('url')
+          .reverse()
+          .value();
+      },
     };
   },
 

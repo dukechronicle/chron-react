@@ -99,7 +99,7 @@ const PostListing = React.createClass({
 
   getDefaultProps: function() {
     return {
-      postsTransform: _.identity,
+      postsTransform: articles => _.identity(articles),
     };
   },
 
