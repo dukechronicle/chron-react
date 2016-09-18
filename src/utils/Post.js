@@ -90,14 +90,11 @@ const computeTagString = (tags) => {
  * Sorts 'articles' so that articles are chronological and unique
  * @param {Array} articles An array of articles that follow the structure in
  *   postPropTypes
- * @return {Array} An array where articles are sorted chronologically
+ * @return {Array} For now just return the articles, this function will
+ * remain for now in case custom logic needs to be implemented later on
  */
 const frontpageSort = (articles) => {
-  return _.chain(articles)
-    .sortBy('published')
-    .uniq('url')
-    .reverse()
-    .value();
+  return articles;
 };
 
 /**
