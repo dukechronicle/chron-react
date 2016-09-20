@@ -38,14 +38,23 @@ const getSection = (section, number) => {
     .then((response) => response.json())
     .then((responseData) => {
       const articles = section === 'blog/blue-zone' ? responseData[0].posts : responseData[0].articles;
-      const articlesMap = _.object(
-          _.map(_.values(articles), (a) => [a.uid, rawDataToPost(a)]));
-      postsCursor.merge(articlesMap);
+      /**
+       * Here we convert the array of articles into an object with the
+       * key as the uid and the value as an unescaped version of the post.
+       *
+       * The article ordering is screwed up if we use the articlesObject
+       * keys for the sectionCursor (which only matters for the frontPage)
+       * so we instead use the keys ordered correctly from the original response.
+       */
+      const articlesMap =  _.map(_.values(articles), (a) => [a.uid, rawDataToPost(a)]);
+      const orderedKeys =  _.map(articlesMap, (a) => a[0]);
+      const articlesObject = _.object(articlesMap);
+      postsCursor.merge(articlesObject);
       const sectionCursor = sectionIdsCursor.select(section);
       if (_.isUndefined(sectionCursor.get())) {
-        sectionCursor.set(_.keys(articlesMap));
+        sectionCursor.set(orderedKeys);
       } else {
-        sectionCursor.push(_.keys(articlesMap));
+        sectionCursor.push(orderedKeys);
       }
     })
     .catch((error) => {
