@@ -1,10 +1,10 @@
-const React = require('react-native');
-const {
+import React from 'react';
+import {
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-} = React;
+} from 'react-native';
 
 import NavigatorTitle from './components/navigator/Title';
 

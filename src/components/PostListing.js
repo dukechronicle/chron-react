@@ -1,19 +1,16 @@
-const _ = require('underscore');
-const React = require('react-native');
-const {
+import React from 'react';
+import {
   StyleSheet,
   ListView,
+  RefreshControl,
   View,
-} = React;
+} from 'react-native';
 
+const _ = require('underscore');
 const PostDetail = require('./PostDetail');
-const {
-  postPropTypes,
-} = require('../utils/Post');
+const { postPropTypes } = require('../utils/Post');
 import { PostListRow } from './PostListRow';
 import { AdListItem } from './AdListItem';
-const RefreshableListView = require('react-native-refreshable-listview');
-const InfiniteScrollView = require('react-native-infinite-scroll-view');
 
 const store = require('../store');
 const tabCursor = store.select('views', 'tab');
@@ -108,6 +105,7 @@ const PostListing = React.createClass({
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
+      refreshing: false,
     };
   },
 
@@ -135,8 +133,8 @@ const PostListing = React.createClass({
   },
 
   scrollTop: function() {
-    if (this.listView) {
-      this.listView.refs.listview.getScrollResponder().scrollTo({y: 0});
+    if (this.refs.listView) {
+      this.refs.listView.getScrollResponder().scrollTo({y: 0});
     }
   },
 
@@ -163,18 +161,19 @@ const PostListing = React.createClass({
   render: function() {
     return (
       <View style={styles.outerListView}>
-        <RefreshableListView
-          ref = {(listView) => {this.listView = listView;}}
-          renderScrollComponent={props => <InfiniteScrollView {...props} />}
+        <ListView
+          ref="listView"
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}
-          loadData={this.props.refresh}
           automaticallyAdjustContentInsets={false}
-          distanceToLoadMore={200}
-          refreshDescription="Refreshing articles"
           style={styles.listView}
-          onLoadMoreAsync={this.props.onLoadMoreAsync}
-          canLoadMore
+          refreshControl={
+            <RefreshControl
+              onRefresh={this.props.refresh}
+              refreshing={this.state.refreshing}
+              title="Refreshing articles" />
+          }
+          onEndReached={this.props.onLoadMoreAsync}
         />
       </View>
     );

@@ -1,10 +1,11 @@
-const _ = require('underscore');
-const React = require('react-native');
-const {
+import React from 'react';
+import {
   StyleSheet,
   Text,
   View,
-} = React;
+} from 'react-native';
+
+const _ = require('underscore');
 const helpers = require('./helpers.js');
 const {
   LoadingView,
