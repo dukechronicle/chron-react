@@ -173,6 +173,7 @@ const PostListing = React.createClass({
               refreshing={this.state.refreshing}
               title="Refreshing articles" />
           }
+          onEndReachedThreshold={800}
           onEndReached={this.props.onLoadMoreAsync}
         />
       </View>
