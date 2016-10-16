@@ -2,6 +2,7 @@ import React from 'react';
 import {
   StyleSheet,
   ListView,
+  ActivityIndicator,
   RefreshControl,
   View,
 } from 'react-native';
@@ -70,6 +71,10 @@ const styles = StyleSheet.create({
     marginTop: 64,
     marginBottom: 44,
   },
+  footer: {
+    paddingTop: 12,
+    paddingBottom: 12,
+  },
 });
 
 /**
@@ -85,6 +90,8 @@ const PostListing = React.createClass({
    * 'postsTransform' is a function that takes in a list of posts and returns a
    * transformed (e.g. sorted, filtered) list of posts. By default,
    * postsTransform is the identity function.
+   *
+   * @prop {Boolean} showFooter - show the refreshing footer in the post listing
    */
   propTypes: {
     posts: React.PropTypes.arrayOf(postPropTypes).isRequired,
@@ -106,6 +113,7 @@ const PostListing = React.createClass({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       refreshing: false,
+      loadingMore: false,
     };
   },
 
@@ -158,6 +166,42 @@ const PostListing = React.createClass({
     }
   },
 
+  /**
+   * Render a loading footer at the bottom of the listView
+   * @return {Renderable} An ActivityIndicator spinner
+   */
+  renderFooter: function() {
+    if (this.state.loadingMore) {
+      return (
+        <View style={styles.footer}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    }
+    return null;
+  },
+
+  /**
+   * Refresh the postListing and update the refresh state
+   */
+  refresh: function() {
+    this.setState({refreshing: true});
+    this.props.refresh().done(() => {
+      this.setState({refreshing: false});
+    });
+  },
+
+  /**
+   * Load more articles when the bottom threshold is reached
+   * and update the appropriate state (loadingMore)
+   */
+  onReachEnd: function() {
+    this.setState({loadingMore: true});
+    this.props.onLoadMoreAsync().done(() => {
+      this.setState({loadingMore: false});
+    });
+  },
+
   render: function() {
     return (
       <View style={styles.outerListView}>
@@ -165,16 +209,17 @@ const PostListing = React.createClass({
           ref="listView"
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}
+          renderFooter={this.renderFooter}
           automaticallyAdjustContentInsets={false}
           style={styles.listView}
           refreshControl={
             <RefreshControl
-              onRefresh={this.props.refresh}
+              onRefresh={this.refresh}
               refreshing={this.state.refreshing}
               title="Refreshing articles" />
           }
           onEndReachedThreshold={800}
-          onEndReached={this.props.onLoadMoreAsync}
+          onEndReached={this.onReachEnd}
         />
       </View>
     );
