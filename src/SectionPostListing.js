@@ -1,10 +1,11 @@
-const _ = require('underscore');
-const React = require('react-native');
-const {
+import React from 'react';
+import {
   StyleSheet,
   Text,
   View,
-} = React;
+} from 'react-native';
+
+const _ = require('underscore');
 const helpers = require('./helpers.js');
 const {
   LoadingView,
@@ -49,6 +50,7 @@ const SectionPostListing = React.createClass({
    * section. The name is used for display purposes, and the slug is used when
    * querying the store and issuing a getSection action. The slug should match
    * the same slug that is used on the website.
+   * @prop {Boolean} showFooter - show the refreshing footer in the post listing
    */
   propTypes: {
     navigator: React.PropTypes.object.isRequired,

@@ -1,10 +1,10 @@
-const React = require('react-native');
-const {
+import React from 'react';
+import {
   StyleSheet,
   TabBarIOS,
   View,
   Text,
-} = React;
+} from 'react-native';
 
 const styles = StyleSheet.create({
   tabContent: {

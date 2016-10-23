@@ -765,6 +765,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
+					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dukechronicle.thechronicle;
 				PRODUCT_NAME = chronreact;
@@ -787,6 +788,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
+					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dukechronicle.thechronicle;
 				PRODUCT_NAME = chronreact;

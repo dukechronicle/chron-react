@@ -1,7 +1,5 @@
-const React = require('react-native');
-const {
-  View,
-} = React;
+import React from 'react';
+import { View } from 'react-native';
 const PostDetail = require('./components/PostDetail');
 
 const _ = require('underscore');

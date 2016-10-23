@@ -1,19 +1,17 @@
-const _ = require('underscore');
-const React = require('react-native');
-const {
+import React from 'react';
+import {
   StyleSheet,
   ListView,
+  ActivityIndicator,
+  RefreshControl,
   View,
-} = React;
+} from 'react-native';
 
+const _ = require('underscore');
 const PostDetail = require('./PostDetail');
-const {
-  postPropTypes,
-} = require('../utils/Post');
+const { postPropTypes } = require('../utils/Post');
 import { PostListRow } from './PostListRow';
 import { AdListItem } from './AdListItem';
-const RefreshableListView = require('react-native-refreshable-listview');
-const InfiniteScrollView = require('react-native-infinite-scroll-view');
 
 const store = require('../store');
 const tabCursor = store.select('views', 'tab');
@@ -73,6 +71,10 @@ const styles = StyleSheet.create({
     marginTop: 64,
     marginBottom: 44,
   },
+  footer: {
+    paddingTop: 12,
+    paddingBottom: 12,
+  },
 });
 
 /**
@@ -88,6 +90,8 @@ const PostListing = React.createClass({
    * 'postsTransform' is a function that takes in a list of posts and returns a
    * transformed (e.g. sorted, filtered) list of posts. By default,
    * postsTransform is the identity function.
+   *
+   * @prop {Boolean} showFooter - show the refreshing footer in the post listing
    */
   propTypes: {
     posts: React.PropTypes.arrayOf(postPropTypes).isRequired,
@@ -108,6 +112,8 @@ const PostListing = React.createClass({
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
+      refreshing: false,
+      loadingMore: false,
     };
   },
 
@@ -135,8 +141,8 @@ const PostListing = React.createClass({
   },
 
   scrollTop: function() {
-    if (this.listView) {
-      this.listView.refs.listview.getScrollResponder().scrollTo({y: 0});
+    if (this.refs.listView) {
+      this.refs.listView.getScrollResponder().scrollTo({y: 0});
     }
   },
 
@@ -160,21 +166,60 @@ const PostListing = React.createClass({
     }
   },
 
+  /**
+   * Render a loading footer at the bottom of the listView
+   * @return {Renderable} An ActivityIndicator spinner
+   */
+  renderFooter: function() {
+    if (this.state.loadingMore) {
+      return (
+        <View style={styles.footer}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    }
+    return null;
+  },
+
+  /**
+   * Refresh the postListing and update the refresh state
+   */
+  refresh: function() {
+    this.setState({refreshing: true});
+    this.props.refresh().done(() => {
+      this.setState({refreshing: false});
+    });
+  },
+
+  /**
+   * Load more articles when the bottom threshold is reached
+   * and update the appropriate state (loadingMore)
+   */
+  onReachEnd: function() {
+    this.setState({loadingMore: true});
+    this.props.onLoadMoreAsync().done(() => {
+      this.setState({loadingMore: false});
+    });
+  },
+
   render: function() {
     return (
       <View style={styles.outerListView}>
-        <RefreshableListView
-          ref = {(listView) => {this.listView = listView;}}
-          renderScrollComponent={props => <InfiniteScrollView {...props} />}
+        <ListView
+          ref="listView"
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}
-          loadData={this.props.refresh}
+          renderFooter={this.renderFooter}
           automaticallyAdjustContentInsets={false}
-          distanceToLoadMore={200}
-          refreshDescription="Refreshing articles"
           style={styles.listView}
-          onLoadMoreAsync={this.props.onLoadMoreAsync}
-          canLoadMore
+          refreshControl={
+            <RefreshControl
+              onRefresh={this.refresh}
+              refreshing={this.state.refreshing}
+              title="Refreshing articles" />
+          }
+          onEndReachedThreshold={800}
+          onEndReached={this.onReachEnd}
         />
       </View>
     );

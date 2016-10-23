@@ -1,11 +1,11 @@
-const React = require('react-native');
-const {
+import React from 'react';
+import {
   ListView,
   StyleSheet,
   Text,
   TouchableHighlight,
   View,
-} = React;
+} from 'react-native';
 
 const helpers = require('./helpers.js');
 const { LoadingView } = helpers;

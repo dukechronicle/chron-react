@@ -1,13 +1,13 @@
-const React = require('react-native');
-const {
+import React from 'react';
+import {
   AppRegistry,
   Linking,
   Navigator,
   PushNotificationIOS,
   StyleSheet,
-  StatusBarIOS,
+  StatusBar,
   TabBarIOS,
-  } = React;
+} from 'react-native';
 
 const _ = require('underscore');
 
@@ -71,7 +71,7 @@ const chronreact = React.createClass({
 
   componentDidMount() {
     tabCursor.on('change', this.updateTab);
-    StatusBarIOS.setStyle('light-content');
+    StatusBar.setBarStyle('light-content');
     Linking.addEventListener('url', this._handleOpenURL);
 
     const url = this.props.pushNotification;

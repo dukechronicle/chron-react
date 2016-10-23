@@ -1,5 +1,5 @@
+import React from 'react';
 const _ = require('underscore');
-const React = require('react-native');
 const SectionPostListing = require('./SectionPostListing');
 
 const { frontpageSort } = require('./utils/Post');

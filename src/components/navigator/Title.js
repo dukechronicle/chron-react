@@ -1,8 +1,8 @@
-const React = require('react-native');
-const {
+import React from 'react';
+import {
   StyleSheet,
   Text,
-} = React;
+} from 'react-native';
 
 const styles = StyleSheet.create({
   navBarText: {

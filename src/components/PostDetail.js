@@ -1,10 +1,10 @@
-const _ = require('underscore');
-const React = require('react-native');
-const {
+import React from 'react';
+import {
   StyleSheet,
   View,
   WebView,
-} = React;
+} from 'react-native';
+const _ = require('underscore');
 const { postPropTypes, getPublishedDate } = require('../utils/Post');
 const { getWindowDimensions } = require('../utils/Image');
 import { insertElAt } from '../utils/dom';

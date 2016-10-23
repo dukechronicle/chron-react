@@ -1,7 +1,5 @@
-const React = require('react-native');
-const {
-  ActivityIndicatorIOS,
-} = React;
+import React from 'react';
+import { ActivityIndicator} from 'react-native';
 
 /**
  * General purpose wrapper for ActivityIndicatorIOS.
@@ -9,7 +7,7 @@ const {
 export const LoadingView = React.createClass({
   render() {
     return (
-      <ActivityIndicatorIOS
+      <ActivityIndicator
         hidden="true"
         size="large"
       />

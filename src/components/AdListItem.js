@@ -1,11 +1,11 @@
-const React = require('react-native');
-const {
+import React from 'react';
+import {
   Linking,
   Image,
   StyleSheet,
   TouchableHighlight,
   View,
-} = React;
+} from 'react-native';
 import { scaleHeightToDevice } from '../utils/Image';
 
 const ad = require('../../config/ad.json')['300x90'];

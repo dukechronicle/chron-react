@@ -1,6 +1,6 @@
 const _ = require('underscore');
 const he = require('he');
-const React = require('react-native');
+import React from 'react';
 const urlencode = require('urlencode');
 
 import { extractHtmlText } from './dom';

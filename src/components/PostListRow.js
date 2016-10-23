@@ -1,17 +1,13 @@
-const React = require('react-native');
-const {
+import React from 'react';
+import {
   StyleSheet,
   TouchableHighlight,
   Image,
   Text,
   View,
-} = React;
+} from 'react-native';
 
-const {
-  postPropTypes,
-} = require('../utils/Post');
-
-import { getPublishedDate, computeTagString } from '../utils/Post';
+import { postPropTypes, getPublishedDate, computeTagString } from '../utils/Post';
 const { getPostImageHeight } = require('../utils/Image');
 
 const styles = StyleSheet.create({

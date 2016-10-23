@@ -3,13 +3,13 @@
  * https://github.com/facebook/react-native
  */
 
-const React = require('react-native');
-const {
+import React from 'react';
+import {
   AppRegistry,
   StyleSheet,
   Text,
   View,
-} = React;
+} from 'react-native';
 
 
 const styles = StyleSheet.create({
