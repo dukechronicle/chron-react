@@ -20,8 +20,6 @@
   [BatchPush enableAutomaticDeeplinkHandling:NO];
   NSURL *jsCodeLocation;
   
-  NSLog(@"%@", [BatchUser installationID]);
-
   /**
    * Loading JavaScript code - uncomment the one you want.
    *
