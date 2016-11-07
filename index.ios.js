@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 
 const chronreact = React.createClass({
   propTypes: {
-    pushNotification: React.PropTypes.object,
+    pushNotification: React.PropTypes.string,
   },
 
   getInitialState() {
@@ -76,15 +76,13 @@ const chronreact = React.createClass({
 
     const url = this.props.pushNotification;
     if (!(_.isUndefined(url) || _.isNull(url))) {
-      const slug = url.replace(/dukechronicle:\/\//, '')
-        .replace(/\/article\//, '');
+      const slug = url.replace(/dukechronicle:\/\/article\//, '');
       this.openPost(slug);
     }
 
     Linking.getInitialURL().then((u) => {
       if (!_.isNull(u)) {
-        const slug = u.replace(/dukechronicle:\/\//, '')
-          .replace(/\/article\//, '');
+        const slug = u.replace(/dukechronicle:\/\/article\//, '');
         this.openPost(slug);
       }
     });
@@ -105,8 +103,7 @@ const chronreact = React.createClass({
   onNotification(notification) {
     const url = notification._data.pushNotification;
     if (!(_.isUndefined(url) || _.isNull(url))) {
-      const slug = url.replace(/dukechronicle:\/\//, '')
-        .replace(/\/article\//, '');
+      const slug = url.replace(/dukechronicle:\/\/article\//, '');
       this.openPost(slug);
     }
   },
@@ -114,8 +111,7 @@ const chronreact = React.createClass({
   _handleOpenURL(e) {
     const url = e.url;
     if (!_.isNull(url)) {
-      const slug = url.replace(/dukechronicle:\/\//, '')
-        .replace(/\/article\//, '');
+      const slug = url.replace(/dukechronicle:\/\/article\//, '');
       this.openPost(slug);
     }
   },
