@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  ActionSheetIOS,
   View,
 } from 'react-native';
 
@@ -26,6 +27,10 @@ const styles = StyleSheet.create({
   },
 });
 
+/*
+ * Object that maps the navigation bar text to a partifcular route. Contains functions
+ * to create the left, & right button and the Title
+ */
 export const NavigationBarRouteMapper = {
   LeftButton: function(route, navigator, index, navState) {
     if (index === 0) {
@@ -47,8 +52,17 @@ export const NavigationBarRouteMapper = {
     );
   },
 
-  RightButton: function() {
-    return null;
+  /*
+   * Currently only render the right button if the route is an article, in which case 
+   * it is a share button that opens an IOS action sheet to share the URL of the article
+   */
+  RightButton: function(route, navigator, index, navState) {
+    // if (!route.navState)
+    console.log(route)
+    console.log(navigator)
+    console.log(index)
+    console.log(navState)
+    return null
   },
 
   Title: function(route) {
