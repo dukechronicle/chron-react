@@ -22,10 +22,10 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		47EA88D8AA967AC8BEBF23D9 /* libPods-chronreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B27F36DE2C1FA2E22E1338 /* libPods-chronreact.a */; };
+		5D09A972C249ABD405CB6EC6 /* libPods-chronreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A8D610E15391DC941186DC /* libPods-chronreact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		B6316BB01E14EFD500FCEBD9 /* ChronBatchWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = B6316BAF1E14EFD500FCEBD9 /* ChronBatchWrapper.m */; };
-		B6804ECB1E14EA730005A0EC /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6804EC91E14E92B0005A0EC /* libRCTPushNotification.a */; };
+		B634E6F41E157E6000838B17 /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B634E6F31E157E5300838B17 /* libRCTPushNotification.a */; };
+		B634E6F71E15820A00838B17 /* ChronBatchWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = B634E6F61E15820A00838B17 /* ChronBatchWrapper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,9 +106,16 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
-		B6804EC81E14E92B0005A0EC /* PBXContainerItemProxy */ = {
+		B634E6E51E157E4000838B17 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B6804EC41E14E92A0005A0EC /* RCTPushNotification.xcodeproj */;
+			containerPortal = B634E6DE1E157E4000838B17 /* RCTLinking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTLinking;
+		};
+		B634E6F21E157E5300838B17 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B634E6EE1E157E5300838B17 /* RCTPushNotification.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTPushNotification;
@@ -116,6 +123,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
 		00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTGeolocation.xcodeproj; path = "../node_modules/react-native/Libraries/Geolocation/RCTGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
@@ -134,15 +142,16 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = chronreact/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = chronreact/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		29B27F36DE2C1FA2E22E1338 /* libPods-chronreact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-chronreact.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		29A8D610E15391DC941186DC /* libPods-chronreact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-chronreact.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		386A4EA6342F6FBDB8BA39D3 /* Pods-chronreact.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chronreact.release.xcconfig"; path = "Pods/Target Support Files/Pods-chronreact/Pods-chronreact.release.xcconfig"; sourceTree = "<group>"; };
+		5507C141F92E7FE82A7E59F8 /* Pods-chronreact.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chronreact.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chronreact/Pods-chronreact.debug.xcconfig"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		A7DCA9ECE0E0B1DAE20BCFA2 /* Pods-chronreact.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chronreact.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chronreact/Pods-chronreact.debug.xcconfig"; sourceTree = "<group>"; };
-		B6316BAE1E14EFD500FCEBD9 /* ChronBatchWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChronBatchWrapper.h; path = ../../ChronBatchWrapper.h; sourceTree = "<group>"; };
-		B6316BAF1E14EFD500FCEBD9 /* ChronBatchWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChronBatchWrapper.m; path = ../../ChronBatchWrapper.m; sourceTree = "<group>"; };
-		B6804EC41E14E92A0005A0EC /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
-		B6BFD7F81E1558AF00682AF3 /* chronreact.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = chronreact.entitlements; path = ../../chronreact.entitlements; sourceTree = "<group>"; };
-		F280A5F48716CE4EDDCF6BD8 /* Pods-chronreact.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chronreact.release.xcconfig"; path = "Pods/Target Support Files/Pods-chronreact/Pods-chronreact.release.xcconfig"; sourceTree = "<group>"; };
+		B634E6D21E157B0A00838B17 /* chronreact.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = chronreact.entitlements; path = chronreact/chronreact.entitlements; sourceTree = "<group>"; };
+		B634E6DE1E157E4000838B17 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		B634E6EE1E157E5300838B17 /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
+		B634E6F51E15820A00838B17 /* ChronBatchWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChronBatchWrapper.h; path = ../../ChronBatchWrapper.h; sourceTree = "<group>"; };
+		B634E6F61E15820A00838B17 /* ChronBatchWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChronBatchWrapper.m; path = ../../ChronBatchWrapper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,7 +167,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6804ECB1E14EA730005A0EC /* libRCTPushNotification.a in Frameworks */,
+				B634E6F41E157E6000838B17 /* libRCTPushNotification.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -169,7 +178,7 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				47EA88D8AA967AC8BEBF23D9 /* libPods-chronreact.a in Frameworks */,
+				5D09A972C249ABD405CB6EC6 /* libPods-chronreact.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +242,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		02E5FFDAB536B76CD735B6FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29A8D610E15391DC941186DC /* libPods-chronreact.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,9 +269,10 @@
 		13B07FAE1A68108700A75B9A /* chronreact */ = {
 			isa = PBXGroup;
 			children = (
-				B6BFD7F81E1558AF00682AF3 /* chronreact.entitlements */,
-				B6316BAE1E14EFD500FCEBD9 /* ChronBatchWrapper.h */,
-				B6316BAF1E14EFD500FCEBD9 /* ChronBatchWrapper.m */,
+				B634E6F51E15820A00838B17 /* ChronBatchWrapper.h */,
+				B634E6F61E15820A00838B17 /* ChronBatchWrapper.m */,
+				B634E6D21E157B0A00838B17 /* chronreact.entitlements */,
+				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -273,12 +291,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2BCBBD92307CCFC4775FBCE8 /* Frameworks */ = {
+		2B3EC427CB0DD5B582B05185 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				29B27F36DE2C1FA2E22E1338 /* libPods-chronreact.a */,
+				5507C141F92E7FE82A7E59F8 /* Pods-chronreact.debug.xcconfig */,
+				386A4EA6342F6FBDB8BA39D3 /* Pods-chronreact.release.xcconfig */,
 			);
-			name = Frameworks;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
@@ -292,7 +311,8 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				B6804EC41E14E92A0005A0EC /* RCTPushNotification.xcodeproj */,
+				B634E6EE1E157E5300838B17 /* RCTPushNotification.xcodeproj */,
+				B634E6DE1E157E4000838B17 /* RCTLinking.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
@@ -322,8 +342,8 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* chronreactTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
-				8D54C867A3AFA101E2E741D7 /* Pods */,
-				2BCBBD92307CCFC4775FBCE8 /* Frameworks */,
+				2B3EC427CB0DD5B582B05185 /* Pods */,
+				02E5FFDAB536B76CD735B6FC /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -338,19 +358,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8D54C867A3AFA101E2E741D7 /* Pods */ = {
+		B634E6DF1E157E4000838B17 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A7DCA9ECE0E0B1DAE20BCFA2 /* Pods-chronreact.debug.xcconfig */,
-				F280A5F48716CE4EDDCF6BD8 /* Pods-chronreact.release.xcconfig */,
+				B634E6E61E157E4000838B17 /* libRCTLinking.a */,
 			);
-			name = Pods;
+			name = Products;
 			sourceTree = "<group>";
 		};
-		B6804EC51E14E92A0005A0EC /* Products */ = {
+		B634E6EF1E157E5300838B17 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B6804EC91E14E92B0005A0EC /* libRCTPushNotification.a */,
+				B634E6F31E157E5300838B17 /* libRCTPushNotification.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -380,13 +399,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "chronreact" */;
 			buildPhases = (
-				100DEF2D60E1C9E9BC2B72BD /* [CP] Check Pods Manifest.lock */,
+				A9EC2E1E48E894E62EBC6791 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				FA51818DB97DA127E3681BC2 /* [CP] Embed Pods Frameworks */,
-				C6660E7BE1251D1A28FBE23B /* [CP] Copy Pods Resources */,
+				596D84F51E46B9701F17F819 /* [CP] Embed Pods Frameworks */,
+				4001BD9572B089C9DA4254E1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -403,7 +422,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -412,7 +431,6 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 47P425822X;
-						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -446,6 +464,10 @@
 					ProjectRef = 00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */;
 				},
 				{
+					ProductGroup = B634E6DF1E157E4000838B17 /* Products */;
+					ProjectRef = B634E6DE1E157E4000838B17 /* RCTLinking.xcodeproj */;
+				},
+				{
 					ProductGroup = 78C398B11ACF4ADC00677621 /* Products */;
 					ProjectRef = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
 				},
@@ -454,8 +476,8 @@
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
 				},
 				{
-					ProductGroup = B6804EC51E14E92A0005A0EC /* Products */;
-					ProjectRef = B6804EC41E14E92A0005A0EC /* RCTPushNotification.xcodeproj */;
+					ProductGroup = B634E6EF1E157E5300838B17 /* Products */;
+					ProjectRef = B634E6EE1E157E5300838B17 /* RCTPushNotification.xcodeproj */;
 				},
 				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
@@ -557,11 +579,18 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		B6804EC91E14E92B0005A0EC /* libRCTPushNotification.a */ = {
+		B634E6E61E157E4000838B17 /* libRCTLinking.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTLinking.a;
+			remoteRef = B634E6E51E157E4000838B17 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B634E6F31E157E5300838B17 /* libRCTPushNotification.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRCTPushNotification.a;
-			remoteRef = B6804EC81E14E92B0005A0EC /* PBXContainerItemProxy */;
+			remoteRef = B634E6F21E157E5300838B17 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -600,22 +629,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
-		100DEF2D60E1C9E9BC2B72BD /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		C6660E7BE1251D1A28FBE23B /* [CP] Copy Pods Resources */ = {
+		4001BD9572B089C9DA4254E1 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -630,7 +644,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-chronreact/Pods-chronreact-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FA51818DB97DA127E3681BC2 /* [CP] Embed Pods Frameworks */ = {
+		596D84F51E46B9701F17F819 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -643,6 +657,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-chronreact/Pods-chronreact-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A9EC2E1E48E894E62EBC6791 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -662,7 +691,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				B6316BB01E14EFD500FCEBD9 /* ChronBatchWrapper.m in Sources */,
+				B634E6F71E15820A00838B17 /* ChronBatchWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,7 +729,6 @@
 				INFOPLIST_FILE = chronreactTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/chronreact.app/chronreact";
 			};
@@ -714,7 +742,6 @@
 				INFOPLIST_FILE = chronreactTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/chronreact.app/chronreact";
 			};
@@ -722,20 +749,19 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A7DCA9ECE0E0B1DAE20BCFA2 /* Pods-chronreact.debug.xcconfig */;
+			baseConfigurationReference = 5507C141F92E7FE82A7E59F8 /* Pods-chronreact.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = ../../chronreact.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = chronreact/chronreact.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 47P425822X;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 				);
 				INFOPLIST_FILE = chronreact/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -752,19 +778,18 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F280A5F48716CE4EDDCF6BD8 /* Pods-chronreact.release.xcconfig */;
+			baseConfigurationReference = 386A4EA6342F6FBDB8BA39D3 /* Pods-chronreact.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = ../../chronreact.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = chronreact/chronreact.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 47P425822X;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 				);
 				INFOPLIST_FILE = chronreact/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -792,19 +817,15 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -842,10 +863,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -853,7 +872,6 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
