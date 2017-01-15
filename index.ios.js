@@ -23,6 +23,8 @@ const { NavigationBarRouteMapper } = require('./src/NavigationBarRouteMapper.ios
 
 const { registerPushIOS } = require('./src/PushNotification');
 
+import { stripDeepLink } from './src/utils/Post'
+
 const store = require('./src/store');
 const tabCursor = store.select('views', 'tab');
 const scrollCursor = store.select('views', 'scrollToTop');
@@ -59,9 +61,6 @@ const styles = StyleSheet.create({
 });
 
 const chronreact = React.createClass({
-  propTypes: {
-    pushNotification: React.PropTypes.string,
-  },
 
   getInitialState() {
     return {
@@ -74,19 +73,17 @@ const chronreact = React.createClass({
     StatusBar.setBarStyle('light-content');
     Linking.addEventListener('url', this._handleOpenURL);
 
-    const url = this.props.pushNotification;
-    if (!(_.isUndefined(url) || _.isNull(url))) {
-      const slug = url.replace(/dukechronicle:\/\/article\//, '');
-      this.openPost(slug);
-    }
-
-    Linking.getInitialURL().then((u) => {
-      if (!_.isNull(u)) {
-        const slug = u.replace(/dukechronicle:\/\/article\//, '');
+    Linking.getInitialURL().then((url) => {
+      if (!_.isNull(url)) {
+        const slug = stripDeepLink(url);
         this.openPost(slug);
       }
     });
+    
+    // Get a remote notification on application start, or listen for notifications
+    // while the application is open
     registerPushIOS();
+    PushNotificationIOS.getInitialNotification().then(this.onNotification);
     PushNotificationIOS.addEventListener('notification', this.onNotification);
   },
 
@@ -98,12 +95,13 @@ const chronreact = React.createClass({
 
   /*
    * Expects notification object to have a '_data' key that maps to an object,
-   * which should have 'pushNotification' as a key, which should map to a full url.
+   * which should have 'com.batch' as a key, which should finally have 'l' as a
+   * key mapping to the full deeplink url
    */
   onNotification(notification) {
-    const url = notification._data.pushNotification;
-    if (!(_.isUndefined(url) || _.isNull(url))) {
-      const slug = url.replace(/dukechronicle:\/\/article\//, '');
+    if (!(_.isUndefined(notification) || _.isNull(notification))) {
+      const url = notification._data['com.batch'].l;
+      const slug = stripDeepLink(url);
       this.openPost(slug);
     }
   },
@@ -111,7 +109,7 @@ const chronreact = React.createClass({
   _handleOpenURL(e) {
     const url = e.url;
     if (!_.isNull(url)) {
-      const slug = url.replace(/dukechronicle:\/\/article\//, '');
+      const slug = stripDeepLink(url);
       this.openPost(slug);
     }
   },
@@ -155,8 +153,8 @@ const chronreact = React.createClass({
   renderScene: function(route, navigator) {
     return (
       <route.component
-          navigator={navigator}
-          {...route.passProps} />
+        navigator={navigator}
+        {...route.passProps} />
     );
   },
 

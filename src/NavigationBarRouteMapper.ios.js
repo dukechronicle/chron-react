@@ -3,11 +3,9 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  ActionSheetIOS,
   View,
 } from 'react-native';
 
-import PostDetail from './components/PostDetail'
 import NavigatorTitle from './components/navigator/Title';
 
 const styles = StyleSheet.create({
@@ -17,9 +15,6 @@ const styles = StyleSheet.create({
   },
   navBarLeftButton: {
     paddingLeft: 10,
-  },
-  navBarRightButton: {
-    paddingRight: 10,
   },
   navBarLeftArrow: {
     paddingRight: 10,
@@ -31,10 +26,6 @@ const styles = StyleSheet.create({
   },
 });
 
-/*
- * Object that maps the navigation bar text to a partifcular route. Contains functions
- * to create the left, & right button and the Title
- */
 export const NavigationBarRouteMapper = {
   LeftButton: function(route, navigator, index, navState) {
     if (index === 0) {
@@ -56,33 +47,8 @@ export const NavigationBarRouteMapper = {
     );
   },
 
-  /*
-   * Currently only render the right button if the route is an article, in which case 
-   * it is a share button that opens an IOS action sheet to share the URL of the article
-   */
-  RightButton: function(route, navigator, index, navState) {
-    if (route.component === PostDetail) {
-      const { url, title } = route.passProps.post;
-      return (
-        <TouchableOpacity
-            onPress={() => {
-              ActionSheetIOS.showShareActionSheetWithOptions({
-                url,
-                subject: title,
-              }, 
-              (error) => alert(error), 
-              (sucess, method) => { })
-            }}
-            style={styles.navBarRightButton}>
-          <View>
-            <Text style={[styles.navBarText, styles.navBarButtonText]}>
-              Share
-            </Text>
-          </View>  
-        </TouchableOpacity>
-      )
-    }
-    return null
+  RightButton: function() {
+    return null;
   },
 
   Title: function(route) {

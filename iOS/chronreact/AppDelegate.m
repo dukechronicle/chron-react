@@ -20,24 +20,20 @@
 {
   [BatchPush enableAutomaticDeeplinkHandling:NO];
   
+  // Print out the Batch installation id for testing
+  #ifdef DEBUG
+    NSLog(@"Batch installation id: %@", [BatchUser installationID]);
+  #endif
+  
   NSURL *jsCodeLocation;
   
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
   
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"chronreact"
+                                               moduleName:@"chronreact"
                                                initialProperties:nil
-                                                   launchOptions:launchOptions];
-  
-  NSDictionary *remoteNotif = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
-  
-  //Accept push notification when app is not open
-  
-  NSDictionary *pushProps = nil;
-  if (remoteNotif) {
-    NSString *deeplink = [BatchPush deeplinkFromUserInfo:remoteNotif];
-    pushProps = @{@"pushNotification" : deeplink};
-  }
+                                               launchOptions:launchOptions];
+
   
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
   
@@ -57,27 +53,31 @@
                       sourceApplication:sourceApplication annotation:annotation];
 }
 
- // Required to register for notifications
- - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
- {
+// Required to register for notifications
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
   [RCTPushNotificationManager didRegisterUserNotificationSettings:notificationSettings];
- }
- // Required for the register event.
- - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
- {
+}
+// Required for the register event.
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
   [RCTPushNotificationManager didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
- }
- // Required for the notification event.
- - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification
- {
-   NSString *deeplink = [BatchPush deeplinkFromUserInfo:notification];
-   NSDictionary *pushProps = @{@"pushNotification" : deeplink};
-  [RCTPushNotificationManager didReceiveRemoteNotification:pushProps];
- }
- // Required for the localNotification event.
- - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
- {
+}
+// Required for the notification event. You must call the completion handler after handling the remote notification.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+  [RCTPushNotificationManager didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+}
+// Required for the registrationError event.
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+  [RCTPushNotificationManager didFailToRegisterForRemoteNotificationsWithError:error];
+}
+// Required for the localNotification event.
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
   [RCTPushNotificationManager didReceiveLocalNotification:notification];
- }
+}
 
 @end
