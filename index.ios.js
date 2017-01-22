@@ -81,7 +81,8 @@ const chronreact = React.createClass({
     });
     
     // Get a remote notification on application start, or listen for notifications
-    // while the application is open
+    // while the application is open IN THE FOREGROUND. Note that this will not 
+    // listen for notifications that occur while the app is in the background state
     registerPushIOS();
     PushNotificationIOS.getInitialNotification().then(this.onNotification);
     PushNotificationIOS.addEventListener('notification', this.onNotification);
