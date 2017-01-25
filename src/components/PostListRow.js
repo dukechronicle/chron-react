@@ -3,6 +3,7 @@ import {
   StyleSheet,
   TouchableHighlight,
   Image,
+  Platform,
   Text,
   View,
 } from 'react-native';
@@ -36,6 +37,13 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 15,
     marginRight: 15,
+    ...Platform.select({
+      ios: {},
+      android: {
+        paddingLeft: 15,
+        paddingRight: 15,
+      }
+    }),
   },
   tags: {
     fontSize: 13,
