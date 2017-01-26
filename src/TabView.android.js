@@ -28,17 +28,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  header: {
-    
-  },
-  headerText: {
-    fontFamily: 'Didot',
-    fontSize: 30, 
-    padding: 10,
-    paddingLeft: 20,
-    paddingBottom: 0,
-    color: '#fff',
-    backgroundColor: '#083e8c',
+  header: { 
+      height: 50,
   },
   tabbar: {
     backgroundColor: '#083e8c',
@@ -116,7 +107,6 @@ const TabView = React.createClass({
     return (
       <View style={styles.appBar}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>The Chronicle</Text>
         </View>
         <TabBar 
           {...props} 

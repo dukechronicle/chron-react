@@ -4,7 +4,6 @@ import {
   TouchableHighlight,
   Image,
   Platform,
-  Navigator,
   Text,
   View,
 } from 'react-native';

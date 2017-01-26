@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
   },
   navBarTitleText: {
     color: '#f8f8f8',
-    fontWeight: '500',
   },
 });
 
