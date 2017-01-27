@@ -112,7 +112,7 @@ export const PostListRow = React.createClass({
       <TouchableHighlight
         onPress={() => this.props.rowPressed(post)}
         style={styles.highlight}
-        underlayColor="#eeeeee">
+        underlayColor="#fff">
         <View style={ postRowStyle }>
           {image}
           <View style={styles.articleContainer}>

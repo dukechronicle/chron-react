@@ -33,9 +33,6 @@ const styles = StyleSheet.create({
   },
   tabbar: {
     backgroundColor: '#083e8c',
-    elevation: 0,
-  },
-  appBar: {
     elevation: 4, 
     shadowColor: 'black',
     shadowOpacity: 0.1,
@@ -43,6 +40,8 @@ const styles = StyleSheet.create({
     shadowOffset: {
       height: StyleSheet.hairlineWidth,
     },
+  },
+  appBar: {
   },
   tab: {
     // backgroundColor: '#fff',
@@ -106,8 +105,7 @@ const TabView = React.createClass({
   _renderHeader(props) {
     return (
       <View style={styles.appBar}>
-        <View style={styles.header}>
-        </View>
+        <View style={styles.header}></View>
         <TabBar 
           {...props} 
           style={styles.tabbar}

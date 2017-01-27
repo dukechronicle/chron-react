@@ -7,6 +7,7 @@ import React from 'react';
 import {
   AppRegistry,
   Navigator,
+  StatusBar,
   StyleSheet,
 } from 'react-native';
 import TabView from './src/TabView.android';
@@ -21,6 +22,10 @@ const styles = StyleSheet.create({
 })
 
 const chronreact = React.createClass({
+
+  componentDidMount() {
+    StatusBar.setBackgroundColor("#000B59");
+  },
 
   _renderScene(route, navigator) {
     return (
