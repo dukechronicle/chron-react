@@ -7,10 +7,13 @@ import React from 'react';
 import {
   AppRegistry,
   Navigator,
+  DrawerLayoutAndroid,
+  TouchableOpacity,
   StatusBar,
   StyleSheet,
 } from 'react-native';
 import TabView from './src/TabView.android';
+import Sidebar from './src/Sidebar.android';
 import { NavigationBarRouteMapper } from './src/NavigationBarRouteMapper.android';
 
 const styles = StyleSheet.create({
@@ -25,6 +28,7 @@ const chronreact = React.createClass({
 
   componentDidMount() {
     StatusBar.setBackgroundColor("#000B59");
+    console.log(this.refs);
   },
 
   _renderScene(route, navigator) {
@@ -35,7 +39,7 @@ const chronreact = React.createClass({
     );
   },
 
-  _renderNavigationBar: function() {
+  _renderNavigationBar() {
     return (
       <Navigator.NavigationBar
         routeMapper={NavigationBarRouteMapper}
@@ -44,22 +48,41 @@ const chronreact = React.createClass({
     );
   },
 
+  openDrawer() {
+    this.refs.drawer.openDrawer(); 
+  },
+
+  closeDrawer() {
+    this.refs.drawer.closeDrawer(); 
+  },
+
+  replaceRoute(route) {
+    this.refs.navigator.replace(route) 
+  },
+
   render() {
     return (
-      <Navigator 
-        ref="navigator"
-        initialRoute={{ 
-          title: "The Chronicle", 
-          component: TabView,
-          titleStyleOverride: {
-            fontFamily: 'Didot',
-            fontSize: 25,
-          },
-        }}
-        renderScene={this._renderScene}   
-        navigationBar={this._renderNavigationBar()}
-      />
-    );
+      <DrawerLayoutAndroid
+        drawerWidth={300}
+        ref="drawer"
+        drawerPosition={DrawerLayoutAndroid.positions.Left}
+        renderNavigationView={() => <Sidebar replaceRoute={this.replaceRoute} closeDrawer={this.closeDrawer} /> }>
+        <Navigator 
+          ref="navigator"
+          initialRoute={{ 
+            title: "The Chronicle", 
+            component: TabView,
+            titleStyleOverride: {
+              fontFamily: 'Didot',
+              fontSize: 25,
+            },
+            passProps: { openDrawer: this.openDrawer },
+          }}
+          renderScene={this._renderScene}   
+          navigationBar={this._renderNavigationBar()}
+        />
+      </DrawerLayoutAndroid>
+    )
   }
 });
 

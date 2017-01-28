@@ -40,7 +40,7 @@ export const NavigationBarRouteMapper = {
   LeftButton: function(route, navigator, index, navState) {
     if (index === 0) {
       return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={route.openDrawer}>
           <Icon 
             name="md-menu" 
             size={30} 
