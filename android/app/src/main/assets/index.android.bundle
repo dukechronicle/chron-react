@@ -1602,8 +1602,11 @@ var _reactNative=require(42 /* react-native */);
 
 
 
+
+
 var _TabView=require(553 /* ./src/TabView.android */);var _TabView2=babelHelpers.interopRequireDefault(_TabView);
-var _NavigationBarRouteMapper=require(652 /* ./src/NavigationBarRouteMapper.android */);
+var _Sidebar=require(652 /* ./src/Sidebar.android */);var _Sidebar2=babelHelpers.interopRequireDefault(_Sidebar);
+var _NavigationBarRouteMapper=require(655 /* ./src/NavigationBarRouteMapper.android */);
 
 var styles=_reactNative.StyleSheet.create({
 navBar:{
@@ -1617,6 +1620,7 @@ var chronreact=_react2.default.createClass({displayName:'chronreact',
 
 componentDidMount:function componentDidMount(){
 _reactNative.StatusBar.setBackgroundColor("#000B59");
+console.log(this.refs);
 },
 
 _renderScene:function _renderScene(route,navigator){
@@ -1636,8 +1640,25 @@ style:styles.navBar}));
 
 },
 
-render:function render(){
+openDrawer:function openDrawer(){
+this.refs.drawer.openDrawer();
+},
+
+closeDrawer:function closeDrawer(){
+this.refs.drawer.closeDrawer();
+},
+
+replaceRoute:function replaceRoute(route){
+this.refs.navigator.replace(route);
+},
+
+render:function render(){var _this=this;
 return(
+_react2.default.createElement(_reactNative.DrawerLayoutAndroid,{
+drawerWidth:300,
+ref:'drawer',
+drawerPosition:_reactNative.DrawerLayoutAndroid.positions.Left,
+renderNavigationView:function renderNavigationView(){return _react2.default.createElement(_Sidebar2.default,{replaceRoute:_this.replaceRoute,closeDrawer:_this.closeDrawer});}},
 _react2.default.createElement(_reactNative.Navigator,{
 ref:'navigator',
 initialRoute:{
@@ -1645,11 +1666,13 @@ title:"The Chronicle",
 component:_TabView2.default,
 titleStyleOverride:{
 fontFamily:'Didot',
-fontSize:25}},
+fontSize:25},
 
+passProps:{openDrawer:this.openDrawer}},
 
 renderScene:this._renderScene,
-navigationBar:this._renderNavigationBar()}));
+navigationBar:this._renderNavigationBar()})));
+
 
 
 }});
@@ -89115,150 +89138,280 @@ pagesCursor.set(_.object(pageNumber));
 
 module.exports=SectionActionCreators;
 }, 651, null, "chronreact/src/actions/SectionActionCreators.js");
-__d(/* chronreact/src/NavigationBarRouteMapper.android.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.NavigationBarRouteMapper=undefined;var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
+__d(/* chronreact/src/Sidebar.android.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});
+
+
+
+var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(42 /* react-native */);
 
 
 
 
 
-
-var _Title=require(653 /* ./components/navigator/Title */);var _Title2=babelHelpers.interopRequireDefault(_Title);
-var _Ionicons=require(654 /* react-native-vector-icons/Ionicons */);var _Ionicons2=babelHelpers.interopRequireDefault(_Ionicons);
-
-var styles=_reactNative.StyleSheet.create({
-navBarText:{
-fontSize:20,
-marginVertical:12},
-
-toolbarIcon:{
-marginTop:12},
-
-menuIcon:{
-marginLeft:10},
-
-moreIcon:{
-marginRight:10},
-
-navBarLeftButton:{
-paddingLeft:10},
-
-navBarLeftArrow:{
-paddingRight:10,
-fontFamily:'Apple SD Gothic Neo',
-fontWeight:'800'},
-
-navBarButtonText:{
-color:'#f8f8f8'}});
-
-
-
-var NavigationBarRouteMapper=exports.NavigationBarRouteMapper={
-LeftButton:function LeftButton(route,navigator,index,navState){
-if(index===0){
-return(
-_react2.default.createElement(_reactNative.TouchableOpacity,null,
-_react2.default.createElement(_Ionicons2.default,{
-name:'md-menu',
-size:30,
-color:'#fff',
-style:[styles.toolbarIcon,styles.menuIcon]})));
-
-
-
-}
-
-var previousRoute=navState.routeStack[index-1];
-return(
-_react2.default.createElement(_reactNative.TouchableOpacity,{
-onPress:function onPress(){return navigator.pop();},
-style:styles.navBarLeftButton},
-_react2.default.createElement(_reactNative.View,null,
-_react2.default.createElement(_reactNative.Text,{style:[styles.navBarText,styles.navBarButtonText]},
-_react2.default.createElement(_Ionicons2.default,{name:'md-arrow-back',color:'#fff',size:20}),
-"  ",
-previousRoute.title))));
-
-
-
-
-},
-
-RightButton:function RightButton(route,navigator,index,navState){
-if(index===0){
-return(
-_react2.default.createElement(_reactNative.TouchableOpacity,null,
-_react2.default.createElement(_Ionicons2.default,{
-name:'md-more',
-size:30,
-color:'#fff',
-style:[styles.toolbarIcon,styles.moreIcon]})));
-
-
-
-}
-return null;
-},
-
-Title:function Title(route){
-return(
-_react2.default.createElement(_Title2.default,{
-styleOverride:route.titleStyleOverride,
-text:route.title}));
-
-}};
-}, 652, null, "chronreact/src/NavigationBarRouteMapper.android.js");
-__d(/* chronreact/src/components/navigator/Title.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
-var _reactNative=require(42 /* react-native */);
-
-
-
+var _LinksListing=require(653 /* ./LinksListing */);var _LinksListing2=babelHelpers.interopRequireDefault(_LinksListing);
+var _TabView=require(553 /* ./TabView.android */);var _TabView2=babelHelpers.interopRequireDefault(_TabView);
+var _SidebarItem=require(707 /* ./components/SidebarItem.android */);var _SidebarItem2=babelHelpers.interopRequireDefault(_SidebarItem);
 
 var styles=_reactNative.StyleSheet.create({
-navBarText:{
-fontSize:16,
-marginVertical:10},
-
-navBarTitleText:{
-color:'#f8f8f8'}});
+borderBottom:{
+marginVertical:5,
+borderBottomWidth:1,
+borderColor:'lightgray'}});
 
 
 
-var NavigatorTitle=_react2.default.createClass({displayName:'NavigatorTitle',
+var Sidebar=_react2.default.createClass({displayName:'Sidebar',
+
 propTypes:{
-text:_react2.default.PropTypes.string,
-styleOverride:_reactNative.Text.propTypes.style},
+replaceRoute:_react2.default.PropTypes.func.isRequired,
+closeDrawer:_react2.default.PropTypes.func.isRequired,
+openDrawer:_react2.default.PropTypes.func.isRequired},
 
 
-getDefaultProps:function getDefaultProps(){
-return{
-text:''};
-
+componentDidMount:function componentDidMount(){
+console.log(this.props);
 },
 
-render:function render(){
-var stylesList=[
-styles.navBarText,
-styles.navBarTitleText,
-this.props.styleOverride];
+replaceRoute:function replaceRoute(route){
+this.props.replaceRoute(route);
+this.props.closeDrawer();
+},
 
+render:function render(){var _this=this;
 return(
-_react2.default.createElement(_reactNative.Text,{style:stylesList},
-this.props.text));
+_react2.default.createElement(_reactNative.View,{style:{flex:1,backgroundColor:'#fff'}},
+_react2.default.createElement(_reactNative.View,{style:{height:100,backgroundColor:'#083e8c'}}),
+
+
+_react2.default.createElement(_SidebarItem2.default,{
+icon:'md-paper',
+title:'News',
+onPress:function onPress(){return _this.replaceRoute({
+title:"The Chronicle",
+component:_TabView2.default,
+titleStyleOverride:{
+fontFamily:'Didot',
+fontSize:25},
+
+passProps:{openDrawer:_this.props.openDrawer}});}}),
+
+
+_react2.default.createElement(_SidebarItem2.default,{
+icon:'md-link',
+title:'Links',
+onPress:function onPress(){return _this.replaceRoute({
+title:'Links',
+component:_LinksListing2.default});}}),
+
+
+
+_react2.default.createElement(_SidebarItem2.default,{
+icon:'md-settings',
+title:'Settings',
+onPress:function onPress(){return _this.replaceRoute({
+title:'Links',
+component:_LinksListing2.default});}})));
+
+
 
 
 }});exports.default=
 
 
-NavigatorTitle;
-}, 653, null, "chronreact/src/components/navigator/Title.js");
+Sidebar;
+}, 652, null, "chronreact/src/Sidebar.android.js");
+__d(/* chronreact/src/LinksListing.js */function(global, require, module, exports) {var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
+var _reactNative=require(42 /* react-native */);
+
+
+
+
+
+
+
+
+var helpers=require(578 /* ./helpers.js */);var
+LoadingView=helpers.LoadingView;
+
+var LinksActionCreators=require(654 /* ./actions/LinksActionCreators */);
+
+var store=require(565 /* ./store */);
+var linksCursor=store.select('models','links');
+
+
+var styles=_reactNative.StyleSheet.create({
+container:{
+flex:1},
+
+highlight:{
+marginLeft:-15,
+marginRight:-15},
+
+row:{
+flex:1,
+flexDirection:'row',
+justifyContent:'flex-start',
+alignItems:'flex-start',
+paddingTop:10,
+paddingBottom:10,
+marginLeft:15,
+marginRight:15,
+borderBottomWidth:1,
+borderColor:'#DDDDDD'},
+
+listView:{
+paddingLeft:15,
+paddingRight:15,
+marginTop:64,
+marginBottom:44}});
+
+
+
+
+
+
+
+var LinksListing=_react2.default.createClass({displayName:'LinksListing',
+getInitialState:function getInitialState(){
+return{
+dataSource:new _reactNative.ListView.DataSource({
+rowHasChanged:function rowHasChanged(row1,row2){return row1!==row2;}}),
+
+loaded:true};
+
+},
+
+componentDidMount:function componentDidMount(){
+if(linksCursor.get().length===0){
+LinksActionCreators.getLinks();
+}else{
+this.updateState();
+}
+linksCursor.on('update',this.updateState);
+},
+
+updateState:function updateState(){
+var links=linksCursor.get();
+this.setState({
+dataSource:this.state.dataSource.cloneWithRows(links),
+loaded:true});
+
+},
+
+rowPressed:function rowPressed(link){
+
+_reactNative.Linking.openURL(link.url);
+},
+
+renderLinkRow:function renderLinkRow(link){var _this=this;
+return(
+_react2.default.createElement(_reactNative.TouchableHighlight,{
+onPress:function onPress(){return _this.rowPressed(link);},
+style:styles.highlight,
+underlayColor:'#eeeeee'},
+_react2.default.createElement(_reactNative.View,{style:styles.row},
+_react2.default.createElement(_reactNative.Text,null,link.name))));
+
+
+
+},
+
+render:function render(){
+if(!this.state.loaded){
+return(
+_react2.default.createElement(LoadingView,{style:styles.container}));
+
+}
+return(
+_react2.default.createElement(_reactNative.View,{style:styles.outerListView},
+_react2.default.createElement(_reactNative.ListView,{
+dataSource:this.state.dataSource,
+renderRow:this.renderLinkRow,
+automaticallyAdjustContentInsets:false,
+style:styles.listView})));
+
+
+
+}});
+
+
+module.exports=LinksListing;
+}, 653, null, "chronreact/src/LinksListing.js");
+__d(/* chronreact/src/actions/LinksActionCreators.js */function(global, require, module, exports) {var store=require(565 /* ../store */);
+var linksCursor=store.select('models','links');
+
+var LinksActionCreators={
+getLinks:function getLinks(){
+var links=[
+['http://dukechroniclealumni.com/','Alumni'],
+['http://dukechronicle.campusave.com/','Classifieds'],
+['http://nearduke.com/dining','Dining'],
+['http://nearduke.com/housing','Housing']].
+map(function(_ref){var _ref2=babelHelpers.slicedToArray(_ref,2),url=_ref2[0],name=_ref2[1];return{url:url,name:name};});
+linksCursor.set(links);
+}};
+
+
+module.exports=LinksActionCreators;
+}, 654, null, "chronreact/src/actions/LinksActionCreators.js");
+__d(/* chronreact/src/components/SidebarItem.android.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});
+
+
+
+var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
+var _reactNative=require(42 /* react-native */);
+
+
+
+
+var _Ionicons=require(657 /* react-native-vector-icons/Ionicons */);var _Ionicons2=babelHelpers.interopRequireDefault(_Ionicons);
+
+var styles=_reactNative.StyleSheet.create({
+item:{
+paddingLeft:15,
+flexDirection:'row',
+alignItems:'center',
+padding:5},
+
+text:{
+paddingLeft:25,
+margin:10,
+fontSize:15,
+textAlign:'left'}});
+
+
+
+var SidebarItem=_react2.default.createClass({displayName:'SidebarItem',
+
+propTypes:{
+icon:_react2.default.PropTypes.string.isRequired,
+title:_react2.default.PropTypes.string.isRequired,
+onPress:_react2.default.PropTypes.func,
+style:_react2.default.PropTypes.object},
+
+
+render:function render(){
+return(
+_react2.default.createElement(_reactNative.TouchableOpacity,{
+style:[styles.item,this.props.style],
+onPress:this.props.onPress},
+_react2.default.createElement(_Ionicons2.default,{name:this.props.icon,color:'#000',size:30}),
+_react2.default.createElement(_reactNative.Text,{style:styles.text},this.props.title)));
+
+
+}});exports.default=
+
+
+SidebarItem;
+}, 707, null, "chronreact/src/components/SidebarItem.android.js");
 __d(/* react-native-vector-icons/Ionicons.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.getImageSource=exports.ToolbarAndroid=exports.TabBarItemIOS=exports.TabBarItem=exports.Button=undefined;
 
 
 
 
-var _createIconSet=require(655 /* ./lib/create-icon-set */);var _createIconSet2=babelHelpers.interopRequireDefault(_createIconSet);
-var _Ionicons=require(703 /* ./glyphmaps/Ionicons.json */);var _Ionicons2=babelHelpers.interopRequireDefault(_Ionicons);
+var _createIconSet=require(658 /* ./lib/create-icon-set */);var _createIconSet2=babelHelpers.interopRequireDefault(_createIconSet);
+var _Ionicons=require(706 /* ./glyphmaps/Ionicons.json */);var _Ionicons2=babelHelpers.interopRequireDefault(_Ionicons);
 
 var iconSet=(0,_createIconSet2.default)(_Ionicons2.default,'Ionicons','Ionicons.ttf');exports.default=
 
@@ -89269,7 +89422,7 @@ var TabBarItem=exports.TabBarItem=iconSet.TabBarItem;
 var TabBarItemIOS=exports.TabBarItemIOS=iconSet.TabBarItemIOS;
 var ToolbarAndroid=exports.ToolbarAndroid=iconSet.ToolbarAndroid;
 var getImageSource=exports.getImageSource=iconSet.getImageSource;
-}, 654, null, "react-native-vector-icons/Ionicons.js");
+}, 657, null, "react-native-vector-icons/Ionicons.js");
 __d(/* react-native-vector-icons/lib/create-icon-set.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
@@ -89292,7 +89445,7 @@ __d(/* react-native-vector-icons/lib/create-icon-set.js */function(global, requi
 
 
 
-createIconSet;var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(656 /* ./react-native */);var _iconButton=require(657 /* ./icon-button */);var _iconButton2=babelHelpers.interopRequireDefault(_iconButton);var _tabBarItemIos=require(700 /* ./tab-bar-item-ios */);var _tabBarItemIos2=babelHelpers.interopRequireDefault(_tabBarItemIos);var _toolbarAndroid=require(702 /* ./toolbar-android */);var _toolbarAndroid2=babelHelpers.interopRequireDefault(_toolbarAndroid);var NativeIconAPI=_reactNative.NativeModules.RNVectorIconsManager||_reactNative.NativeModules.RNVectorIconsModule;var DEFAULT_ICON_SIZE=12;var DEFAULT_ICON_COLOR='black';function createIconSet(glyphMap,fontFamily,fontFile){
+createIconSet;var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(659 /* ./react-native */);var _iconButton=require(660 /* ./icon-button */);var _iconButton2=babelHelpers.interopRequireDefault(_iconButton);var _tabBarItemIos=require(703 /* ./tab-bar-item-ios */);var _tabBarItemIos2=babelHelpers.interopRequireDefault(_tabBarItemIos);var _toolbarAndroid=require(705 /* ./toolbar-android */);var _toolbarAndroid2=babelHelpers.interopRequireDefault(_toolbarAndroid);var NativeIconAPI=_reactNative.NativeModules.RNVectorIconsManager||_reactNative.NativeModules.RNVectorIconsModule;var DEFAULT_ICON_SIZE=12;var DEFAULT_ICON_COLOR='black';function createIconSet(glyphMap,fontFamily,fontFile){
 var fontReference=fontFamily;
 
 if(_reactNative.Platform.OS==='android'&&fontFile){
@@ -89404,9 +89557,9 @@ Icon.getImageSource=getImageSource;
 
 return Icon;
 }
-}, 655, null, "react-native-vector-icons/lib/create-icon-set.js");
+}, 658, null, "react-native-vector-icons/lib/create-icon-set.js");
 __d(/* react-native-vector-icons/lib/react-native.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _reactNative=require(42 /* react-native */);Object.keys(_reactNative).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _reactNative[key];}});});
-}, 656, null, "react-native-vector-icons/lib/react-native.js");
+}, 659, null, "react-native-vector-icons/lib/react-native.js");
 __d(/* react-native-vector-icons/lib/icon-button.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
@@ -89444,7 +89597,7 @@ __d(/* react-native-vector-icons/lib/icon-button.js */function(global, require, 
 
 
 
-createIconButtonComponent;var _isString=require(658 /* lodash/isString */);var _isString2=babelHelpers.interopRequireDefault(_isString);var _omit=require(659 /* lodash/omit */);var _omit2=babelHelpers.interopRequireDefault(_omit);var _pick=require(696 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(656 /* ./react-native */);var styles=_reactNative.StyleSheet.create({container:{flexDirection:'row',justifyContent:'flex-start',alignItems:'center',padding:8},touchable:{overflow:'hidden'},icon:{marginRight:10},text:{fontWeight:'600',backgroundColor:'transparent'}});var IOS7_BLUE='#007AFF';function createIconButtonComponent(Icon){var _class,_temp;
+createIconButtonComponent;var _isString=require(661 /* lodash/isString */);var _isString2=babelHelpers.interopRequireDefault(_isString);var _omit=require(662 /* lodash/omit */);var _omit2=babelHelpers.interopRequireDefault(_omit);var _pick=require(699 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(659 /* ./react-native */);var styles=_reactNative.StyleSheet.create({container:{flexDirection:'row',justifyContent:'flex-start',alignItems:'center',padding:8},touchable:{overflow:'hidden'},icon:{marginRight:10},text:{fontWeight:'600',backgroundColor:'transparent'}});var IOS7_BLUE='#007AFF';function createIconButtonComponent(Icon){var _class,_temp;
 return _temp=_class=function(_Component){babelHelpers.inherits(IconButton,_Component);function IconButton(){babelHelpers.classCallCheck(this,IconButton);return babelHelpers.possibleConstructorReturn(this,(IconButton.__proto__||Object.getPrototypeOf(IconButton)).apply(this,arguments));}babelHelpers.createClass(IconButton,[{key:'render',value:function render()
 
 
@@ -89496,7 +89649,7 @@ children)));
 }}]);return IconButton;}(_react.Component),_class.propTypes=babelHelpers.extends({},_reactNative.View.propTypes,{backgroundColor:_react.PropTypes.string,borderRadius:_react.PropTypes.number,color:_react.PropTypes.string,size:_react.PropTypes.number}),_class.defaultProps={backgroundColor:IOS7_BLUE,borderRadius:5,color:'white',size:20},_temp;
 
 }
-}, 657, null, "react-native-vector-icons/lib/icon-button.js");
+}, 660, null, "react-native-vector-icons/lib/icon-button.js");
 __d(/* lodash/isString.js */function(global, require, module, exports) {var baseGetTag=require(250 /* ./_baseGetTag */),
 isArray=require(292 /* ./isArray */),
 isObjectLike=require(301 /* ./isObjectLike */);
@@ -89527,15 +89680,15 @@ return typeof value=='string'||
 }
 
 module.exports=isString;
-}, 658, null, "lodash/isString.js");
+}, 661, null, "lodash/isString.js");
 __d(/* lodash/omit.js */function(global, require, module, exports) {var arrayMap=require(334 /* ./_arrayMap */),
-baseClone=require(660 /* ./_baseClone */),
-baseUnset=require(688 /* ./_baseUnset */),
+baseClone=require(663 /* ./_baseClone */),
+baseUnset=require(691 /* ./_baseUnset */),
 castPath=require(326 /* ./_castPath */),
 copyObject=require(353 /* ./_copyObject */),
-customOmitClone=require(692 /* ./_customOmitClone */),
-flatRest=require(694 /* ./_flatRest */),
-getAllKeysIn=require(673 /* ./_getAllKeysIn */);
+customOmitClone=require(695 /* ./_customOmitClone */),
+flatRest=require(697 /* ./_flatRest */),
+getAllKeysIn=require(676 /* ./_getAllKeysIn */);
 
 
 var CLONE_DEEP_FLAG=1,
@@ -89585,22 +89738,22 @@ return result;
 });
 
 module.exports=omit;
-}, 659, null, "lodash/omit.js");
+}, 662, null, "lodash/omit.js");
 __d(/* lodash/_baseClone.js */function(global, require, module, exports) {var Stack=require(232 /* ./_Stack */),
-arrayEach=require(661 /* ./_arrayEach */),
+arrayEach=require(664 /* ./_arrayEach */),
 assignValue=require(350 /* ./_assignValue */),
-baseAssign=require(662 /* ./_baseAssign */),
-baseAssignIn=require(663 /* ./_baseAssignIn */),
-cloneBuffer=require(667 /* ./_cloneBuffer */),
-copyArray=require(668 /* ./_copyArray */),
-copySymbols=require(669 /* ./_copySymbols */),
-copySymbolsIn=require(670 /* ./_copySymbolsIn */),
+baseAssign=require(665 /* ./_baseAssign */),
+baseAssignIn=require(666 /* ./_baseAssignIn */),
+cloneBuffer=require(670 /* ./_cloneBuffer */),
+copyArray=require(671 /* ./_copyArray */),
+copySymbols=require(672 /* ./_copySymbols */),
+copySymbolsIn=require(673 /* ./_copySymbolsIn */),
 getAllKeys=require(289 /* ./_getAllKeys */),
-getAllKeysIn=require(673 /* ./_getAllKeysIn */),
+getAllKeysIn=require(676 /* ./_getAllKeysIn */),
 getTag=require(315 /* ./_getTag */),
-initCloneArray=require(674 /* ./_initCloneArray */),
-initCloneByTag=require(675 /* ./_initCloneByTag */),
-initCloneObject=require(686 /* ./_initCloneObject */),
+initCloneArray=require(677 /* ./_initCloneArray */),
+initCloneByTag=require(678 /* ./_initCloneByTag */),
+initCloneObject=require(689 /* ./_initCloneObject */),
 isArray=require(292 /* ./isArray */),
 isBuffer=require(302 /* ./isBuffer */),
 isObject=require(256 /* ./isObject */),
@@ -89739,7 +89892,7 @@ return result;
 }
 
 module.exports=baseClone;
-}, 660, null, "lodash/_baseClone.js");
+}, 663, null, "lodash/_baseClone.js");
 __d(/* lodash/_arrayEach.js */function(global, require, module, exports) {
 
 
@@ -89762,7 +89915,7 @@ return array;
 }
 
 module.exports=arrayEach;
-}, 661, null, "lodash/_arrayEach.js");
+}, 664, null, "lodash/_arrayEach.js");
 __d(/* lodash/_baseAssign.js */function(global, require, module, exports) {var copyObject=require(353 /* ./_copyObject */),
 keys=require(296 /* ./keys */);
 
@@ -89780,9 +89933,9 @@ return object&&copyObject(source,keys(source),object);
 }
 
 module.exports=baseAssign;
-}, 662, null, "lodash/_baseAssign.js");
+}, 665, null, "lodash/_baseAssign.js");
 __d(/* lodash/_baseAssignIn.js */function(global, require, module, exports) {var copyObject=require(353 /* ./_copyObject */),
-keysIn=require(664 /* ./keysIn */);
+keysIn=require(667 /* ./keysIn */);
 
 
 
@@ -89798,9 +89951,9 @@ return object&&copyObject(source,keysIn(source),object);
 }
 
 module.exports=baseAssignIn;
-}, 663, null, "lodash/_baseAssignIn.js");
+}, 666, null, "lodash/_baseAssignIn.js");
 __d(/* lodash/keysIn.js */function(global, require, module, exports) {var arrayLikeKeys=require(297 /* ./_arrayLikeKeys */),
-baseKeysIn=require(665 /* ./_baseKeysIn */),
+baseKeysIn=require(668 /* ./_baseKeysIn */),
 isArrayLike=require(314 /* ./isArrayLike */);
 
 
@@ -89831,10 +89984,10 @@ return isArrayLike(object)?arrayLikeKeys(object,true):baseKeysIn(object);
 }
 
 module.exports=keysIn;
-}, 664, null, "lodash/keysIn.js");
+}, 667, null, "lodash/keysIn.js");
 __d(/* lodash/_baseKeysIn.js */function(global, require, module, exports) {var isObject=require(256 /* ./isObject */),
 isPrototype=require(311 /* ./_isPrototype */),
-nativeKeysIn=require(666 /* ./_nativeKeysIn */);
+nativeKeysIn=require(669 /* ./_nativeKeysIn */);
 
 
 var objectProto=Object.prototype;
@@ -89865,7 +90018,7 @@ return result;
 }
 
 module.exports=baseKeysIn;
-}, 665, null, "lodash/_baseKeysIn.js");
+}, 668, null, "lodash/_baseKeysIn.js");
 __d(/* lodash/_nativeKeysIn.js */function(global, require, module, exports) {
 
 
@@ -89886,7 +90039,7 @@ return result;
 }
 
 module.exports=nativeKeysIn;
-}, 666, null, "lodash/_nativeKeysIn.js");
+}, 669, null, "lodash/_nativeKeysIn.js");
 __d(/* lodash/_cloneBuffer.js */function(global, require, module, exports) {var root=require(252 /* ./_root */);
 
 
@@ -89922,7 +90075,7 @@ return result;
 }
 
 module.exports=cloneBuffer;
-}, 667, null, "lodash/_cloneBuffer.js");
+}, 670, null, "lodash/_cloneBuffer.js");
 __d(/* lodash/_copyArray.js */function(global, require, module, exports) {
 
 
@@ -89943,7 +90096,7 @@ return array;
 }
 
 module.exports=copyArray;
-}, 668, null, "lodash/_copyArray.js");
+}, 671, null, "lodash/_copyArray.js");
 __d(/* lodash/_copySymbols.js */function(global, require, module, exports) {var copyObject=require(353 /* ./_copyObject */),
 getSymbols=require(293 /* ./_getSymbols */);
 
@@ -89960,9 +90113,9 @@ return copyObject(source,getSymbols(source),object);
 }
 
 module.exports=copySymbols;
-}, 669, null, "lodash/_copySymbols.js");
+}, 672, null, "lodash/_copySymbols.js");
 __d(/* lodash/_copySymbolsIn.js */function(global, require, module, exports) {var copyObject=require(353 /* ./_copyObject */),
-getSymbolsIn=require(671 /* ./_getSymbolsIn */);
+getSymbolsIn=require(674 /* ./_getSymbolsIn */);
 
 
 
@@ -89977,9 +90130,9 @@ return copyObject(source,getSymbolsIn(source),object);
 }
 
 module.exports=copySymbolsIn;
-}, 670, null, "lodash/_copySymbolsIn.js");
+}, 673, null, "lodash/_copySymbolsIn.js");
 __d(/* lodash/_getSymbolsIn.js */function(global, require, module, exports) {var arrayPush=require(291 /* ./_arrayPush */),
-getPrototype=require(672 /* ./_getPrototype */),
+getPrototype=require(675 /* ./_getPrototype */),
 getSymbols=require(293 /* ./_getSymbols */),
 stubArray=require(295 /* ./stubArray */);
 
@@ -90003,17 +90156,17 @@ return result;
 };
 
 module.exports=getSymbolsIn;
-}, 671, null, "lodash/_getSymbolsIn.js");
+}, 674, null, "lodash/_getSymbolsIn.js");
 __d(/* lodash/_getPrototype.js */function(global, require, module, exports) {var overArg=require(313 /* ./_overArg */);
 
 
 var getPrototype=overArg(Object.getPrototypeOf,Object);
 
 module.exports=getPrototype;
-}, 672, null, "lodash/_getPrototype.js");
+}, 675, null, "lodash/_getPrototype.js");
 __d(/* lodash/_getAllKeysIn.js */function(global, require, module, exports) {var baseGetAllKeys=require(290 /* ./_baseGetAllKeys */),
-getSymbolsIn=require(671 /* ./_getSymbolsIn */),
-keysIn=require(664 /* ./keysIn */);
+getSymbolsIn=require(674 /* ./_getSymbolsIn */),
+keysIn=require(667 /* ./keysIn */);
 
 
 
@@ -90028,7 +90181,7 @@ return baseGetAllKeys(object,keysIn,getSymbolsIn);
 }
 
 module.exports=getAllKeysIn;
-}, 673, null, "lodash/_getAllKeysIn.js");
+}, 676, null, "lodash/_getAllKeysIn.js");
 __d(/* lodash/_initCloneArray.js */function(global, require, module, exports) {
 var objectProto=Object.prototype;
 
@@ -90055,14 +90208,14 @@ return result;
 }
 
 module.exports=initCloneArray;
-}, 674, null, "lodash/_initCloneArray.js");
-__d(/* lodash/_initCloneByTag.js */function(global, require, module, exports) {var cloneArrayBuffer=require(676 /* ./_cloneArrayBuffer */),
-cloneDataView=require(677 /* ./_cloneDataView */),
-cloneMap=require(678 /* ./_cloneMap */),
-cloneRegExp=require(681 /* ./_cloneRegExp */),
-cloneSet=require(682 /* ./_cloneSet */),
-cloneSymbol=require(684 /* ./_cloneSymbol */),
-cloneTypedArray=require(685 /* ./_cloneTypedArray */);
+}, 677, null, "lodash/_initCloneArray.js");
+__d(/* lodash/_initCloneByTag.js */function(global, require, module, exports) {var cloneArrayBuffer=require(679 /* ./_cloneArrayBuffer */),
+cloneDataView=require(680 /* ./_cloneDataView */),
+cloneMap=require(681 /* ./_cloneMap */),
+cloneRegExp=require(684 /* ./_cloneRegExp */),
+cloneSet=require(685 /* ./_cloneSet */),
+cloneSymbol=require(687 /* ./_cloneSymbol */),
+cloneTypedArray=require(688 /* ./_cloneTypedArray */);
 
 
 var boolTag='[object Boolean]',
@@ -90136,7 +90289,7 @@ return cloneSymbol(object);}
 }
 
 module.exports=initCloneByTag;
-}, 675, null, "lodash/_initCloneByTag.js");
+}, 678, null, "lodash/_initCloneByTag.js");
 __d(/* lodash/_cloneArrayBuffer.js */function(global, require, module, exports) {var Uint8Array=require(285 /* ./_Uint8Array */);
 
 
@@ -90153,8 +90306,8 @@ return result;
 }
 
 module.exports=cloneArrayBuffer;
-}, 676, null, "lodash/_cloneArrayBuffer.js");
-__d(/* lodash/_cloneDataView.js */function(global, require, module, exports) {var cloneArrayBuffer=require(676 /* ./_cloneArrayBuffer */);
+}, 679, null, "lodash/_cloneArrayBuffer.js");
+__d(/* lodash/_cloneDataView.js */function(global, require, module, exports) {var cloneArrayBuffer=require(679 /* ./_cloneArrayBuffer */);
 
 
 
@@ -90170,9 +90323,9 @@ return new dataView.constructor(buffer,dataView.byteOffset,dataView.byteLength);
 }
 
 module.exports=cloneDataView;
-}, 677, null, "lodash/_cloneDataView.js");
-__d(/* lodash/_cloneMap.js */function(global, require, module, exports) {var addMapEntry=require(679 /* ./_addMapEntry */),
-arrayReduce=require(680 /* ./_arrayReduce */),
+}, 680, null, "lodash/_cloneDataView.js");
+__d(/* lodash/_cloneMap.js */function(global, require, module, exports) {var addMapEntry=require(682 /* ./_addMapEntry */),
+arrayReduce=require(683 /* ./_arrayReduce */),
 mapToArray=require(286 /* ./_mapToArray */);
 
 
@@ -90193,7 +90346,7 @@ return arrayReduce(array,addMapEntry,new map.constructor());
 }
 
 module.exports=cloneMap;
-}, 678, null, "lodash/_cloneMap.js");
+}, 681, null, "lodash/_cloneMap.js");
 __d(/* lodash/_addMapEntry.js */function(global, require, module, exports) {
 
 
@@ -90209,7 +90362,7 @@ return map;
 }
 
 module.exports=addMapEntry;
-}, 679, null, "lodash/_addMapEntry.js");
+}, 682, null, "lodash/_addMapEntry.js");
 __d(/* lodash/_arrayReduce.js */function(global, require, module, exports) {
 
 
@@ -90236,7 +90389,7 @@ return accumulator;
 }
 
 module.exports=arrayReduce;
-}, 680, null, "lodash/_arrayReduce.js");
+}, 683, null, "lodash/_arrayReduce.js");
 __d(/* lodash/_cloneRegExp.js */function(global, require, module, exports) {
 var reFlags=/\w*$/;
 
@@ -90254,9 +90407,9 @@ return result;
 }
 
 module.exports=cloneRegExp;
-}, 681, null, "lodash/_cloneRegExp.js");
-__d(/* lodash/_cloneSet.js */function(global, require, module, exports) {var addSetEntry=require(683 /* ./_addSetEntry */),
-arrayReduce=require(680 /* ./_arrayReduce */),
+}, 684, null, "lodash/_cloneRegExp.js");
+__d(/* lodash/_cloneSet.js */function(global, require, module, exports) {var addSetEntry=require(686 /* ./_addSetEntry */),
+arrayReduce=require(683 /* ./_arrayReduce */),
 setToArray=require(287 /* ./_setToArray */);
 
 
@@ -90277,7 +90430,7 @@ return arrayReduce(array,addSetEntry,new set.constructor());
 }
 
 module.exports=cloneSet;
-}, 682, null, "lodash/_cloneSet.js");
+}, 685, null, "lodash/_cloneSet.js");
 __d(/* lodash/_addSetEntry.js */function(global, require, module, exports) {
 
 
@@ -90293,7 +90446,7 @@ return set;
 }
 
 module.exports=addSetEntry;
-}, 683, null, "lodash/_addSetEntry.js");
+}, 686, null, "lodash/_addSetEntry.js");
 __d(/* lodash/_cloneSymbol.js */function(global, require, module, exports) {var Symbol=require(251 /* ./_Symbol */);
 
 
@@ -90312,8 +90465,8 @@ return symbolValueOf?Object(symbolValueOf.call(symbol)):{};
 }
 
 module.exports=cloneSymbol;
-}, 684, null, "lodash/_cloneSymbol.js");
-__d(/* lodash/_cloneTypedArray.js */function(global, require, module, exports) {var cloneArrayBuffer=require(676 /* ./_cloneArrayBuffer */);
+}, 687, null, "lodash/_cloneSymbol.js");
+__d(/* lodash/_cloneTypedArray.js */function(global, require, module, exports) {var cloneArrayBuffer=require(679 /* ./_cloneArrayBuffer */);
 
 
 
@@ -90329,9 +90482,9 @@ return new typedArray.constructor(buffer,typedArray.byteOffset,typedArray.length
 }
 
 module.exports=cloneTypedArray;
-}, 685, null, "lodash/_cloneTypedArray.js");
-__d(/* lodash/_initCloneObject.js */function(global, require, module, exports) {var baseCreate=require(687 /* ./_baseCreate */),
-getPrototype=require(672 /* ./_getPrototype */),
+}, 688, null, "lodash/_cloneTypedArray.js");
+__d(/* lodash/_initCloneObject.js */function(global, require, module, exports) {var baseCreate=require(690 /* ./_baseCreate */),
+getPrototype=require(675 /* ./_getPrototype */),
 isPrototype=require(311 /* ./_isPrototype */);
 
 
@@ -90348,7 +90501,7 @@ baseCreate(getPrototype(object)):
 }
 
 module.exports=initCloneObject;
-}, 686, null, "lodash/_initCloneObject.js");
+}, 689, null, "lodash/_initCloneObject.js");
 __d(/* lodash/_baseCreate.js */function(global, require, module, exports) {var isObject=require(256 /* ./isObject */);
 
 
@@ -90379,10 +90532,10 @@ return result;
 }();
 
 module.exports=baseCreate;
-}, 687, null, "lodash/_baseCreate.js");
+}, 690, null, "lodash/_baseCreate.js");
 __d(/* lodash/_baseUnset.js */function(global, require, module, exports) {var castPath=require(326 /* ./_castPath */),
-last=require(689 /* ./last */),
-parent=require(690 /* ./_parent */),
+last=require(692 /* ./last */),
+parent=require(693 /* ./_parent */),
 toKey=require(335 /* ./_toKey */);
 
 
@@ -90400,7 +90553,7 @@ return object==null||delete object[toKey(last(path))];
 }
 
 module.exports=baseUnset;
-}, 688, null, "lodash/_baseUnset.js");
+}, 691, null, "lodash/_baseUnset.js");
 __d(/* lodash/last.js */function(global, require, module, exports) {
 
 
@@ -90421,9 +90574,9 @@ return length?array[length-1]:undefined;
 }
 
 module.exports=last;
-}, 689, null, "lodash/last.js");
+}, 692, null, "lodash/last.js");
 __d(/* lodash/_parent.js */function(global, require, module, exports) {var baseGet=require(325 /* ./_baseGet */),
-baseSlice=require(691 /* ./_baseSlice */);
+baseSlice=require(694 /* ./_baseSlice */);
 
 
 
@@ -90438,7 +90591,7 @@ return path.length<2?object:baseGet(object,baseSlice(path,0,-1));
 }
 
 module.exports=parent;
-}, 690, null, "lodash/_parent.js");
+}, 693, null, "lodash/_parent.js");
 __d(/* lodash/_baseSlice.js */function(global, require, module, exports) {
 
 
@@ -90470,8 +90623,8 @@ return result;
 }
 
 module.exports=baseSlice;
-}, 691, null, "lodash/_baseSlice.js");
-__d(/* lodash/_customOmitClone.js */function(global, require, module, exports) {var isPlainObject=require(693 /* ./isPlainObject */);
+}, 694, null, "lodash/_baseSlice.js");
+__d(/* lodash/_customOmitClone.js */function(global, require, module, exports) {var isPlainObject=require(696 /* ./isPlainObject */);
 
 
 
@@ -90487,9 +90640,9 @@ return isPlainObject(value)?undefined:value;
 }
 
 module.exports=customOmitClone;
-}, 692, null, "lodash/_customOmitClone.js");
+}, 695, null, "lodash/_customOmitClone.js");
 __d(/* lodash/isPlainObject.js */function(global, require, module, exports) {var baseGetTag=require(250 /* ./_baseGetTag */),
-getPrototype=require(672 /* ./_getPrototype */),
+getPrototype=require(675 /* ./_getPrototype */),
 isObjectLike=require(301 /* ./isObjectLike */);
 
 
@@ -90550,8 +90703,8 @@ funcToString.call(Ctor)==objectCtorString;
 }
 
 module.exports=isPlainObject;
-}, 693, null, "lodash/isPlainObject.js");
-__d(/* lodash/_flatRest.js */function(global, require, module, exports) {var flatten=require(695 /* ./flatten */),
+}, 696, null, "lodash/isPlainObject.js");
+__d(/* lodash/_flatRest.js */function(global, require, module, exports) {var flatten=require(698 /* ./flatten */),
 overRest=require(356 /* ./_overRest */),
 setToString=require(358 /* ./_setToString */);
 
@@ -90567,7 +90720,7 @@ return setToString(overRest(func,undefined,flatten),func+'');
 }
 
 module.exports=flatRest;
-}, 694, null, "lodash/_flatRest.js");
+}, 697, null, "lodash/_flatRest.js");
 __d(/* lodash/flatten.js */function(global, require, module, exports) {var baseFlatten=require(370 /* ./_baseFlatten */);
 
 
@@ -90590,9 +90743,9 @@ return length?baseFlatten(array,1):[];
 }
 
 module.exports=flatten;
-}, 695, null, "lodash/flatten.js");
-__d(/* lodash/pick.js */function(global, require, module, exports) {var basePick=require(697 /* ./_basePick */),
-flatRest=require(694 /* ./_flatRest */);
+}, 698, null, "lodash/flatten.js");
+__d(/* lodash/pick.js */function(global, require, module, exports) {var basePick=require(700 /* ./_basePick */),
+flatRest=require(697 /* ./_flatRest */);
 
 
 
@@ -90616,8 +90769,8 @@ return object==null?{}:basePick(object,paths);
 });
 
 module.exports=pick;
-}, 696, null, "lodash/pick.js");
-__d(/* lodash/_basePick.js */function(global, require, module, exports) {var basePickBy=require(698 /* ./_basePickBy */),
+}, 699, null, "lodash/pick.js");
+__d(/* lodash/_basePick.js */function(global, require, module, exports) {var basePickBy=require(701 /* ./_basePickBy */),
 hasIn=require(336 /* ./hasIn */);
 
 
@@ -90636,9 +90789,9 @@ return hasIn(object,path);
 }
 
 module.exports=basePick;
-}, 697, null, "lodash/_basePick.js");
+}, 700, null, "lodash/_basePick.js");
 __d(/* lodash/_basePickBy.js */function(global, require, module, exports) {var baseGet=require(325 /* ./_baseGet */),
-baseSet=require(699 /* ./_baseSet */),
+baseSet=require(702 /* ./_baseSet */),
 castPath=require(326 /* ./_castPath */);
 
 
@@ -90667,7 +90820,7 @@ return result;
 }
 
 module.exports=basePickBy;
-}, 698, null, "lodash/_basePickBy.js");
+}, 701, null, "lodash/_basePickBy.js");
 __d(/* lodash/_baseSet.js */function(global, require, module, exports) {var assignValue=require(350 /* ./_assignValue */),
 castPath=require(326 /* ./_castPath */),
 isIndex=require(304 /* ./_isIndex */),
@@ -90715,7 +90868,7 @@ return object;
 }
 
 module.exports=baseSet;
-}, 699, null, "lodash/_baseSet.js");
+}, 702, null, "lodash/_baseSet.js");
 __d(/* react-native-vector-icons/lib/tab-bar-item-ios.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
@@ -90728,7 +90881,7 @@ __d(/* react-native-vector-icons/lib/tab-bar-item-ios.js */function(global, requ
 
 
 
-createTabBarItemIOSComponent;var _isEqual=require(701 /* lodash/isEqual */);var _isEqual2=babelHelpers.interopRequireDefault(_isEqual);var _pick=require(696 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(656 /* ./react-native */);function createTabBarItemIOSComponent(IconNamePropType,getImageSource){var _class,_temp;
+createTabBarItemIOSComponent;var _isEqual=require(704 /* lodash/isEqual */);var _isEqual2=babelHelpers.interopRequireDefault(_isEqual);var _pick=require(699 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(659 /* ./react-native */);function createTabBarItemIOSComponent(IconNamePropType,getImageSource){var _class,_temp;
 return _temp=_class=function(_Component){babelHelpers.inherits(TabBarItemIOS,_Component);function TabBarItemIOS(){babelHelpers.classCallCheck(this,TabBarItemIOS);return babelHelpers.possibleConstructorReturn(this,(TabBarItemIOS.__proto__||Object.getPrototypeOf(TabBarItemIOS)).apply(this,arguments));}babelHelpers.createClass(TabBarItemIOS,[{key:'updateIconSources',value:function updateIconSources(
 
 
@@ -90771,7 +90924,7 @@ return _react2.default.createElement(_reactNative.TabBarIOS.Item,babelHelpers.ex
 }}]);return TabBarItemIOS;}(_react.Component),_class.propTypes={iconName:IconNamePropType.isRequired,selectedIconName:IconNamePropType,iconSize:_react.PropTypes.number,iconColor:_react.PropTypes.string,selectedIconColor:_react.PropTypes.string},_class.defaultProps={iconSize:30},_temp;
 
 }
-}, 700, null, "react-native-vector-icons/lib/tab-bar-item-ios.js");
+}, 703, null, "react-native-vector-icons/lib/tab-bar-item-ios.js");
 __d(/* lodash/isEqual.js */function(global, require, module, exports) {var baseIsEqual=require(276 /* ./_baseIsEqual */);
 
 
@@ -90807,7 +90960,7 @@ return baseIsEqual(value,other);
 }
 
 module.exports=isEqual;
-}, 701, null, "lodash/isEqual.js");
+}, 704, null, "lodash/isEqual.js");
 __d(/* react-native-vector-icons/lib/toolbar-android.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
@@ -90820,7 +90973,7 @@ __d(/* react-native-vector-icons/lib/toolbar-android.js */function(global, requi
 
 
 
-createToolbarAndroidComponent;var _isEqual=require(701 /* lodash/isEqual */);var _isEqual2=babelHelpers.interopRequireDefault(_isEqual);var _pick=require(696 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(656 /* ./react-native */);function createToolbarAndroidComponent(IconNamePropType,getImageSource){var _class,_temp;
+createToolbarAndroidComponent;var _isEqual=require(704 /* lodash/isEqual */);var _isEqual2=babelHelpers.interopRequireDefault(_isEqual);var _pick=require(699 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(659 /* ./react-native */);function createToolbarAndroidComponent(IconNamePropType,getImageSource){var _class,_temp;
 return _temp=_class=function(_Component){babelHelpers.inherits(IconToolbarAndroid,_Component);function IconToolbarAndroid(){babelHelpers.classCallCheck(this,IconToolbarAndroid);return babelHelpers.possibleConstructorReturn(this,(IconToolbarAndroid.__proto__||Object.getPrototypeOf(IconToolbarAndroid)).apply(this,arguments));}babelHelpers.createClass(IconToolbarAndroid,[{key:'updateIconSources',value:function updateIconSources(
 
 
@@ -90897,7 +91050,7 @@ return _react2.default.createElement(_reactNative.ToolbarAndroid,babelHelpers.ex
 }}]);return IconToolbarAndroid;}(_react.Component),_class.propTypes={logoIconName:IconNamePropType,navIconName:IconNamePropType,overflowIconName:IconNamePropType,actions:_react.PropTypes.arrayOf(_react.PropTypes.shape({title:_react.PropTypes.string.isRequired,iconName:IconNamePropType,iconSize:_react.PropTypes.number,iconColor:_react.PropTypes.string,show:_react.PropTypes.oneOf(['always','ifRoom','never']),showWithText:_react.PropTypes.bool})),iconSize:_react.PropTypes.number,iconColor:_react.PropTypes.string},_class.defaultProps={iconSize:24},_temp;
 
 }
-}, 702, null, "react-native-vector-icons/lib/toolbar-android.js");
+}, 705, null, "react-native-vector-icons/lib/toolbar-android.js");
 __d(/* react-native-vector-icons/glyphmaps/Ionicons.json */function(global, require, module, exports) {module.exports = {
 "ios-add":61698,
 "ios-add-circle":61697,
@@ -91833,7 +91986,144 @@ __d(/* react-native-vector-icons/glyphmaps/Ionicons.json */function(global, requ
 "md-wifi":62376,
 "md-wine":62377,
 "md-woman":62378};
-}, 703, null, "react-native-vector-icons/glyphmaps/Ionicons.json");
+}, 706, null, "react-native-vector-icons/glyphmaps/Ionicons.json");
+__d(/* chronreact/src/NavigationBarRouteMapper.android.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.NavigationBarRouteMapper=undefined;var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
+var _reactNative=require(42 /* react-native */);
+
+
+
+
+
+
+var _Title=require(656 /* ./components/navigator/Title */);var _Title2=babelHelpers.interopRequireDefault(_Title);
+var _Ionicons=require(657 /* react-native-vector-icons/Ionicons */);var _Ionicons2=babelHelpers.interopRequireDefault(_Ionicons);
+
+var styles=_reactNative.StyleSheet.create({
+navBarText:{
+fontSize:20,
+marginVertical:12},
+
+toolbarIcon:{
+marginTop:12},
+
+menuIcon:{
+marginLeft:10},
+
+moreIcon:{
+marginRight:10},
+
+navBarLeftButton:{
+paddingLeft:10},
+
+navBarLeftArrow:{
+paddingRight:10,
+fontFamily:'Apple SD Gothic Neo',
+fontWeight:'800'},
+
+navBarButtonText:{
+color:'#f8f8f8'}});
+
+
+
+var NavigationBarRouteMapper=exports.NavigationBarRouteMapper={
+LeftButton:function LeftButton(route,navigator,index,navState){
+if(index===0){
+return(
+_react2.default.createElement(_reactNative.TouchableOpacity,{onPress:route.openDrawer},
+_react2.default.createElement(_Ionicons2.default,{
+name:'md-menu',
+size:30,
+color:'#fff',
+style:[styles.toolbarIcon,styles.menuIcon]})));
+
+
+
+}
+
+var previousRoute=navState.routeStack[index-1];
+return(
+_react2.default.createElement(_reactNative.TouchableOpacity,{
+onPress:function onPress(){return navigator.pop();},
+style:styles.navBarLeftButton},
+_react2.default.createElement(_reactNative.View,null,
+_react2.default.createElement(_reactNative.Text,{style:[styles.navBarText,styles.navBarButtonText]},
+_react2.default.createElement(_Ionicons2.default,{name:'md-arrow-back',color:'#fff',size:20}),
+"  ",
+previousRoute.title))));
+
+
+
+
+},
+
+RightButton:function RightButton(route,navigator,index,navState){
+if(index===0){
+return(
+_react2.default.createElement(_reactNative.TouchableOpacity,null,
+_react2.default.createElement(_Ionicons2.default,{
+name:'md-more',
+size:30,
+color:'#fff',
+style:[styles.toolbarIcon,styles.moreIcon]})));
+
+
+
+}
+return null;
+},
+
+Title:function Title(route){
+return(
+_react2.default.createElement(_Title2.default,{
+styleOverride:route.titleStyleOverride,
+text:route.title}));
+
+}};
+}, 655, null, "chronreact/src/NavigationBarRouteMapper.android.js");
+__d(/* chronreact/src/components/navigator/Title.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
+var _reactNative=require(42 /* react-native */);
+
+
+
+
+var styles=_reactNative.StyleSheet.create({
+navBarText:{
+fontSize:20,
+marginVertical:12},
+
+navBarTitleText:{
+color:'#f8f8f8'}});
+
+
+
+var NavigatorTitle=_react2.default.createClass({displayName:'NavigatorTitle',
+propTypes:{
+text:_react2.default.PropTypes.string,
+styleOverride:_reactNative.Text.propTypes.style},
+
+
+getDefaultProps:function getDefaultProps(){
+return{
+text:''};
+
+},
+
+render:function render(){
+var stylesList=[
+styles.navBarText,
+styles.navBarTitleText,
+this.props.styleOverride];
+
+return(
+_react2.default.createElement(_reactNative.Text,{style:stylesList},
+this.props.text));
+
+
+}});exports.default=
+
+
+NavigatorTitle;
+}, 656, null, "chronreact/src/components/navigator/Title.js");
 ;require(192);
 ;require(0);
 //# sourceMappingURL=/index.android.map?platform=android
