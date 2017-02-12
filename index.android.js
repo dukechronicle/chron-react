@@ -66,7 +66,13 @@ const chronreact = React.createClass({
         drawerWidth={300}
         ref="drawer"
         drawerPosition={DrawerLayoutAndroid.positions.Left}
-        renderNavigationView={() => <Sidebar replaceRoute={this.replaceRoute} closeDrawer={this.closeDrawer} /> }>
+        renderNavigationView={() => (
+          <Sidebar 
+            replaceRoute={this.replaceRoute} 
+            closeDrawer={this.closeDrawer} 
+            openDrawer={this.openDrawer}
+          /> 
+        )}>
         <Navigator 
           ref="navigator"
           initialRoute={{ 
