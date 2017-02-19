@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     borderColor: '#DDDDDD',
   },
   highlight: {
+    flex: 1,
     marginLeft: -15,
     marginRight: -15,
   },

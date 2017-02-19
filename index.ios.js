@@ -9,23 +9,22 @@ import {
   TabBarIOS,
 } from 'react-native';
 
-const _ = require('underscore');
+import _ from 'underscore';
 
-const Frontpage = require('./src/Frontpage');
-const LinksListing = require('./src/LinksListing');
-const PostDetailLoader = require('./src/PostDetailLoader');
-const Sections = require('./src/Sections');
+import Frontpage from './src/Frontpage';
+import LinksListing from './src/LinksListing';
+import PostDetailLoader from './src/PostDetailLoader';
+import Sections from './src/Sections';
 
-const NavigationActionCreators = require('./src/actions/NavigationActionCreators');
-const PostActionCreators = require('./src/actions/PostActionCreators');
+import NavigationActionCreators from './src/actions/NavigationActionCreators';
+import PostActionCreators from './src/actions/PostActionCreators';
 
-const { NavigationBarRouteMapper } = require('./src/NavigationBarRouteMapper.ios');
+import { NavigationBarRouteMapper } from './src/NavigationBarRouteMapper.ios';
 
-const { registerPushIOS } = require('./src/PushNotification');
+import { registerPushIOS } from './src/PushNotification';
+import { stripDeepLink } from './src/utils/Post';
 
-import { stripDeepLink } from './src/utils/Post'
-
-const store = require('./src/store');
+import store from './src/store';
 const tabCursor = store.select('views', 'tab');
 const scrollCursor = store.select('views', 'scrollToTop');
 
@@ -79,9 +78,9 @@ const chronreact = React.createClass({
         this.openPost(slug);
       }
     });
-    
-    // Get a remote notification on application start, or listen for notifications
-    // while the application is open IN THE FOREGROUND. Note that this will not 
+
+    // Get a remote notification on application start, or listen for notification
+    // while the application is open IN THE FOREGROUND. Note that this will not
     // listen for notifications that occur while the app is in the background state
     registerPushIOS();
     PushNotificationIOS.getInitialNotification().then(this.onNotification);
