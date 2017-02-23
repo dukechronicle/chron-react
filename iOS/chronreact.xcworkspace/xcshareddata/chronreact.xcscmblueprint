@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "931717D05DFE7DC8C98741EAC8227D1FAD822B41",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "2D5A40D429BC532BC60D442539C70A79BB457920" : 9223372036854775807,
+    "931717D05DFE7DC8C98741EAC8227D1FAD822B41" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "085BB1FB-362C-4467-9705-809567FA21FB",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "2D5A40D429BC532BC60D442539C70A79BB457920" : "..\/..\/Outfitted\/Outfitted",
+    "931717D05DFE7DC8C98741EAC8227D1FAD822B41" : "chron-react\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "chronreact",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "iOS\/chronreact.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/zacharyfmarion\/Outfitted.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2D5A40D429BC532BC60D442539C70A79BB457920"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/dukechronicle\/chron-react.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "931717D05DFE7DC8C98741EAC8227D1FAD822B41"
+    }
+  ]
+}
