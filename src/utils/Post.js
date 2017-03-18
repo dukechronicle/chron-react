@@ -136,7 +136,7 @@ export const getPublishedDate = (pubString, zone = true) => {
  */
 export const stripDeepLink = (url) => {
   return url.replace(/dukechronicle:\/\/article\//, '');
-}
+};
 
 /**
  * PropTypes for a post.

@@ -202,9 +202,9 @@ const PostListing = React.createClass({
    * and update the appropriate state (loadingMore)
    */
   onReachEnd: function() {
-    this.setState({loadingMore: true});
+    this.setState({ loadingMore: true });
     this.props.onLoadMoreAsync().done(() => {
-      this.setState({loadingMore: false});
+      this.setState({ loadingMore: false });
     });
   },
 

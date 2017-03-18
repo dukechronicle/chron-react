@@ -19,7 +19,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		5D09A972C249ABD405CB6EC6 /* libPods-chronreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A8D610E15391DC941186DC /* libPods-chronreact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		B634E6F71E15820A00838B17 /* ChronBatchWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = B634E6F61E15820A00838B17 /* ChronBatchWrapper.m */; };
+		B66C78431E6CA87200B47F4F /* ChronBatchWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = B66C78421E6CA87200B47F4F /* ChronBatchWrapper.m */; };
 		B677235B1E21A3C8006FACE0 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B67723591E21A39A006FACE0 /* libRCTLinking.a */; };
 		B67723921E21A854006FACE0 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B677238C1E21A848006FACE0 /* libRCTWebSocket.a */; };
 		B677239C1E21A942006FACE0 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B67723991E21A93A006FACE0 /* libRCTAnimation.a */; };
@@ -218,8 +218,8 @@
 		5507C141F92E7FE82A7E59F8 /* Pods-chronreact.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chronreact.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chronreact/Pods-chronreact.debug.xcconfig"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		B634E6D21E157B0A00838B17 /* chronreact.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = chronreact.entitlements; path = chronreact/chronreact.entitlements; sourceTree = "<group>"; };
-		B634E6F51E15820A00838B17 /* ChronBatchWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChronBatchWrapper.h; path = ../../ChronBatchWrapper.h; sourceTree = "<group>"; };
-		B634E6F61E15820A00838B17 /* ChronBatchWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChronBatchWrapper.m; path = ../../ChronBatchWrapper.m; sourceTree = "<group>"; };
+		B66C78411E6CA87200B47F4F /* ChronBatchWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChronBatchWrapper.h; path = chronreact/ChronBatchWrapper.h; sourceTree = "<group>"; };
+		B66C78421E6CA87200B47F4F /* ChronBatchWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChronBatchWrapper.m; path = chronreact/ChronBatchWrapper.m; sourceTree = "<group>"; };
 		B67723541E21A39A006FACE0 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		B677237A1E21A848006FACE0 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		B67723931E21A93A006FACE0 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
@@ -350,8 +350,8 @@
 		13B07FAE1A68108700A75B9A /* chronreact */ = {
 			isa = PBXGroup;
 			children = (
-				B634E6F51E15820A00838B17 /* ChronBatchWrapper.h */,
-				B634E6F61E15820A00838B17 /* ChronBatchWrapper.m */,
+				B66C78411E6CA87200B47F4F /* ChronBatchWrapper.h */,
+				B66C78421E6CA87200B47F4F /* ChronBatchWrapper.m */,
 				B634E6D21E157B0A00838B17 /* chronreact.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -882,7 +882,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				B634E6F71E15820A00838B17 /* ChronBatchWrapper.m in Sources */,
+				B66C78431E6CA87200B47F4F /* ChronBatchWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
