@@ -129,6 +129,15 @@ export const getPublishedDate = (pubString, zone = true) => {
   return /([a-zA-Z]+ [a-zA-Z]+ [0-9]+ [0-9]+)/.exec(pubString)[1];
 };
 
+/*
+ * Remove the deeplink url prefix from a chronicle link
+ * @param {String} url - the url to strip
+ * @return {String} The stripped slug
+ */
+export const stripDeepLink = (url) => {
+  return url.replace(/dukechronicle:\/\/article\//, '');
+};
+
 /**
  * PropTypes for a post.
  */
@@ -149,4 +158,5 @@ module.exports = {
   postPropTypes,
   computeTagString,
   getPublishedDate,
+  stripDeepLink,
 };
