@@ -8,7 +8,6 @@ import {
   AppRegistry,
   Navigator,
   DrawerLayoutAndroid,
-  TouchableOpacity,
   StatusBar,
   StyleSheet,
 } from 'react-native';
@@ -22,13 +21,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
-})
+});
 
 const chronreact = React.createClass({
 
   componentDidMount() {
-    StatusBar.setBackgroundColor("#000B59");
-    console.log(this.refs);
+    StatusBar.setBackgroundColor('#000B59');
   },
 
   _renderScene(route, navigator) {
@@ -49,15 +47,15 @@ const chronreact = React.createClass({
   },
 
   openDrawer() {
-    this.refs.drawer.openDrawer(); 
+    this.refs.drawer.openDrawer();
   },
 
   closeDrawer() {
-    this.refs.drawer.closeDrawer(); 
+    this.refs.drawer.closeDrawer();
   },
 
   replaceRoute(route) {
-    this.refs.navigator.replace(route) 
+    this.refs.navigator.replace(route);
   },
 
   render() {
@@ -67,16 +65,16 @@ const chronreact = React.createClass({
         ref="drawer"
         drawerPosition={DrawerLayoutAndroid.positions.Left}
         renderNavigationView={() => (
-          <Sidebar 
-            replaceRoute={this.replaceRoute} 
-            closeDrawer={this.closeDrawer} 
+          <Sidebar
+            replaceRoute={this.replaceRoute}
+            closeDrawer={this.closeDrawer}
             openDrawer={this.openDrawer}
-          /> 
+          />
         )}>
-        <Navigator 
+        <Navigator
           ref="navigator"
-          initialRoute={{ 
-            title: "The Chronicle", 
+          initialRoute={{
+            title: 'The Chronicle',
             component: TabView,
             titleStyleOverride: {
               fontFamily: 'Didot',
@@ -84,12 +82,12 @@ const chronreact = React.createClass({
             },
             passProps: { openDrawer: this.openDrawer },
           }}
-          renderScene={this._renderScene}   
+          renderScene={this._renderScene}
           navigationBar={this._renderNavigationBar()}
         />
       </DrawerLayoutAndroid>
-    )
-  }
+    );
+  },
 });
 
 AppRegistry.registerComponent('chronreact', () => chronreact);

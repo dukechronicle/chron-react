@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
       android: {
         paddingLeft: 15,
         paddingRight: 15,
-      }
+      },
     }),
   },
   tags: {

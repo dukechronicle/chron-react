@@ -40,15 +40,15 @@ export const NavigationBarRouteMapper = {
   LeftButton: function(route, navigator, index, navState) {
     if (index === 0) {
       return (
-        <TouchableOpacity onPress={route.openDrawer}>
-          <Icon 
-            name="md-menu" 
-            size={30} 
-            color="#fff" 
+        <TouchableOpacity onPress={route.passProps.openDrawer}>
+          <Icon
+            name="md-menu"
+            size={30}
+            color="#fff"
             style={[styles.toolbarIcon, styles.menuIcon]}
           />
         </TouchableOpacity>
-      )
+      );
     }
 
     const previousRoute = navState.routeStack[index - 1];
@@ -67,18 +67,18 @@ export const NavigationBarRouteMapper = {
     );
   },
 
-  RightButton: function(route, navigator, index, navState) {
+  RightButton: function(route, navigator, index) {
     if (index === 0) {
       return (
         <TouchableOpacity>
-          <Icon 
-            name="md-more" 
-            size={30} 
-            color="#fff" 
+          <Icon
+            name="md-more"
+            size={30}
+            color="#fff"
             style={[styles.toolbarIcon, styles.moreIcon]}
           />
         </TouchableOpacity>
-      )
+      );
     }
     return null;
   },

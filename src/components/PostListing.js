@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         marginBottom: 44,
       },
       android: {},
-    })
+    }),
   },
   footer: {
     paddingTop: 12,
