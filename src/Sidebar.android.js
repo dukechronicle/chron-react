@@ -5,10 +5,44 @@
 import React from 'react';
 import {
   View,
+  Text,
+  Image,
+  StyleSheet,
 } from 'react-native';
 import LinksListing from './LinksListing';
 import TabView from './TabView.android';
 import SidebarItem from './components/SidebarItem.android';
+import Settings from './Settings.android';
+
+const styles = StyleSheet.create({
+  drawerHeader: {
+    height: 100,
+    padding: 10,
+    backgroundColor: '#083e8c',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerTitleContainer: {
+    flex: 1,
+  },
+  headerTitle: {
+    fontSize: 23,
+    fontFamily: 'Didot',
+    color: '#fff',
+  },
+  headerSubtitle: {
+    fontSize: 14,
+    color: 'lightgray',
+  },
+  logo: {
+    height: 60,
+    width: 60,
+    borderRadius: 30,
+    borderWidth: 1,
+    margin: 5,
+    borderColor: '#fff',
+  },
+});
 
 const Sidebar = React.createClass({
 
@@ -26,8 +60,12 @@ const Sidebar = React.createClass({
   render() {
     return (
       <View style={{flex: 1, backgroundColor: '#fff'}}>
-        <View style={{height: 100, backgroundColor: '#083e8c'}}>
-          {/* Some kind of account? Can save articles etc. */}
+        <View style={styles.drawerHeader}>
+          <View style={styles.headerTitleContainer}>
+            <Text style={styles.headerTitle}>The Chronicle</Text>
+            <Text style={styles.headerSubtitle}>Duke's Independent News Organization</Text>
+          </View>
+          <Image source={require('./assets/chronlogo.png')} style={styles.logo} />
         </View>
         <SidebarItem
           icon="md-paper"
@@ -48,6 +86,7 @@ const Sidebar = React.createClass({
           onPress={() => this.replaceRoute({
             title: 'Links',
             component: LinksListing,
+            passProps: { openDrawer: this.props.openDrawer },
           })}
         />
         {/* <View style={styles.borderBottom}/> */}
@@ -55,8 +94,9 @@ const Sidebar = React.createClass({
           icon="md-settings"
           title="Settings"
           onPress={() => this.replaceRoute({
-            title: 'Links',
-            component: LinksListing,
+            title: 'Settings',
+            component: Settings,
+            passProps: { openDrawer: this.props.openDrawer },
           })}
         />
       </View>
